@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 
-class AppRouter{
-  static Route onGenerateRoute(RouteSettings settings){
+class AppRouter {
+  static Route onGenerateRoute(RouteSettings settings) {
     print('This is route: ${settings.name}');
 
-    switch (settings.name){
+    switch (settings.name) {
       case '/':
         return HomeScreen.route();
       case HomeScreen.routeName:
         return HomeScreen.route();
-      // case CartScreen.routeName:
-      //   return CartScreen.route();
-      // case CatalogScreen.routeName:
-      //   return CatalogScreen.route();
-      // case WishlistScreen.routeName:
-      //   return WishlistScreen.route();
+      case DermaScreen.routeName:
+        return DermaScreen.route();
+      case ProgramScreen.routeName:
+        return ProgramScreen.route();
+      case TanyaScreen.routeName:
+        return TanyaScreen.route();
       // case ProductScreen.routeName:
       //   return ProductScreen.route();
       default:
@@ -23,13 +23,13 @@ class AppRouter{
     }
   }
 
-  static Route _errorRoute(){
+  static Route _errorRoute() {
     return MaterialPageRoute(
       settings: RouteSettings(name: '/error'),
       builder: (_) => Scaffold(
-          appBar: AppBar(title: Text('Error'),)
-      ),
+          appBar: AppBar(
+        title: Text('Error'),
+      )),
     );
   }
-
 }

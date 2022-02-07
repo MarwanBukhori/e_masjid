@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 ThemeData theme(){
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,
-    fontFamily: 'Avenir',
+    fontFamily: 'sans-serif',
     textTheme: textTheme(),
   );
 }
