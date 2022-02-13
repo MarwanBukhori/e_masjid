@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'E-Masjid',
       theme: theme(),
-      home: LoginScreen(),
-      // onGenerateRoute: AppRouter.onGenerateRoute,
-      // initialRoute: HomeScreen.routeName,
+       // home: LoginScreen(),
+      onGenerateRoute: AppRouter.onGenerateRoute,
+      initialRoute: HomeScreen.routeName,
 
     );
   }

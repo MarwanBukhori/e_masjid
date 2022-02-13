@@ -21,7 +21,7 @@ class SignUpScreen extends StatelessWidget {
             Padding(
               padding: kDefaultPadding,
               child: Text(
-                'Create Account',
+                'Cipta Akaun',
                 style: titleText,
               ),
             ),
@@ -33,7 +33,7 @@ class SignUpScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Already a member?',
+                    'Sudah menjadi ahli?',
                     style: subTitle,
                   ),
                   SizedBox(
@@ -47,7 +47,7 @@ class SignUpScreen extends StatelessWidget {
                               builder: (context) => LoginScreen()));
                     },
                     child: Text(
-                      'Log In',
+                      'Log Masuk',
                       style: textButton.copyWith(
                         decoration: TextDecoration.underline,
                         decorationThickness: 1,
@@ -69,35 +69,35 @@ class SignUpScreen extends StatelessWidget {
             ),
             Padding(
               padding: kDefaultPadding,
-              child: CheckBox('Agree to terms and conditions.'),
+              child: CheckBox('Setuju dengan terma dan syarat.'),
             ),
             SizedBox(
               height: 20,
             ),
+            // Padding(
+            //   padding: kDefaultPadding,
+            //   child: CheckBox('I have at least 18 years old.'),
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
             Padding(
               padding: kDefaultPadding,
-              child: CheckBox('I have at least 18 years old.'),
+              child: PrimaryButton(buttonText: 'Daftar'),
             ),
             SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: kDefaultPadding,
-              child: PrimaryButton(buttonText: 'Sign Up'),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: kDefaultPadding,
-              child: Text(
-                'Or log in with:',
-                style: subTitle.copyWith(color: kBlackColor),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
+            // Padding(
+            //   padding: kDefaultPadding,
+            //   child: Text(
+            //     'Or log in with:',
+            //     style: subTitle.copyWith(color: kBlackColor),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
             Padding(
               padding: kDefaultPadding,
               // child: LoginOption(),

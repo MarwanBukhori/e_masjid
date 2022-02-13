@@ -16,19 +16,16 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 120,
+                height: 50,
               ),
-              Text(
-                'Welcome Back',
-                style: titleText,
-              ),
+              Center(child: Image.asset('assets/emasjid.png')),
               SizedBox(
                 height: 5,
               ),
               Row(
                 children: [
                   Text(
-                    'New to this app?',
+                    'Selamat Datang!',
                     style: subTitle,
                   ),
                   SizedBox(
@@ -44,7 +41,7 @@ class LoginScreen extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'Sign Up',
+                      'Daftar akaun.',
                       style: textButton.copyWith(
                         decoration: TextDecoration.underline,
                         decorationThickness: 1,
@@ -69,7 +66,7 @@ class LoginScreen extends StatelessWidget {
                 //
               },
                 child: Text(
-                  'Forgot password?',
+                  'Terlupa kata laluan?',
                   style: TextStyle(
                     color: kZambeziColor,
                     fontSize: 14,
@@ -82,18 +79,18 @@ class LoginScreen extends StatelessWidget {
                 height: 20,
               ),
               PrimaryButton(
-                buttonText: 'Log In',
+                buttonText: 'Log Masuk',
               ),
-              SizedBox(
+               SizedBox(
                 height: 20,
-              ),
-              Text(
-                'Or log in with:',
-                style: subTitle.copyWith(color: kBlackColor),
-              ),
-              SizedBox(
-                height: 20,
-              ),
+               ),
+              // Text(
+              //   'Or log in with:',
+              //   style: subTitle.copyWith(color: kBlackColor),
+              // ),
+              // SizedBox(
+              //   height: 20,
+              // ),
               // LoginOption(),
             ],
           ),

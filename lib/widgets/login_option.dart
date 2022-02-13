@@ -10,7 +10,7 @@ class LoginOption extends StatelessWidget {
           iconImage: Image(
             height: 20,
             width: 20,
-            image: AssetImage('assets/facebook.png'),
+            image: AssetImage('assets/masjid.png'),
           ),
           textButton: 'Facebook',
         ),
