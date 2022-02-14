@@ -4,3 +4,4 @@ export 'program/program_screen.dart';
 export 'tanya/tanya_screen.dart';
 export 'login/login_screen.dart';
 export 'login/signup_screen.dart';
+export 'more/more_screen.dart';

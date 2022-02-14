@@ -16,8 +16,8 @@ class AppRouter {
         return ProgramScreen.route();
       case TanyaScreen.routeName:
         return TanyaScreen.route();
-      // case ProductScreen.routeName:
-      //   return ProductScreen.route();
+       case MoreScreen.routeName:
+         return MoreScreen.route();
       default:
         return _errorRoute();
     }

@@ -17,76 +17,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List options = [
-    [
-      {
-        "name": "Semak Jadual",
-        "icon": "assets/svg/mobile.svg",
-        "key": "mobile",
-      },
-      {
-        "name": "Derma ",
-        "icon": "assets/svg/tablet.svg",
-        "key": "tablet",
-      },
-    ],
-    // Second
-    [
-      {
-        "name": "Semak Status",
-        "icon": "assets/svg/laptop.svg",
-        "key": "laptop",
-      },
-      {
-        "name": "Tanya Imam",
-        "icon": "assets/svg/desktop.svg",
-        "key": "desktop",
-      },
-    ],
-    // Third
-    [
-      {
-        "name": "Mohon Nikah",
-        "icon": "assets/svg/watch.svg",
-        "key": "watch",
-      },
-      {
-        "name": "Tempah Qurban",
-        "icon": "assets/svg/headphone.svg",
-        "key": "headphone",
-      },
-    ]
-  ];
-
-  String active = "";
-
-  void setActiveFunc(String key) {
-    setState(() {
-      active = key;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
+
     double heightFromWhiteBg = size.height - 200.0 - 70;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.black),
       ),
       backgroundColor: Colors.black,
-
       body: Container(
-        height: size.height - kToolbarHeight,
+        // color: Colors.yellow,
+        color: Colors.black,
+        height: size.height - kToolbarHeight ,
         child: Stack(
           children: [
             Container(
-              height: 120.0,
+              height: 75.0,
+              // color: Colors.red,
               color: Colors.black,
               padding: EdgeInsets.symmetric(horizontal: 30.0),
               child: FittedBox(
                 child: Container(
+                  // color: Colors.blue,
+                  color: Colors.black,
                   width: size.width,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -98,9 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       //     backgroundImage: AssetImage("assets/images/dp.png"),
                       //   ),
                       // ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
+
                       Text(
                         "Hi, Marwan",
                         style: TextStyle(
@@ -127,10 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             // kotak putih
             Positioned(
-              top: 135.0,
+              top: 95.0,
               width: size.width,
               child: Container(
-                height: heightFromWhiteBg,
+                height: heightFromWhiteBg + 25,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -140,86 +97,240 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            // kotak grid
             Positioned(
-              top: 130.0,
-              height: heightFromWhiteBg,
-              width: size.width,
+              top: 115,
               child: Container(
-                padding: EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: List.generate(
-                    3,
-                    (index) => Expanded(
-                      child: Container(
-                        margin: EdgeInsets.only(bottom: index == 2 ? 0 : 10.0),
-                        child: Row(
-                          children: [
-                            serviceCard(
-                                options[index][0], active, setActiveFunc),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            serviceCard(
-                                options[index][1], active, setActiveFunc),
-                          ],
-                        ),
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                height: MediaQuery.of(context).size.height - 275,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: ListView(
+                  children: [
+                    buildTitleRow("TODAY CLASSES", 3),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    buildClassItem(),
+                    buildClassItem(),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    buildTitleRow("YOUR TASKS", 4),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    SingleChildScrollView(
+
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          buildTaskItem(
+                              3, "The Basic of Typography II", Colors.red),
+                          buildTaskItem(3, "Design Psychology: Principle of...",
+                              Colors.green),
+                          buildTaskItem(3, "Design Psychology: Principle of...",
+                              Colors.green),
+                        ],
                       ),
                     ),
-                  ),
+                    // SizedBox(
+                    //   height: 5,
+                    // ),
+                  ],
                 ),
               ),
-            ),
-           ],
-         ),
-       ),
+            )
+          ],
+        ),
+      ),
+
 
       bottomNavigationBar: CustomNavBar(),
       // bottomNavigationBar: CustomNavBar(),
     );
   }
-}
 
-Widget serviceCard(Map item, String active, Function setActive) {
-  bool isActive = active == item["key"];
-  return Expanded(
-    child: GestureDetector(
-      onTap: () {
-        setActive(item["key"]);
-        Future.delayed(Duration(milliseconds: 350), () {
 
-        });
-      },
-      child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
-        decoration: BoxDecoration(
-          color: isActive ? Colors.black : Colors.grey,
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              item["icon"],
-              color: isActive ? Colors.white : null,
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-            Text(
-              item["name"],
-              style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16.0,
-                  color: isActive
-                      ? Colors.white
-                      : Color.fromRGBO(20, 20, 20, 0.96)),
-            )
-          ],
-        ),
+  //Your Task
+  Container buildTaskItem(int numDays, String courseTitle, Color color) {
+    return Container(
+      margin: EdgeInsets.only(right: 15),
+      padding: EdgeInsets.all(12),
+      height: 140,
+      width: 140,
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(20),
       ),
-    ),
-  );
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Deadline",
+            style: TextStyle(fontSize: 10, color: Colors.grey),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            children: [
+              Container(
+                height: 6,
+                width: 6,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(3),
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                "$numDays days left",
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            width: 100,
+            child: Text(
+              courseTitle,
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Row buildTitleRow(String title, int number) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        RichText(
+          text: TextSpan(
+              text: title,
+              style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+              children: [
+                TextSpan(
+                  text: "($number)",
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.normal),
+                ),
+              ]),
+        ),
+        Text(
+          "See all",
+          style: TextStyle(
+              fontSize: 12,
+              color: Color(0XFF3E3993),
+              fontWeight: FontWeight.bold),
+        )
+      ],
+    );
+  }
+
+  Container buildClassItem() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 15),
+      padding: EdgeInsets.all(10),
+      height: 100,
+      decoration: BoxDecoration(
+        color: Color(0xFFF9F9FB),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "07:00",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "AM",
+                style:
+                TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+              ),
+            ],
+          ),
+          Container(
+            height: 100,
+            width: 1,
+            color: Colors.grey.withOpacity(0.5),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width - 160,
+                child: Text(
+                  "The Basic of Typography II",
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    color: Colors.grey,
+                    size: 20,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width - 160,
+                    child: Text(
+                      "Room C1, Faculty of Art & Design Building",
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(color: Colors.grey, fontSize: 13),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundImage: AssetImage(
+                        "assets/emasjid.png"),
+                    radius: 10,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    "Gabriel Sutton",
+                    style: TextStyle(color: Colors.grey, fontSize: 13),
+                  )
+                ],
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
 }
+
+
+
+
+
+
+
