@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/';
@@ -109,7 +108,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: ListView(
                   children: [
-                    buildTitleRow("TODAY CLASSES", 3),
+                    buildTitleRow(
+                        "PROGRAM HARI INI",
+                        3,
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -118,21 +120,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    buildTitleRow("YOUR TASKS", 4),
+                    buildTitleRow("TEMUJANJI DAN PERTANYAAN", 4),
                     SizedBox(
                       height: 20,
                     ),
                     SingleChildScrollView(
-
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          buildTaskItem(
-                              3, "The Basic of Typography II", Colors.red),
-                          buildTaskItem(3, "Design Psychology: Principle of...",
-                              Colors.green),
-                          buildTaskItem(3, "Design Psychology: Principle of...",
-                              Colors.green),
+                          buildTaskItem(3, "Tanya Imam",
+                              Colors.grey),
+                          buildTaskItem(3, "Mohon Nikah",
+                              Colors.grey),
+                          buildTaskItem(3, "Tempah Qurban",
+                              Colors.grey),
+                          buildTaskItem(3, "Semak Status",
+                              Colors.grey),
                         ],
                       ),
                     ),
@@ -157,53 +160,64 @@ class _HomeScreenState extends State<HomeScreen> {
   //Your Task
   Container buildTaskItem(int numDays, String courseTitle, Color color) {
     return Container(
+      alignment: Alignment.center,
       margin: EdgeInsets.only(right: 15),
       padding: EdgeInsets.all(12),
-      height: 140,
-      width: 140,
+      height: 95,
+      width: 90,
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            "Deadline",
-            style: TextStyle(fontSize: 10, color: Colors.grey),
-          ),
+          Icon(Icons.person),
           SizedBox(
             height: 5,
           ),
-          Row(
-            children: [
-              Container(
-                height: 6,
-                width: 6,
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(3),
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                "$numDays days left",
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-              ),
-            ],
+          Text(
+            courseTitle,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            textAlign: TextAlign.center,
           ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: 100,
-            child: Text(
-              courseTitle,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-          ),
+
+          // Text(
+          //   "Deadline",
+          //   style: TextStyle(fontSize: 10, color: Colors.grey),
+          // ),
+          // SizedBox(
+          //   height: 5,
+          // ),
+          // Row(
+          //   children: [
+          //     // Container(
+          //     //   height: 6,
+          //     //   width: 6,
+          //     //   // decoration: BoxDecoration(
+          //     //   //   color: color,
+          //     //   //   borderRadius: BorderRadius.circular(3),
+          //     //   // ),
+          //     // ),
+          //     // SizedBox(
+          //     //   width: 5,
+          //     // ),
+          //     // Text(
+          //     //   "$numDays days left",
+          //     //   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+          //     // ),
+          //   ],
+          // ),
+          // SizedBox(
+          //   height: 20,
+          // ),
+
+
+
+
+
+
         ],
       ),
     );
@@ -212,30 +226,42 @@ class _HomeScreenState extends State<HomeScreen> {
   Row buildTitleRow(String title, int number) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
       children: [
-        RichText(
-          text: TextSpan(
-              text: title,
-              style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
-              children: [
-                TextSpan(
-                  text: "($number)",
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.normal),
-                ),
-              ]),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 0,0,0),
+          child: Column(
+            children: [
+              RichText(
+                text: TextSpan(
+                    text: title,
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                    letterSpacing: 1),
+                    children: [
+                      TextSpan(
+                        text: "  ($number)",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ]),
+              ),
+            ],
+          ),
         ),
-        Text(
-          "See all",
-          style: TextStyle(
-              fontSize: 12,
-              color: Color(0XFF3E3993),
-              fontWeight: FontWeight.bold),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 8.0, 0),
+          child: Text(
+            "See all",
+            style: TextStyle(
+                fontSize: 12,
+                color: Color(0XFF3E3993),
+                fontWeight: FontWeight.bold),
+          ),
         )
       ],
     );
@@ -257,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "07:00",
+                "11:00",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Text(
@@ -279,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 width: MediaQuery.of(context).size.width - 160,
                 child: Text(
-                  "The Basic of Typography II",
+                  "Kuliah Dhuha Isnin",
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -296,7 +322,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width - 160,
                     child: Text(
-                      "Room C1, Faculty of Art & Design Building",
+                      "Ruang Masjid",
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(color: Colors.grey, fontSize: 13),
                     ),
@@ -305,16 +331,16 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Row(
                 children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(
-                        "assets/emasjid.png"),
-                    radius: 10,
-                  ),
+                  // CircleAvatar(
+                  //   backgroundImage: AssetImage(
+                  //       "assets/emasjid.png"),
+                  //   radius: 10,
+                  // ),
                   SizedBox(
                     width: 5,
                   ),
                   Text(
-                    "Gabriel Sutton",
+                    "Ustaz Ahmad Tarmizi",
                     style: TextStyle(color: Colors.grey, fontSize: 13),
                   )
                 ],

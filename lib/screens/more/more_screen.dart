@@ -112,10 +112,10 @@ class _MoreScreenState extends State<MoreScreen> {
                         height: 5.0,
                       ),
                       Text(
-                        "Senarai utiliti",
+                        "Modul Pembangunan Diri",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 35.0,
+                          fontSize: 33.0,
                           fontWeight: FontWeight.w600,
                           height: 1.2,
                         ),
