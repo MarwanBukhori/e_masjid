@@ -163,8 +163,8 @@ class _HomeScreenState extends State<HomeScreen> {
       alignment: Alignment.center,
       margin: EdgeInsets.only(right: 15),
       padding: EdgeInsets.all(12),
-      height: 95,
-      width: 90,
+      height: 85,
+      width: 85,
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(15),
@@ -179,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Text(
             courseTitle,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
             textAlign: TextAlign.center,
           ),
 

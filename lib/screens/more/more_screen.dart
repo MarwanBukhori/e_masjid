@@ -38,24 +38,12 @@ class _MoreScreenState extends State<MoreScreen> {
         "key": "laptop",
       },
       {
-        "name": "Tanya Imam",
+        "name": "Semak Status",
         "icon": "assets/svg/desktop.svg",
         "key": "desktop",
       },
     ],
-    // Third
-    [
-      {
-        "name": "Mohon Nikah",
-        "icon": "assets/svg/watch.svg",
-        "key": "watch",
-      },
-      {
-        "name": "Tempah Qurban",
-        "icon": "assets/svg/headphone.svg",
-        "key": "headphone",
-      },
-    ]
+
   ];
 
   String active = "";
@@ -102,7 +90,7 @@ class _MoreScreenState extends State<MoreScreen> {
                         height: 10.0,
                       ),
                       Text(
-                        "Hi, Marwan",
+                        "Modul",
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.77),
                           fontSize: 22.0,
@@ -112,7 +100,7 @@ class _MoreScreenState extends State<MoreScreen> {
                         height: 5.0,
                       ),
                       Text(
-                        "Modul Pembangunan Diri",
+                        "Pembangunan Diri",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 33.0,
@@ -150,7 +138,7 @@ class _MoreScreenState extends State<MoreScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: List.generate(
-                    3,
+                    2,
                         (index) => Expanded(
                       child: Container(
                         margin: EdgeInsets.only(bottom: index == 2 ? 0 : 10.0),
@@ -201,10 +189,7 @@ Widget serviceCard(Map item, String active, Function setActive) {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              item["icon"],
-              color: isActive ? Colors.white : null,
-            ),
+            Icon(Icons.person, color: isActive ? Colors.white : null,),
             SizedBox(
               height: 5.0,
             ),

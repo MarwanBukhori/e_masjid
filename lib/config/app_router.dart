@@ -18,6 +18,8 @@ class AppRouter {
         return TanyaScreen.route();
        case MoreScreen.routeName:
          return MoreScreen.route();
+      case TanyaImamScreen.routeName:
+        return TanyaImamScreen.route();
       default:
         return _errorRoute();
     }
