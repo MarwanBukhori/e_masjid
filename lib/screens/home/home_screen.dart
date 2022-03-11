@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
 import 'package:e_masjid/utils/constants.dart';
+import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/';
@@ -31,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
         iconTheme: IconThemeData(color: kPrimaryColor),
 
       ),
-      backgroundColor: kPrimaryColor,
       body: Container(
         // color: Colors.yellow,
         color: kPrimaryColor,
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
               top: 95.0,
               width: size.width,
               child: Container(
-                height: heightFromWhiteBg + 25,
+                height: heightFromWhiteBg + 50,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(

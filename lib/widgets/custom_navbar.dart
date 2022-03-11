@@ -1,7 +1,5 @@
-import 'package:e_masjid/config/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
-import 'package:path/path.dart';
 import 'package:e_masjid/utils/constants.dart';
 
 class CustomNavBar extends StatefulWidget {
@@ -15,16 +13,11 @@ class CustomNavBar extends StatefulWidget {
 
 class _CustomNavBarState extends State<CustomNavBar> {
   @override
-  List<Widget> tabPages = [
-    HomeScreen(),
-    DermaScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
       color: kWhiteColor,
-elevation: 1,
+      elevation: 1,
       child: Container(
         height: 70,
         child: Row(
@@ -49,13 +42,14 @@ elevation: 1,
                       }
                     }),
                 Text('Home',
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color: kPrimaryColor
-                        )),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6!
+                        .copyWith(color: kPrimaryColor)),
               ],
             ),
 
-//icon for program
+            //icon for program
             Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -76,7 +70,7 @@ elevation: 1,
                     }),
                 Text('Program',
                     style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color: Colors.white,
+                          color:kPrimaryColor,
                         )),
               ],
             ),
@@ -88,7 +82,7 @@ elevation: 1,
                 IconButton(
                     icon: Icon(
                       Icons.monetization_on,
-                      color: Colors.white,
+                      color: kPrimaryColor,
                     ),
                     onPressed: () {
                       if (ModalRoute.of(context)?.settings.name == '/derma') {
@@ -102,85 +96,11 @@ elevation: 1,
                     }),
                 Text('Derma',
                     style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color: Colors.white,
+                          color: kPrimaryColor,
                         )),
               ],
             ),
 
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                    icon: Icon(
-                      Icons.question_answer,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      if (ModalRoute.of(context)?.settings.name == '/tanya') {
-                        DoNothingAction;
-                      } else {
-                        // Navigator.of(context).pop();
-                        Navigator.pushNamed(
-                            context, '/tanya'); //bukak new screen
-                        // Navigator.pushAndRemoveUntil; //remove previous
-                      }
-                    }),
-                Text('Tanya',
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color: Colors.white,
-                        )),
-              ],
-            ),
-
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                IconButton(
-                    icon: Icon(
-                      Icons.more_horiz,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      if (ModalRoute.of(context)?.settings.name == '/more') {
-                        DoNothingAction;
-                      } else {
-                        // Navigator.of(context).pop();
-                        Navigator.pushNamed(
-                            context, '/more'); //bukak new screen
-                        // Navigator.pushAndRemoveUntil; //remove previous
-                      }
-                    }),
-                Text('More',
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color: Colors.white,
-                        )),
-              ],
-            )
-            // IconButton(
-            //     icon: Icon(Icons.home, color: Colors.white,),
-            //     onPressed: (){
-            //       Navigator.pushNamed(context, '/');
-            //     }),
-            // IconButton(
-            //     icon: Icon(Icons.home_mini, color: Colors.white),
-            //     onPressed: (){
-            //       Navigator.pushNamed(context, '/program');
-            //     }),
-            // IconButton(
-            //     icon: Icon(Icons.person, color: Colors.white),
-            //     onPressed: (){
-            //       Navigator.pushNamed(context, '/derma');
-            //     }),
-            // IconButton(
-            //     icon: Icon(Icons.person, color: Colors.white),
-            //     onPressed: (){
-            //       Navigator.pushNamed(context, '/tanya');
-            //     }),
-            // IconButton(
-            //     icon: Icon(Icons.person, color: Colors.white),
-            //     onPressed: (){
-            //       Navigator.pushNamed(context, '/more');
-            //     }),
           ],
         ),
       ),
