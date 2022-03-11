@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 
+import '../screens/more/more_screen.dart';
+
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
     print('This is route: ${settings.name}');

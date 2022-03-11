@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
+import 'package:e_masjid/utils/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/';
@@ -19,66 +20,53 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
 
     double heightFromWhiteBg = size.height - 200.0 - 70;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: kPrimaryColor,
+        elevation: 0,
+        iconTheme: IconThemeData(color: kPrimaryColor),
+
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: kPrimaryColor,
       body: Container(
         // color: Colors.yellow,
-        color: Colors.black,
-        height: size.height - kToolbarHeight ,
+        color: kPrimaryColor,
+        height: size.height - kToolbarHeight,
         child: Stack(
           children: [
             Container(
-              height: 75.0,
+              height: 70.0,
               // color: Colors.red,
-              color: Colors.black,
-              padding: EdgeInsets.symmetric(horizontal: 30.0),
-              child: FittedBox(
-                child: Container(
-                  // color: Colors.blue,
-                  color: Colors.black,
-                  width: size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // Align(
-                      //   alignment: Alignment.centerRight,
-                      //   child: CircleAvatar(
-                      //     backgroundImage: AssetImage("assets/images/dp.png"),
-                      //   ),
-                      // ),
-
-                      Text(
-                        "Hi, Marwan",
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.77),
-                          fontSize: 22.0,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.0,
-                      ),
-                      Text(
-                        "Selamat Datang",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 35.0,
-                          fontWeight: FontWeight.w600,
-                          height: 1.2,
-                        ),
-                      ),
-                    ],
+              color: kPrimaryColor,
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  RichText(
+                      text: const TextSpan(
+                          text: "Hi, Marwan",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 34,
+                              fontWeight: FontWeight.bold),
+                          children: [
+                        TextSpan(
+                            text: "\nStart your beautiful day",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 18,
+                            ))
+                      ])),
+                  Icon(
+                    Icons.menu,
+                    color: Colors.white,
                   ),
-                ),
+                ],
               ),
             ),
             // kotak putih
@@ -106,43 +94,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: ListView(
-                  children: [
-                    buildTitleRow(
-                        "PROGRAM HARI INI",
-                        3,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    buildClassItem(),
-                    buildClassItem(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    buildTitleRow("TEMUJANJI DAN PERTANYAAN", 4),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          buildTaskItem(3, "Tanya Imam",
-                              Colors.grey),
-                          buildTaskItem(3, "Mohon Nikah",
-                              Colors.grey),
-                          buildTaskItem(3, "Tempah Qurban",
-                              Colors.grey),
-                          buildTaskItem(3, "Semak Status",
-                              Colors.grey),
-                        ],
-                      ),
-                    ),
-                    // SizedBox(
-                    //   height: 5,
-                    // ),
-                  ],
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 4.0,
+                  mainAxisSpacing: 8.0,
+                  children: List.generate(choices.length, (index) {
+                    return Center(
+                      child: SelectCard(choice: choices[index]),
+                    );
+                  }),
                 ),
               ),
             )
@@ -150,213 +110,146 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
 
-
       bottomNavigationBar: CustomNavBar(),
       // bottomNavigationBar: CustomNavBar(),
     );
   }
 
-
-  //Your Task
-  Container buildTaskItem(int numDays, String courseTitle, Color color) {
-    return Container(
-      alignment: Alignment.center,
-      margin: EdgeInsets.only(right: 15),
-      padding: EdgeInsets.all(12),
-      height: 85,
-      width: 85,
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(Icons.person),
-          SizedBox(
-            height: 5,
+  Widget serviceCard(Map item, String active, Function setActive) {
+    bool isActive = active == item["key"];
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          setActive(item["key"]);
+          Future.delayed(Duration(milliseconds: 350), () {});
+        },
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 300),
+          decoration: BoxDecoration(
+            color: isActive ? Colors.black : Colors.grey.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(12.0),
           ),
-          Text(
-            courseTitle,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-            textAlign: TextAlign.center,
-          ),
-
-          // Text(
-          //   "Deadline",
-          //   style: TextStyle(fontSize: 10, color: Colors.grey),
-          // ),
-          // SizedBox(
-          //   height: 5,
-          // ),
-          // Row(
-          //   children: [
-          //     // Container(
-          //     //   height: 6,
-          //     //   width: 6,
-          //     //   // decoration: BoxDecoration(
-          //     //   //   color: color,
-          //     //   //   borderRadius: BorderRadius.circular(3),
-          //     //   // ),
-          //     // ),
-          //     // SizedBox(
-          //     //   width: 5,
-          //     // ),
-          //     // Text(
-          //     //   "$numDays days left",
-          //     //   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-          //     // ),
-          //   ],
-          // ),
-          // SizedBox(
-          //   height: 20,
-          // ),
-
-
-
-
-
-
-        ],
-      ),
-    );
-  }
-
-  Row buildTitleRow(String title, int number) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(8.0, 0,0,0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              RichText(
-                text: TextSpan(
-                    text: title,
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                    letterSpacing: 1),
-                    children: [
-                      TextSpan(
-                        text: "  ($number)",
-                        style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ]),
+              Icon(
+                Icons.person,
+                color: isActive ? Colors.white : null,
               ),
+              SizedBox(
+                height: 5.0,
+              ),
+              Text(
+                item["name"],
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16.0,
+                    color: isActive
+                        ? Colors.white
+                        : Color.fromRGBO(20, 20, 20, 0.96)),
+              )
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 8.0, 0),
-          child: Text(
-            "See all",
-            style: TextStyle(
-                fontSize: 12,
-                color: Color(0XFF3E3993),
-                fontWeight: FontWeight.bold),
-          ),
-        )
-      ],
-    );
-  }
-
-  Container buildClassItem() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 15),
-      padding: EdgeInsets.all(10),
-      height: 100,
-      decoration: BoxDecoration(
-        color: Color(0xFFF9F9FB),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "11:00",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "AM",
-                style:
-                TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
-              ),
-            ],
-          ),
-          Container(
-            height: 100,
-            width: 1,
-            color: Colors.grey.withOpacity(0.5),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width - 160,
-                child: Text(
-                  "Kuliah Dhuha Isnin",
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.location_on,
-                    color: Colors.grey,
-                    size: 20,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width - 160,
-                    child: Text(
-                      "Ruang Masjid",
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.grey, fontSize: 13),
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  // CircleAvatar(
-                  //   backgroundImage: AssetImage(
-                  //       "assets/emasjid.png"),
-                  //   radius: 10,
-                  // ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "Ustaz Ahmad Tarmizi",
-                    style: TextStyle(color: Colors.grey, fontSize: 13),
-                  )
-                ],
-              ),
-            ],
-          )
-        ],
       ),
     );
   }
 
+  static const List<Choice> choices = const <Choice>[
+    const Choice(
+        title: 'Tanya Imam',
+        icon: Icons.question_answer,
+        cardColor: Colors.yellow,
+        iconColor: kPrimaryColor),
+    const Choice(
+        title: 'Mohon Nikah',
+        icon: Icons.contacts,
+        cardColor: Colors.yellow,
+        iconColor: kPrimaryColor),
+    const Choice(
+        title: 'Tempah Qurban',
+        icon: Icons.map,
+        cardColor: Colors.yellow,
+        iconColor: kPrimaryColor),
+    const Choice(
+        title: 'Jadual Program',
+        icon: Icons.calendar_today,
+        cardColor: Colors.yellow,
+        iconColor: kPrimaryColor),
+    const Choice(
+        title: 'Sumbangan',
+        icon: Icons.monetization_on,
+        cardColor: Colors.yellow,
+        iconColor: kPrimaryColor),
+    const Choice(
+        title: 'Semak Status',
+        icon: Icons.settings,
+        cardColor: Colors.yellow,
+        iconColor: kPrimaryColor),
+    const Choice(
+        title: 'Al-Quran',
+        icon: Icons.book_rounded,
+        cardColor: Colors.yellow,
+        iconColor: kPrimaryColor),
+    const Choice(
+        title: 'Hadis 40',
+        icon: Icons.wifi,
+        cardColor: Colors.yellow,
+        iconColor: kPrimaryColor),
+    const Choice(
+        title: 'Doa Harian',
+        icon: Icons.wifi,
+        cardColor: Colors.yellow,
+        iconColor: kPrimaryColor),
+  ];
 }
 
+class Choice {
+  const Choice(
+      {required this.title,
+      required this.icon,
+      required this.cardColor,
+      required this.iconColor});
 
+  final String title;
+  final IconData icon;
+  final Color cardColor;
+  final Color iconColor;
+}
 
+class SelectCard extends StatelessWidget {
+  const SelectCard({Key? key, required this.choice}) : super(key: key);
+  final Choice choice;
 
-
-
-
+  @override
+  Widget build(BuildContext context) {
+    // final TextStyle textStyle = Theme.of(context).textTheme.display1;
+    return Card(
+        elevation: 8,
+        color: Colors.white,
+        child: Center(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Icon(
+                  choice.icon,
+                  color: choice.iconColor,
+                  size: 36,
+                ),
+                SizedBox(
+                  height: 9.0,
+                ),
+                Text(
+                  choice.title,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: 13.0,
+                      color: Colors.black45),
+                )
+                // Text(choice.title),
+              ]),
+        ));
+  }
+}

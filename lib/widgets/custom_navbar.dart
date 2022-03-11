@@ -2,6 +2,7 @@ import 'package:e_masjid/config/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'package:path/path.dart';
+import 'package:e_masjid/utils/constants.dart';
 
 class CustomNavBar extends StatefulWidget {
   const CustomNavBar({
@@ -22,7 +23,8 @@ class _CustomNavBarState extends State<CustomNavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      color: Colors.black,
+      color: kWhiteColor,
+elevation: 1,
       child: Container(
         height: 70,
         child: Row(
@@ -35,7 +37,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 IconButton(
                     icon: Icon(
                       Icons.home,
-                      color: Colors.white,
+                      color: kPrimaryColor,
                     ),
                     onPressed: () {
                       if (ModalRoute.of(context)?.settings.name == '/') {
@@ -48,7 +50,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
                     }),
                 Text('Home',
                     style: Theme.of(context).textTheme.headline6!.copyWith(
-                          color: Colors.white,
+                          color: kPrimaryColor
                         )),
               ],
             ),
@@ -60,7 +62,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
                 IconButton(
                     icon: Icon(
                       Icons.calendar_today,
-                      color: Colors.white,
+                      color: kPrimaryColor,
                     ),
                     onPressed: () {
                       if (ModalRoute.of(context)?.settings.name == '/program') {
