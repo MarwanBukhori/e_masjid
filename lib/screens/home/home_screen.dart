@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
 import 'package:e_masjid/utils/constants.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
+import '../../services/auth_service.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String routeName = '/';
+  static const String routeName = '/home';
 
   static Route route() {
     return MaterialPageRoute(
@@ -18,9 +21,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     Size size = MediaQuery.of(context).size;
 
     double heightFromWhiteBg = size.height - 200.0 - 70;
@@ -30,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: kPrimaryColor,
         elevation: 0,
         iconTheme: IconThemeData(color: kPrimaryColor),
-
       ),
       body: Container(
         // color: Colors.yellow,
@@ -62,8 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 18,
                             ))
                       ])),
-                  Icon(
-                    Icons.menu,
+                  IconButton(
+                    icon: new Icon(Icons.logout_rounded),
+                    onPressed: () async {
+
+                      await authService.signOut();
+                    },
+
                     color: Colors.white,
                   ),
                 ],
@@ -96,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: GridView.count(
                   crossAxisCount: 3,
-                  crossAxisSpacing: 4.0,
+                  crossAxisSpacing: 3.0,
                   mainAxisSpacing: 8.0,
                   children: List.generate(choices.length, (index) {
                     return Center(
@@ -161,47 +168,56 @@ class _HomeScreenState extends State<HomeScreen> {
         title: 'Tanya Imam',
         icon: Icons.question_answer,
         cardColor: Colors.yellow,
-        iconColor: kPrimaryColor),
+        iconColor: kPrimaryColor,
+        route: '/tanya'),
     const Choice(
         title: 'Mohon Nikah',
         icon: Icons.contacts,
         cardColor: Colors.yellow,
-        iconColor: kPrimaryColor),
+        iconColor: kPrimaryColor,
+        route: '/nikah'),
     const Choice(
         title: 'Tempah Qurban',
         icon: Icons.map,
         cardColor: Colors.yellow,
-        iconColor: kPrimaryColor),
+        iconColor: kPrimaryColor,
+        route: '/qurban'),
     const Choice(
         title: 'Jadual Program',
         icon: Icons.calendar_today,
         cardColor: Colors.yellow,
-        iconColor: kPrimaryColor),
+        iconColor: kPrimaryColor,
+        route: '/program'),
     const Choice(
         title: 'Sumbangan',
         icon: Icons.monetization_on,
         cardColor: Colors.yellow,
-        iconColor: kPrimaryColor),
+        iconColor: kPrimaryColor,
+        route: '/derma'),
     const Choice(
         title: 'Semak Status',
         icon: Icons.settings,
         cardColor: Colors.yellow,
-        iconColor: kPrimaryColor),
+        iconColor: kPrimaryColor,
+        route: '/status'),
     const Choice(
         title: 'Al-Quran',
         icon: Icons.book_rounded,
         cardColor: Colors.yellow,
-        iconColor: kPrimaryColor),
+        iconColor: kPrimaryColor,
+        route: '/quran'),
     const Choice(
         title: 'Hadis 40',
         icon: Icons.wifi,
         cardColor: Colors.yellow,
-        iconColor: kPrimaryColor),
+        iconColor: kPrimaryColor,
+        route: '/hadis'),
     const Choice(
         title: 'Doa Harian',
         icon: Icons.wifi,
         cardColor: Colors.yellow,
-        iconColor: kPrimaryColor),
+        iconColor: kPrimaryColor,
+        route: '/doa'),
   ];
 }
 
@@ -210,12 +226,14 @@ class Choice {
       {required this.title,
       required this.icon,
       required this.cardColor,
-      required this.iconColor});
+      required this.iconColor,
+      required this.route});
 
   final String title;
   final IconData icon;
   final Color cardColor;
   final Color iconColor;
+  final String route;
 }
 
 class SelectCard extends StatelessWidget {
@@ -225,31 +243,48 @@ class SelectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final TextStyle textStyle = Theme.of(context).textTheme.display1;
-    return Card(
-        elevation: 8,
-        color: Colors.white,
-        child: Center(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(
-                  choice.icon,
-                  color: choice.iconColor,
-                  size: 36,
-                ),
-                SizedBox(
-                  height: 9.0,
-                ),
-                Text(
-                  choice.title,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 13.0,
-                      color: Colors.black45),
-                )
-                // Text(choice.title),
-              ]),
-        ));
+    return GestureDetector(
+      onTap: () => {
+        Navigator.pushNamed(context, choice.route) //bukak new screen
+        // Navigator.pushAndRemoveUntil; //remove previous
+      },
+      child: Card(
+          elevation: 8,
+          color: Colors.white,
+          child: Center(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  // IconButton(
+                  Icon(
+                    choice.icon,
+                    color: choice.iconColor,
+                    size: 36,
+                  ),
+                  // onPressed: () {
+                  //   if (choices[0]) {
+                  //     DoNothingAction;
+                  //   } else {
+                  //     // Navigator.of(context).pop();
+                  //     Navigator.pushNamed(context, '/'); //bukak new screen
+                  //     // Navigator.pushAndRemoveUntil; //remove previous
+                  //   }
+                  // },
+                  // ),
+                  SizedBox(
+                    height: 9.0,
+                  ),
+                  Text(
+                    choice.title,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 13.0,
+                        color: Colors.black45),
+                  )
+                  // Text(choice.title),
+                ]),
+          )),
+    );
   }
 }

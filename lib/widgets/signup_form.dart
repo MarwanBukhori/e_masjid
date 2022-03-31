@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:e_masjid/utils/constants.dart';
+import 'package:e_masjid/services/auth_service.dart';
+import 'package:provider/provider.dart';
+
+final TextEditingController emailController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -10,22 +15,25 @@ class _SignUpFormState extends State<SignUpForm> {
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+
     return Column(
       children: [
-        buildInputForm('First Name', false),
-        buildInputForm('Last Name', false),
-        buildInputForm('Email', false),
-        buildInputForm('Phone', false),
-        buildInputForm('Password', true),
-        buildInputForm('Confirm Password', true),
+        // buildInputForm('First Name', false),
+        // buildInputForm('Last Name', false),
+        buildInputForm('Email', false, emailController),
+        // buildInputForm('Phone', false),
+        buildInputForm('Password', true, passwordController),
+        // buildInputForm('Confirm Password', true),
       ],
     );
   }
 
-  Padding buildInputForm(String hint, bool pass) {
+  Padding buildInputForm(String hint, bool pass, TextEditingController controller) {
     return Padding(
         padding: EdgeInsets.symmetric(vertical: 5),
         child: TextFormField(
+          controller: controller,
           obscureText: pass ? _isObscure : false,
           decoration: InputDecoration(
             hintText: hint,

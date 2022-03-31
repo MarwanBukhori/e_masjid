@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'package:e_masjid/utils/constants.dart';
 import 'package:e_masjid/widgets/login_form.dart';
-import 'package:e_masjid/widgets/login_option.dart';
-import 'package:e_masjid/widgets/primary_button.dart';
+import 'package:e_masjid/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Scaffold(
       body: Padding(
         padding: kDefaultPadding,
@@ -59,12 +60,12 @@ class LoginScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                //   Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //           builder: (context) => ResetPasswordScreen()));
-                //
-              },
+                  //   Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) => ResetPasswordScreen()));
+                  //
+                },
                 child: Text(
                   'Terlupa kata laluan?',
                   style: TextStyle(
@@ -78,12 +79,30 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              PrimaryButton(
-                buttonText: 'Log Masuk',
+
+              GestureDetector(
+                onTap: () {
+                  print('Sign in button clicked');
+                  authService.signInWithEmailAndPassword(
+                      emailController.text, passwordController.text);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: kPrimaryColor),
+                  child: Text(
+                    'Log Masuk',
+                    style: textButton.copyWith(color: kWhiteColor),
+                  ),
+                ),
               ),
-               SizedBox(
+
+              SizedBox(
                 height: 20,
-               ),
+              ),
               // Text(
               //   'Or log in with:',
               //   style: subTitle.copyWith(color: kBlackColor),

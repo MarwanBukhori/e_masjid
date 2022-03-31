@@ -11,26 +11,14 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       backgroundColor: kPrimaryColor,
       elevation: 0,
-      title: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10,
-          ),
-          child: Center(
+      title: Center(
             child: Text(title,
-                style: Theme.of(context).textTheme.headline2!.copyWith(
+                style: Theme.of(context).textTheme.headline3!.copyWith(
                       color: Colors.white,
                     )),
-          )),
+          ),
       iconTheme: IconThemeData(color: Colors.white),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.favorite),
-          onPressed: () {
-            Navigator.pushNamed(context, '/wishlist');
-          },
-        )
-      ],
+
     );
   }
 

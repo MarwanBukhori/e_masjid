@@ -1,15 +1,16 @@
 import 'package:e_masjid/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
-import 'package:e_masjid/utils/constants.dart';
+import 'package:e_masjid/services/auth_service.dart';
 import 'package:e_masjid/widgets/checkbox.dart';
-import 'package:e_masjid/widgets/login_option.dart';
+import 'package:provider/provider.dart';
 import 'package:e_masjid/widgets/primary_button.dart';
 import 'package:e_masjid/widgets/signup_form.dart';
 
 class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -83,7 +84,28 @@ class SignUpScreen extends StatelessWidget {
             // ),
             Padding(
               padding: kDefaultPadding,
-              child: PrimaryButton(buttonText: 'Daftar'),
+              child: GestureDetector(
+                onTap: () async {
+                  print('Sign up button clicked');
+                  await authService.createUserWithEmailAndPassword(
+                    emailController.text,
+                    passwordController.text,
+                  );
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: kPrimaryColor),
+                  child: Text(
+                    'Daftar',
+                    style: textButton.copyWith(color: kWhiteColor),
+                  ),
+                ),
+              ),
             ),
             SizedBox(
               height: 20,
