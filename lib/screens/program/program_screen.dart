@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../widgets/widgets.dart';
 import 'package:e_masjid/config/table_calendar_utils.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:e_masjid/utils/constants.dart';
+import 'package:e_masjid/config/constants.dart';
 
 class ProgramScreen extends StatefulWidget {
   const ProgramScreen({Key? key}) : super(key: key);

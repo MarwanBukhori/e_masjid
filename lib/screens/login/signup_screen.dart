@@ -1,7 +1,7 @@
-import 'package:e_masjid/utils/constants.dart';
+import 'package:e_masjid/config/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
-import 'package:e_masjid/services/auth_service.dart';
+import 'package:e_masjid/providers/auth_service.dart';
 import 'package:e_masjid/widgets/checkbox.dart';
 import 'package:provider/provider.dart';
 import 'package:e_masjid/widgets/primary_button.dart';

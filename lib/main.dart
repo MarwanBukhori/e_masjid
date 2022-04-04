@@ -1,4 +1,4 @@
-import 'package:e_masjid/services/auth_service.dart';
+import 'package:e_masjid/providers/auth_service.dart';
 import 'package:e_masjid/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
-import 'package:e_masjid/utils/constants.dart';
+import 'package:e_masjid/config/constants.dart';
 import 'package:e_masjid/widgets/login_form.dart';
-import 'package:e_masjid/services/auth_service.dart';
+import 'package:e_masjid/providers/auth_service.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {

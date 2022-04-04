@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:e_masjid/utils/constants.dart';
-import 'package:e_masjid/widgets/login_form.dart';
-import 'package:e_masjid/services/auth_service.dart';
+import 'package:e_masjid/config/constants.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String buttonText;

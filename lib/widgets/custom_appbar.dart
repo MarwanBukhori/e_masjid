@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:e_masjid/utils/constants.dart';
+import 'package:e_masjid/config/constants.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final String title;

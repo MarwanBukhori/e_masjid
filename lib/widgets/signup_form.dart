@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:e_masjid/utils/constants.dart';
-import 'package:e_masjid/services/auth_service.dart';
+import 'package:e_masjid/config/constants.dart';
+import 'package:e_masjid/providers/auth_service.dart';
 import 'package:provider/provider.dart';
 
 final TextEditingController emailController = TextEditingController();
