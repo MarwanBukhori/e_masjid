@@ -7,8 +7,6 @@ import 'config/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -16,7 +14,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -29,12 +26,13 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'E-Masjid',
         theme: theme(),
-         // home: LoginScreen(),
+        // home: LoginScreen(),
         // home: ProgramScreen(),
         onGenerateRoute: AppRouter.onGenerateRoute,
         initialRoute: '/',
         routes: {
-          '/': (context)=>   Wrapper(),
+'/': (context)=> Wrapper(),
+          // '/home': (context) => HomeScreen(),
         },
       ),
     );

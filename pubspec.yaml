@@ -20,6 +20,10 @@ dependencies:
   google_sign_in: ^5.0.7
   very_good_analysis: ^2.4.0
   provider: ^5.0.0
+  # Roles
+#  cloud_firestore: ^3.1.11
+#  device_info_plus: ^3.2.2
+#  package_info_plus: ^1.4.2
 
 dev_dependencies:
   flutter_test:
