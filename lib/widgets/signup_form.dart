@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:e_masjid/config/constants.dart';
-import 'package:e_masjid/providers/auth_service.dart';
+import 'package:e_masjid/providers/user.provider.dart';
 import 'package:provider/provider.dart';
 
 final TextEditingController emailController = TextEditingController();
@@ -15,7 +15,7 @@ class _SignUpFormState extends State<SignUpForm> {
   bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final authService = Provider.of<AppUser>(context);
 
     return Column(
       children: [

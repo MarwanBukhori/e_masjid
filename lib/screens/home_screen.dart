@@ -5,9 +5,9 @@ import 'package:e_masjid/widgets/widgets.dart';
 import 'package:e_masjid/config/constants.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:e_masjid/providers/auth_service.dart';
+import 'package:e_masjid/providers/user.provider.dart';
 
-import '../../providers/auth_service.dart';
+import '../providers/user.provider.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget build(BuildContext context) {
 
-    final authService = Provider.of<AuthService>(context);
+    final appUser = Provider.of<AppUser>(context);
     Size size = MediaQuery
         .of(context)
         .size;
@@ -103,8 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: new Icon(Icons.logout_rounded),
                     onPressed: () async {
                       // createAlertDialog(context);
-
-                      await authService.signOut();
+                      await appUser.signOut();
                     },
                     color: Colors.white,
                   ),

@@ -1,5 +1,5 @@
-import 'package:e_masjid/providers/auth_service.dart';
-import 'package:e_masjid/wrapper.dart';
+import 'package:e_masjid/providers/user.provider.dart';
+import 'package:e_masjid/screens/landing-page.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'config/app_router.dart';
@@ -18,9 +18,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<AuthService>(
-          create: (_) => AuthService(),
-        ),
+        // Provider<AppUser>(
+        //   create: (_) => AppUser(),
+        // ),
+        ChangeNotifierProvider<AppUser>(create: (_) => AppUser())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: AppRouter.onGenerateRoute,
         initialRoute: '/',
         routes: {
-'/': (context)=> Wrapper(),
+          '/': (context) => LandingScreen(),
           // '/home': (context) => HomeScreen(),
         },
       ),

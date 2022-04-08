@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'package:e_masjid/config/constants.dart';
 import 'package:e_masjid/widgets/login_form.dart';
-import 'package:e_masjid/providers/auth_service.dart';
+import 'package:e_masjid/providers/user.provider.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final appUser = Provider.of<AppUser>(context);
     return Scaffold(
       body: Padding(
         padding: kDefaultPadding,
@@ -83,8 +83,9 @@ class LoginScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   print('Sign in button clicked');
-                  authService.signInWithEmailAndPassword(
-                      emailController.text, passwordController.text);
+                  appUser.signIn(
+                    context,
+                      email: emailController.text,  password: passwordController.text);
                 },
                 child: Container(
                   alignment: Alignment.center,

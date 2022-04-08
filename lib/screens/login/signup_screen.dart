@@ -1,7 +1,7 @@
 import 'package:e_masjid/config/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
-import 'package:e_masjid/providers/auth_service.dart';
+import 'package:e_masjid/providers/user.provider.dart';
 import 'package:e_masjid/widgets/checkbox.dart';
 import 'package:provider/provider.dart';
 import 'package:e_masjid/widgets/primary_button.dart';
@@ -10,7 +10,7 @@ import 'package:e_masjid/widgets/signup_form.dart';
 class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthService>(context);
+    final appUser = Provider.of<AppUser>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -87,10 +87,10 @@ class SignUpScreen extends StatelessWidget {
               child: GestureDetector(
                 onTap: () async {
                   print('Sign up button clicked');
-                  await authService.createUserWithEmailAndPassword(
-                    emailController.text,
-                    passwordController.text,
-                  );
+                  // await appUser.createUserWithEmailAndPassword(
+                  //   emailController.text,
+                  //   passwordController.text,
+                  // );
                   Navigator.pop(context);
                 },
                 child: Container(
