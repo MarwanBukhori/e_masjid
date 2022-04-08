@@ -4,7 +4,6 @@ import 'package:e_masjid/screens/screens.dart';
 import 'package:e_masjid/providers/user.provider.dart';
 import 'package:e_masjid/widgets/checkbox.dart';
 import 'package:provider/provider.dart';
-import 'package:e_masjid/widgets/primary_button.dart';
 import 'package:e_masjid/widgets/signup_form.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -75,22 +74,16 @@ class SignUpScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            // Padding(
-            //   padding: kDefaultPadding,
-            //   child: CheckBox('I have at least 18 years old.'),
-            // ),
-            // SizedBox(
-            //   height: 20,
-            // ),
+
             Padding(
               padding: kDefaultPadding,
               child: GestureDetector(
                 onTap: () async {
                   print('Sign up button clicked');
-                  // await appUser.createUserWithEmailAndPassword(
-                  //   emailController.text,
-                  //   passwordController.text,
-                  // );
+                  await appUser.signUp(
+                    email : emailController.text,
+                    password: passwordController.text,
+                  );
                   Navigator.pop(context);
                 },
                 child: Container(

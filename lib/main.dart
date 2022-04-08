@@ -1,9 +1,8 @@
 import 'package:e_masjid/providers/user.provider.dart';
 import 'package:e_masjid/screens/landing-page.screen.dart';
 import 'package:flutter/material.dart';
-import 'package:e_masjid/screens/screens.dart';
 import 'config/app_router.dart';
-import 'config/theme.dart';
+import 'config/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
