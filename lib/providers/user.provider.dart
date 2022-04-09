@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 class AppUser extends ChangeNotifier {
-  bool loggedIn = false;
+
 
   update() {
     notifyListeners();
@@ -22,11 +22,11 @@ class AppUser extends ChangeNotifier {
 
   static AppUser get instance => AppUser();
 
-  bool LoggedIn = false;
+
   final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
 
-
-  Future<void> signIn(BuildContext context, {required String email, required String password}) async {
+//sign in
+  Future<void> signIn( {required String email, required String password}) async {
     print('Email: $email');
     print('Password: $password');
 
@@ -34,8 +34,6 @@ class AppUser extends ChangeNotifier {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       print('Sign in Succesful');
-      Provider.of<AppUser>(context,  listen: false).loggedIn = true;
-
 
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -47,6 +45,12 @@ class AppUser extends ChangeNotifier {
     }
   }
 
+  //sign out
+  Future<void> signOut() async {
+    return await _firebaseAuth.signOut();
+  }
+
+  //sign up
   Future<bool> signUp({
     required String email,
     required String password,
@@ -62,10 +66,7 @@ class AppUser extends ChangeNotifier {
     }
   }
 
-  //sign out
-  Future<void> signOut() async {
-    return await _firebaseAuth.signOut();
-  }
+
 }
 
 getUser() {

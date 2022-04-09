@@ -1,9 +1,12 @@
+import 'package:e_masjid/widgets/loading-indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'package:e_masjid/config/constants.dart';
 import 'package:e_masjid/widgets/login_form.dart';
 import 'package:e_masjid/providers/user.provider.dart';
 import 'package:provider/provider.dart';
+
+import '../../providers/user.provider.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -81,11 +84,23 @@ class LoginScreen extends StatelessWidget {
               ),
 
               GestureDetector(
-                onTap: () {
-                  print('Sign in button clicked');
-                  appUser.signIn(
-                    context,
-                      email: emailController.text,  password: passwordController.text);
+                onTap: () async {
+                  try {
+                    LoadingIndicator.showLoadingDialog(context);
+                    await AppUser.instance.signIn(
+                        email: emailController.text,
+                        password: passwordController.text);
+                    Navigator.pop(context);
+                  } catch (e) {
+
+                    Navigator.pop(context);
+                    showDialog(context: context, builder: (context){
+                      return AlertDialog(
+                        content: Text(e.toString()),
+                      );
+                    });
+                    
+                  };
                 },
                 child: Container(
                   alignment: Alignment.center,
