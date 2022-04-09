@@ -6,6 +6,8 @@ import 'package:e_masjid/widgets/checkbox.dart';
 import 'package:provider/provider.dart';
 import 'package:e_masjid/widgets/signup_form.dart';
 
+import '../../widgets/loading-indicator.dart';
+
 class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -79,12 +81,24 @@ class SignUpScreen extends StatelessWidget {
               padding: kDefaultPadding,
               child: GestureDetector(
                 onTap: () async {
-                  print('Sign up button clicked');
-                  await appUser.signUp(
-                    email : emailController.text,
-                    password: passwordController.text,
-                  );
-                  Navigator.pop(context);
+                  try {
+                    LoadingIndicator.showLoadingDialog(context);
+                    await AppUser.instance.signUp(
+                      email: emailController.text,
+                      password: passwordController.text,
+                    );
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  } catch (e) {
+                    Navigator.pop(context);
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text(e.toString()),
+                          );
+                        });
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,
