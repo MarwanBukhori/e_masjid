@@ -18,6 +18,8 @@ class AppRouter {
         return MohonNikahScreen.route();
       case TempahQurbanScreen.routeName:
         return TempahQurbanScreen.route();
+      case SemakStatusScreen.routeName:
+        return SemakStatusScreen.route();
       default:
         return _errorRoute();
     }

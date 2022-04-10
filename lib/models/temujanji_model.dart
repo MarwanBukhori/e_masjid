@@ -1,46 +1,48 @@
 import 'dart:ffi';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TemuJanji{
   String ?TemuJanjiID;
-  String type;
-  String ?KariahID;
-  String ?PetugasID;
-  String title;
-  String description;
-  DateTime? date;
-  Bool privacy;
+  String JenisTemuJanji;
+  // String ?KariahID;
+  // String ?PetugasID;
+  String tajuk;
+  String huraian;
+  DateTime? tarikh;
+  Bool ?privasi;
 
   TemuJanji({
     this.TemuJanjiID,
-    required this.type,
-    this.KariahID,
-    this.PetugasID,
-    required this.title,
-    required this.description,
-    required this.date,
-    required this.privacy,
+    required this.JenisTemuJanji,
+    // this.KariahID,
+    // this.PetugasID,
+    required this.tajuk,
+    required this.huraian,
+    required this.tarikh,
+    this.privasi,
   });
 
-  // static TemuJanji fromMap(Map<String, dynamic> data, {String? id}) {
-  //
-  //   try{
-  //     return TemuJanji(
-  //         title: data['title'] ?? '',
-  //         description: data['description'] ?? '',
-  //         author: data['author'] ?? '',
-  //         id: id,
-  //         createdDate: data['createdDate'] !=null
-  //             ? (data['createdDate'] as Timestamp).toDate()
-  //             : null);
-  //
-  //   }catch(e){
-  //     print(e);
-  //     throw(e);
-  //   }
-  //
-  // }
+
+
+  static TemuJanji fromMap(Map<String, dynamic> data, {String? id}) {
+    try {
+      return TemuJanji(
+          TemuJanjiID: data['TemuJanjiID'] ?? '',
+          JenisTemuJanji: data['JenisTemuJanji'] ?? '',
+          tajuk: data['Tajuk'] ?? '',
+          huraian: data['Huraian'] ?? '',
+          tarikh: data['Tarikh'] != null
+              ? (data['Tarikh'] as Timestamp).toDate()
+              : null);
+} catch (e) {
+      print(e);
+      throw(e);
+    }
+
+  }
 
   //to convert object to map string dynamic
   // Map<String, Object?> toMap() {
@@ -52,5 +54,5 @@ class TemuJanji{
   //   };
   // }
 
-
 }
+

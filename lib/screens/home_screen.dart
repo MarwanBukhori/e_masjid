@@ -239,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
         icon: Icons.settings,
         cardColor: Colors.yellow,
         iconColor: kPrimaryColor,
-        route: '/status'),
+        route: '/semak'),
     const Choice(
         title: 'Al-Quran',
         icon: Icons.book_rounded,
