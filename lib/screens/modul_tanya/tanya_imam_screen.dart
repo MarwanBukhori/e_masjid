@@ -1,6 +1,10 @@
 import 'package:e_masjid/config/constants.dart';
+import 'package:e_masjid/models/temujanji_model.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
+
+import '../../services/temujanji.service.dart';
+import '../../widgets/loading-indicator.dart';
 
 class TanyaImamScreen extends StatefulWidget {
   const TanyaImamScreen({Key? key}) : super(key: key);
@@ -18,6 +22,10 @@ class TanyaImamScreen extends StatefulWidget {
 }
 
 class _TanyaImamScreenState extends State<TanyaImamScreen> {
+  final tajukTextController = new TextEditingController();
+
+  final huraianTextController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,43 +46,82 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
           SizedBox(
             height: 5,
           ),
+          // TextField(
+          //           //   decoration: InputDecoration(
+          //           //     prefixIcon: Icon(Icons.people),
+          //           //     border: OutlineInputBorder(),
+          //           //     labelText: 'Imam Pilihan',
+          //           //   ),
+          //           // ),
+          // SizedBox(
+          //   height: 24,
+          // ),
           TextField(
+            controller: tajukTextController,
             decoration: InputDecoration(
+              prefixIcon: Icon(Icons.book_rounded),
               border: OutlineInputBorder(),
-              labelText: 'Imam Pilihan',
+              labelText: 'Tajuk',
             ),
           ),
           SizedBox(
             height: 24,
           ),
           TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Subjek',
-            ),
-          ),
-          SizedBox(
-            height: 24,
-          ),
-          TextField(
+            controller: huraianTextController,
             maxLines: 4,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'Mesej',
+              labelText: 'Huraian',
               hintText: 'Tulis sesuatu..',
             ),
           ),
           ButtonBar(
             alignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: kPrimaryColor,
-                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                      textStyle: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold)),
-                  onPressed: () {}, child: const Text('Hantar'))
+              ElevatedButton.icon(
+                icon: Icon(
+                    Icons.add_box,
+                size: 27.0,),
+                style: ElevatedButton.styleFrom(
+                    primary: kPrimaryColor,
+                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                    textStyle:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                onPressed: () async {
+                  try {
+                    LoadingIndicator.showLoadingDialog(context);
+
+                    final temujanji = TemuJanji(
+                        TemuJanjiID: 'TJ2',
+                        JenisTemuJanji: 'tanya',
+                        tajuk: tajukTextController.text,
+                        huraian: huraianTextController.text,
+                        tarikh: DateTime.now()
+                    );
+
+                    final result = await addTask(temujanji);
+
+                    if (result) {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    } else
+                      throw 'Unable to add soalan';
+                  } catch (e) {
+                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text(e.toString()),
+                        );
+                      },
+                    );
+                  }
+                  ;
+                },
+                label: Text('Hantar Soalan'),
+              )
             ],
           )
         ]),

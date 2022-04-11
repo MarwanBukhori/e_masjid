@@ -44,15 +44,18 @@ class TemuJanji{
 
   }
 
-  //to convert object to map string dynamic
-  // Map<String, Object?> toMap() {
-  //   return {
-  //     'title': title,
-  //     'description': description,
-  //     'author': author,
-  //     'createdDate' : createdDate
-  //   };
-  // }
+  // to convert object to map string dynamic
+  Map<String, Object?> toMap() {
+    return {
+      'TemuJanjiID' : TemuJanjiID,
+      'JenisTemuJanji' : JenisTemuJanji,
+      'Tajuk': tajuk,
+      'Huraian': huraian,
+      'Tarikh': tarikh,
+
+
+    };
+  }
 
 }
 

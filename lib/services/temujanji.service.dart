@@ -22,6 +22,15 @@ Stream<List<TemuJanji>> getTaskListStream() {
       .toList());
 }
 
+Future<bool> addTask(TemuJanji temujanji) async {
+  try {
+    await FirebaseFirestore.instance.collection('temujanji').add(temujanji.toMap());
+    return true;
+  } catch (e) {
+    print(e);
+    throw (e);
+  }
+}
 
 Future<bool> deleteTemujanji(String temujanjiID) async {
   try {
