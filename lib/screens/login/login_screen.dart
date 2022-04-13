@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'Daftar akaun.',
+                      'Daftar akaun disini.',
                       style: textButton.copyWith(
                         decoration: TextDecoration.underline,
                         decorationThickness: 1,
@@ -61,24 +61,24 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              GestureDetector(
-                onTap: () {
-                  //   Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //           builder: (context) => ResetPasswordScreen()));
-                  //
-                },
-                child: Text(
-                  'Terlupa kata laluan?',
-                  style: TextStyle(
-                    color: kZambeziColor,
-                    fontSize: 14,
-                    decoration: TextDecoration.underline,
-                    decorationThickness: 1,
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     //   Navigator.push(
+              //     //       context,
+              //     //       MaterialPageRoute(
+              //     //           builder: (context) => ResetPasswordScreen()));
+              //     //
+              //   },
+              //   child: Text(
+              //     'Terlupa kata laluan?',
+              //     style: TextStyle(
+              //       color: kZambeziColor,
+              //       fontSize: 14,
+              //       decoration: TextDecoration.underline,
+              //       decorationThickness: 1,
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 20,
               ),

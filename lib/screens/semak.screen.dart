@@ -128,7 +128,7 @@ class TemuJanjiContainer extends StatelessWidget {
             Material(
               color: Colors.transparent,
               child: IconButton(
-                icon: Icon(Icons.delete),
+                icon: Icon(Icons.cancel_outlined, color: Colors.red,),
 
                 onPressed: () async{
                   print(temujanji.TemuJanjiID);

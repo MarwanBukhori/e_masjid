@@ -25,6 +25,7 @@ class _LogInFormState extends State<LogInForm> {
   }
 
   Padding buildInputForm(String label, bool pass, TextEditingController controller) {
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(

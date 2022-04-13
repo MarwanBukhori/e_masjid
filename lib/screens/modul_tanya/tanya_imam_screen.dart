@@ -78,7 +78,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
               TextField(
                 controller: tajukTextController,
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.book_rounded),
+                  prefixIcon: Icon(Icons.edit_note_outlined),
                   border: OutlineInputBorder(),
                   labelText: 'Tajuk',
                 ),
@@ -103,7 +103,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                 children: [
                   ElevatedButton.icon(
                     icon: Icon(
-                      Icons.add_box,
+                      Icons.add,
                       size: 27.0,
                     ),
                     style: ElevatedButton.styleFrom(
