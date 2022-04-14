@@ -123,7 +123,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                             huraian: huraianTextController.text,
                             tarikh: DateTime.now());
 
-                        final result = await addTask(temujanji);
+                        final result = await addTanya(temujanji);
 
                         if (result) {
                           Navigator.pop(context);

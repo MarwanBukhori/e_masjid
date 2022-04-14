@@ -22,9 +22,9 @@ Stream<List<TemuJanji>> getTaskListStream() {
       .toList());
 }
 
-Future<bool> addTask(TemuJanji temujanji) async {
+Future<bool> addTanya(TemuJanji temujanji) async {
   try {
-    await FirebaseFirestore.instance.collection('temujanji').add(temujanji.toMap());
+    await FirebaseFirestore.instance.collection('tanya').add(temujanji.toMap());
     return true;
   } catch (e) {
     print(e);
@@ -35,6 +35,26 @@ Future<bool> addTask(TemuJanji temujanji) async {
 Future<bool> deleteTemujanji(String temujanjiID) async {
   try {
     await FirebaseFirestore.instance.doc('temujanji/$temujanjiID').delete();
+    return true;
+  } catch (e) {
+    print(e);
+    throw (e);
+  }
+}
+
+Future<bool> addNikah(TemuJanji temujanji) async {
+  try {
+    await FirebaseFirestore.instance.collection('nikah').add(temujanji.toMap());
+    return true;
+  } catch (e) {
+    print(e);
+    throw (e);
+  }
+}
+
+Future<bool> addQurban(TemuJanji temujanji) async {
+  try {
+    await FirebaseFirestore.instance.collection('qurban').add(temujanji.toMap());
     return true;
   } catch (e) {
     print(e);

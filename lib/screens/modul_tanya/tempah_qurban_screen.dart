@@ -79,7 +79,7 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.edit_note_outlined),
                   border: OutlineInputBorder(),
-                  labelText: 'Tajuk',
+                  labelText: 'Nama Pemohon',
                 ),
               ),
               SizedBox(
@@ -87,11 +87,10 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
               ),
               TextField(
                 controller: huraianTextController,
-                maxLines: 4,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Huraian',
-                  hintText: 'Tulis sesuatu..',
+                  labelText: 'Bilangan Bahagian',
+
                 ),
               ),
               SizedBox(
@@ -142,7 +141,7 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                       }
                       ;
                     },
-                    label: Text('Hantar Permohonan'),
+                    label: Text('Hantar Tempahan'),
                   )
                 ],
               )

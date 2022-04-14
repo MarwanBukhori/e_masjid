@@ -33,7 +33,6 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          brightness: Brightness.light,
           elevation: 0,
           leading: IconButton(
             icon: Icon(
@@ -81,7 +80,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.edit_note_outlined),
                     border: OutlineInputBorder(),
-                    labelText: 'Tajuk',
+                    labelText: 'Nama Pemohon',
                   ),
                 ),
                 SizedBox(
@@ -89,11 +88,9 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                 ),
                 TextField(
                   controller: huraianTextController,
-                  maxLines: 4,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Huraian',
-                    hintText: 'Tulis sesuatu..',
+                    labelText: 'Nama Pasangan'
                   ),
                 ),
                 SizedBox(
