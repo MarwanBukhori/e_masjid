@@ -20,6 +20,10 @@ class AppRouter {
         return TempahQurbanScreen.route();
       case SemakStatusScreen.routeName:
         return SemakStatusScreen.route();
+      case HadisScreen.routeName:
+        return HadisScreen.route();
+      case DoaScreen.routeName:
+        return DoaScreen.route();
       default:
         return _errorRoute();
     }

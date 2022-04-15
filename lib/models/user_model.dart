@@ -1,6 +1,28 @@
-class Users {
-  final String uid;
-  final String? email;
+class UserModel {
+  String? uid;
+  String? email;
+  String? nama;
+  String? role;
 
-  Users(this.uid, this.email);
+  UserModel({this.uid, this.email, this.nama, this.role});
+
+  //receiving data from server
+  factory UserModel.fromMap(map) {
+    return UserModel(
+      uid: map['uid'],
+      email: map['email'],
+      nama: map['nama'],
+      role: map['role'],
+    );
+  }
+
+  //sending data to our server
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': uid,
+      'email':email,
+      'name': nama,
+      'role': role,
+    };
+  }
 }

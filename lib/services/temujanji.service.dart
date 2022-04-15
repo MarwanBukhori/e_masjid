@@ -9,17 +9,57 @@ Future<List<TemuJanji>> getTaskList() async {
   return snapshot.docs.map((e) => TemuJanji.fromMap(e.data())).toList();
 }
 
-Stream<List<TemuJanji>> getTaskListStream() {
+Stream<List<TemuJanji>> getNikahListStream() {
   final snapshots = FirebaseFirestore.instance
-      .collection('temujanji')
-      // .where('authorId', isEqualTo: AppUser().user!.uid)
-      // .orderBy('createdDate', descending: true)
+      .collection('nikah')
+  // .where('authorId', isEqualTo: AppUser().user!.uid)
+      .orderBy('Tarikh', descending: true)
       .snapshots();
   return snapshots.map((snapshot) => snapshot.docs
       .map(
         (e) => TemuJanji.fromMap(e.data(), id: e.id),
   )
       .toList());
+}
+
+Stream<List<TemuJanji>> getQurbanListStream() {
+  final snapshots = FirebaseFirestore.instance
+      .collection('qurban')
+  // .where('authorId', isEqualTo: AppUser().user!.uid)
+      .orderBy('Tarikh', descending: true)
+      .snapshots();
+  return snapshots.map((snapshot) => snapshot.docs
+      .map(
+        (e) => TemuJanji.fromMap(e.data(), id: e.id),
+  )
+      .toList());
+}
+
+
+Stream<List<TemuJanji>> getTaskListStream() {
+  final snapshots = FirebaseFirestore.instance
+      .collection('tanya')
+      // .where('authorId', isEqualTo: AppUser().user!.uid)
+      .orderBy('Tarikh', descending: true)
+      .snapshots();
+  final snapshots1 = FirebaseFirestore.instance
+      .collection('nikah')
+  // .where('authorId', isEqualTo: AppUser().user!.uid)
+      .orderBy('Tarikh', descending: true)
+      .snapshots();
+  final snapshots2 = FirebaseFirestore.instance
+      .collection('qurban')
+  // .where('authorId', isEqualTo: AppUser().user!.uid)
+      .orderBy('Tarikh', descending: true)
+      .snapshots();
+
+  return snapshots.map((snapshot) => snapshot.docs
+      .map(
+        (e) => TemuJanji.fromMap(e.data(), id: e.id),
+  )
+      .toList());
+
+
 }
 
 Future<bool> addTanya(TemuJanji temujanji) async {

@@ -23,9 +23,9 @@ class MohonNikahScreen extends StatefulWidget {
 
 class _MohonNikahScreenState extends State<MohonNikahScreen> {
 
-    final tajukTextController = new TextEditingController();
+    final pemohonTextController = new TextEditingController();
 
-    final huraianTextController = new TextEditingController();
+    final pasanganTextController = new TextEditingController();
 
     @override
     Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
               padding: EdgeInsets.all(15.0),
               child: Column(children: [
                 TextField(
-                  controller: tajukTextController,
+                  controller: pemohonTextController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.edit_note_outlined),
                     border: OutlineInputBorder(),
@@ -87,7 +87,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                   height: 24,
                 ),
                 TextField(
-                  controller: huraianTextController,
+                  controller: pasanganTextController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Nama Pasangan'
@@ -112,34 +112,33 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                               fontSize: 15, fontWeight: FontWeight.bold)),
                       onPressed: () async {
                         try {
-                          // LoadingIndicator.showLoadingDialog(context);
-                          //
-                          // final temujanji = TemuJanji(
-                          //     TemuJanjiID: 'TJ2',
-                          //     JenisTemuJanji: 'tanya',
-                          //     tajuk: tajukTextController.text,
-                          //     huraian: huraianTextController.text,
-                          //     tarikh: DateTime.now());
-                          //
-                          // final result = await addTask(temujanji);
-                          //
-                          // if (result) {
-                          //   Navigator.pop(context);
-                          //   Navigator.pop(context);
-                          // } else
-                          //   throw 'Unable to add soalan';
+                          LoadingIndicator.showLoadingDialog(context);
+
+                          final temujanji = TemuJanji(
+                              // TemuJanjiID: 'TJ2',
+                              JenisTemuJanji: 'nikah',
+                              pemohon: pemohonTextController.text,
+                              pasangan: pasanganTextController.text,
+                              tarikh: DateTime.now());
+
+                          final result = await addNikah(temujanji);
+
+                          if (result) {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          } else
+                            throw 'Unable to add soalan';
                         } catch (e) {
-                          // Navigator.pop(context);
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (context) {
-                          //     return AlertDialog(
-                          //       content: Text(e.toString()),
-                          //     );
-                          //   },
-                          // );
-                        }
-                        ;
+                          Navigator.pop(context);
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: Text(e.toString()),
+                              );
+                            },
+                          );
+                        };
                       },
                       label: Text('Hantar Permohonan'),
                     )

@@ -7,3 +7,5 @@ export 'modul_tanya/tanya_imam_screen.dart';
 export 'modul_tanya/mohon_nikah_screen.dart';
 export 'modul_tanya/tempah_qurban_screen.dart';
 export 'semak.screen.dart';
+export 'modul_produktiviti/hadis_screen.dart';
+export 'modul_produktiviti/doa_screen.dart';

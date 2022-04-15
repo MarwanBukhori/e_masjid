@@ -1,4 +1,4 @@
-import 'package:e_masjid/screens/modul_tanya/tanya_imam_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
 
@@ -23,10 +23,24 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'Semak Status',
-
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Text('Semak Status Temujanji', style: TextStyle(
+          color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold
+        ),),
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
+
       body: StreamBuilder<List<TemuJanji>>(
           stream: getTaskListStream(),
           builder: (context, snapshot) {
@@ -91,22 +105,22 @@ class TemuJanjiContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    temujanji.tajuk,
+                    temujanji.tajuk!,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
                     height: 5,
                   ),
                   Text(
-                    temujanji.huraian,
+                    temujanji.huraian!,
                     style: TextStyle(fontSize: 20),
                   ),
 
                   SizedBox(
                     height: 5,
                   ),
-                  Text(
-                    temujanji.TemuJanjiID!,
+                  Text("Jenis : " +
+                    temujanji.JenisTemuJanji,
                     style: TextStyle(fontSize: 20),
                   ),
 

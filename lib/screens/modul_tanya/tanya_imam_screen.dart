@@ -118,7 +118,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
 
                         final temujanji = TemuJanji(
                             TemuJanjiID: 'TJ2',
-                            JenisTemuJanji: 'tanya',
+                            JenisTemuJanji: 'Pertanyaan',
                             tajuk: tajukTextController.text,
                             huraian: huraianTextController.text,
                             tarikh: DateTime.now());
