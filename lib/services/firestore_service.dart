@@ -23,7 +23,7 @@ class FireStoreService {
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getdata() async {
     var data = await _firebaseFirestore
-        .collection("user")
+        .collection("users")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
     return data;

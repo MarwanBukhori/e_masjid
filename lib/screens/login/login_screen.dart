@@ -87,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                 onTap: () async {
                   try {
                     LoadingIndicator.showLoadingDialog(context);
-                    await AppUser.instance.signIn(
+                     AppUser.instance.signIn(
                         email: emailController.text,
                         password: passwordController.text);
                     Navigator.pop(context);

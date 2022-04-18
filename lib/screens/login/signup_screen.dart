@@ -5,12 +5,20 @@ import 'package:e_masjid/providers/user.provider.dart';
 import 'package:e_masjid/widgets/checkbox.dart';
 import 'package:provider/provider.dart';
 import 'package:e_masjid/widgets/signup_form.dart';
+import 'package:e_masjid/services/firestore_service.dart';
+import 'package:e_masjid/providers/user.provider.dart';
 
 import '../../widgets/loading-indicator.dart';
 
 class SignUpScreen extends StatelessWidget {
+  String role = "kariah";
+
+  AppUser appUser = AppUser();
+  FireStoreService fireStoreService = FireStoreService();
+
   @override
   Widget build(BuildContext context) {
+
     final appUser = Provider.of<AppUser>(context);
     return Scaffold(
       body: SingleChildScrollView(
@@ -83,10 +91,15 @@ class SignUpScreen extends StatelessWidget {
                 onTap: () async {
                   try {
                     LoadingIndicator.showLoadingDialog(context);
+
                     await AppUser.instance.signUp(
                       email: emailController.text,
                       password: passwordController.text,
                     );
+                    fireStoreService
+                        .createUserData(nameController.text,
+                        appUser.user!.uid, emailController.text,role);
+
                     Navigator.pop(context);
                     Navigator.pop(context);
                   } catch (e) {

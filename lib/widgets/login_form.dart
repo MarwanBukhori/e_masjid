@@ -5,59 +5,111 @@ final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
 class LogInForm extends StatefulWidget {
-
   @override
   _LogInFormState createState() => _LogInFormState();
 }
 
 class _LogInFormState extends State<LogInForm> {
-
   bool _isObscure = true;
+bool pass = true;
+
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
-        buildInputForm('Email', false, emailController),
-        buildInputForm('Password', true, passwordController),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 5),
+          child: TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            controller: emailController,
+            obscureText: false,
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.email),
+                labelText: 'Email',
+                labelStyle: TextStyle(
+                  color: kTextFieldColor,
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: kPrimaryColor),
+                ),
+
+                  ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 5),
+          child: TextFormField(
+            keyboardType: TextInputType.emailAddress,
+            controller: passwordController,
+            obscureText: pass ? _isObscure : false,
+            decoration: InputDecoration(
+                prefixIcon: Icon(Icons.vpn_key),
+                labelText: 'Password',
+                labelStyle: TextStyle(
+                  color: kTextFieldColor,
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: kPrimaryColor),
+                ),
+                suffixIcon: pass ? IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        },
+                        icon: _isObscure
+                            ? Icon(
+                                Icons.visibility_off,
+                                color: kTextFieldColor,
+                              )
+                            : Icon(
+                                Icons.visibility,
+                                color: kPrimaryColor,
+                              ),
+                      ) : null,
+                    ),
+          ),
+        ),
+
       ],
     );
   }
-
-  Padding buildInputForm(String label, bool pass, TextEditingController controller) {
-
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: TextFormField(
-        controller: controller,
-        obscureText: pass ? _isObscure : false,
-        decoration: InputDecoration(
-            labelText: label,
-            labelStyle: TextStyle(
-              color: kTextFieldColor,
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: kPrimaryColor),
-            ),
-            suffixIcon: pass
-                ? IconButton(
-              onPressed: () {
-                setState(() {
-                  _isObscure = !_isObscure;
-                });
-              },
-              icon: _isObscure
-                  ? Icon(
-                Icons.visibility_off,
-                color: kTextFieldColor,
-              )
-                  : Icon(
-                Icons.visibility,
-                color: kPrimaryColor,
-              ),
-            )
-                : null),
-      ),
-    );
-  }
+  //
+  // Padding buildInputForm(
+  //     String label, bool pass, TextEditingController controller) {
+  //   return Padding(
+  //     padding: EdgeInsets.symmetric(vertical: 5),
+  //     child: TextFormField(
+  //       keyboardType: TextInputType.emailAddress,
+  //       controller: controller,
+  //       obscureText: pass ? _isObscure : false,
+  //       decoration: InputDecoration(
+  //           labelText: label,
+  //           labelStyle: TextStyle(
+  //             color: kTextFieldColor,
+  //           ),
+  //           focusedBorder: UnderlineInputBorder(
+  //             borderSide: BorderSide(color: kPrimaryColor),
+  //           ),
+  //           suffixIcon: pass
+  //               ? IconButton(
+  //                   onPressed: () {
+  //                     setState(() {
+  //                       _isObscure = !_isObscure;
+  //                     });
+  //                   },
+  //                   icon: _isObscure
+  //                       ? Icon(
+  //                           Icons.visibility_off,
+  //                           color: kTextFieldColor,
+  //                         )
+  //                       : Icon(
+  //                           Icons.visibility,
+  //                           color: kPrimaryColor,
+  //                         ),
+  //                 )
+  //               : null),
+  //     ),
+  //   );
+  // }
 }
