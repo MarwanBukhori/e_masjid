@@ -77,10 +77,7 @@ class SignUpScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: kDefaultPadding,
-              child: CheckBox('Setuju dengan terma dan syarat.'),
-            ),
+
             SizedBox(
               height: 20,
             ),

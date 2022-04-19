@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Selamat Datang!',
+                    'Selamat Datang! ',
                     style: subTitle,
                   ),
                   SizedBox(
@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'Daftar akaun disini.',
+                      'Daftar akaun.',
                       style: textButton.copyWith(
                         decoration: TextDecoration.underline,
                         decorationThickness: 1,
@@ -61,24 +61,23 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              // GestureDetector(
-              //   onTap: () {
-              //     //   Navigator.push(
-              //     //       context,
-              //     //       MaterialPageRoute(
-              //     //           builder: (context) => ResetPasswordScreen()));
-              //     //
-              //   },
-              //   child: Text(
-              //     'Terlupa kata laluan?',
-              //     style: TextStyle(
-              //       color: kZambeziColor,
-              //       fontSize: 14,
-              //       decoration: TextDecoration.underline,
-              //       decorationThickness: 1,
-              //     ),
-              //   ),
-              // ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ForgotPassword()));
+                },
+                child: Text(
+                  'Terlupa kata laluan?',
+                  style: TextStyle(
+                    color: kZambeziColor,
+                    fontSize: 14,
+                    decoration: TextDecoration.underline,
+                    decorationThickness: 1,
+                  ),
+                ),
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -87,20 +86,21 @@ class LoginScreen extends StatelessWidget {
                 onTap: () async {
                   try {
                     LoadingIndicator.showLoadingDialog(context);
-                     AppUser.instance.signIn(
+                    AppUser.instance.signIn(
                         email: emailController.text,
                         password: passwordController.text);
                     Navigator.pop(context);
                   } catch (e) {
-
                     Navigator.pop(context);
-                    showDialog(context: context, builder: (context){
-                      return AlertDialog(
-                        content: Text(e.toString()),
-                      );
-                    });
-                    
-                  };
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text(e.toString()),
+                          );
+                        });
+                  }
+                  ;
                 },
                 child: Container(
                   alignment: Alignment.center,

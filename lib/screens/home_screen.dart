@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:e_masjid/providers/user.provider.dart';
 
 import '../providers/user.provider.dart';
+import '../services/firestore_service.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -25,36 +26,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-// final AuthService authService = new AuthService();
-//
-//   @override
-//   createAlertDialog(BuildContext context) {
-//
-//     return showDialog(context: context, builder: (context) {
-//       return  AlertDialog(
-//         title: Text('Sign Out'),
-//         content: Text('Really want to sign out?'),
-//         actions: [
-//           ElevatedButton(
-//             onPressed: () async {
-//               print('Sign Out Button Pressed');
-//               await authService.signOut();
-//               Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-//             },
-//             child: Text('Yes'),
-//           ),
-//           ElevatedButton(
-//             onPressed: () {
-//               Navigator.of(context).pop();
-//             },
-//             child: Text('No'),
-//           ),
-//         ],
-//       );
-//     });
-//   }
+  String username = "";
+  FireStoreService fireStoreService = FireStoreService();
 
   Widget build(BuildContext context) {
+
+    fireStoreService.getdata().then((value) {
+      username = value.data()!["name"];
+      setState(() {});
+    });
 
     final appUser = Provider.of<AppUser>(context);
     Size size = MediaQuery
@@ -68,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: kPrimaryColor,
         elevation: 0,
         iconTheme: IconThemeData(color: kPrimaryColor),
+
       ),
       body: Container(
         // color: Colors.yellow,
@@ -84,8 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   RichText(
-                      text: const TextSpan(
-                          text: "Hi, Marwan",
+                      text:  TextSpan(
+                          text: "Hi, $username",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 34,
@@ -102,8 +83,44 @@ class _HomeScreenState extends State<HomeScreen> {
                   IconButton(
                     icon: new Icon(Icons.logout_rounded),
                     onPressed: () async {
+
+                      Widget continueButton = TextButton(
+                        child: Text("Ya"),
+                        onPressed: () async {
+                          await appUser.signOut();
+                          Navigator.pop(context);
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (context) => LoginScreen()));
+                        },
+                      );
+
+                      Widget cancelButton = TextButton(
+                        child: Text("Tidak"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      );
+
+
+                      // set up the AlertDialog
+                      AlertDialog alert = AlertDialog(
+                        title: Text("Log Keluar"),
+                        content: Text("Anda pasti mahu log keluar?"),
+                        actions: [
+                          continueButton,
+                          cancelButton,
+                        ],
+                      );
+
+                      // show the dialog
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return alert;
+                        },
+                      );
                       // createAlertDialog(context);
-                      await appUser.signOut();
+
                     },
                     color: Colors.white,
                   ),
@@ -199,8 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      ),
-    );
+      ),    );
   }
 
   static const List<Choice> choices = const <Choice>[

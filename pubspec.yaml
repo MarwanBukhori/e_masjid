@@ -26,6 +26,8 @@ dependencies:
   webview_flutter: ^3.0.2
   flutter_widget_from_html: ^0.8.5
   html: ^0.15.0
+  email_validator: ^1.0.6
+  flutter_easyloading: ^3.0.3
 
 #  device_info_plus: ^3.2.2
 #  package_info_plus: ^1.4.2

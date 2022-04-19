@@ -9,3 +9,4 @@ export 'modul_tanya/tempah_qurban_screen.dart';
 export 'semak.screen.dart';
 export 'modul_produktiviti/hadis_screen.dart';
 export 'modul_produktiviti/doa_screen.dart';
+export 'login/forgotpass_screen.dart';
