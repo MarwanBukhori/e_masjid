@@ -10,3 +10,6 @@ export 'semak.screen.dart';
 export 'modul_produktiviti/hadis_screen.dart';
 export 'modul_produktiviti/doa_screen.dart';
 export 'login/forgotpass_screen.dart';
+
+//admin
+export 'petugas/admin_home_screen.dart';

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 class AppUser extends ChangeNotifier {
 
-
   update() {
     notifyListeners();
   }

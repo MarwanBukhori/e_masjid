@@ -1,9 +1,7 @@
-import 'package:e_masjid/screens/login/login_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
 import 'package:e_masjid/config/constants.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:e_masjid/providers/user.provider.dart';
 
