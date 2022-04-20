@@ -28,4 +28,5 @@ class FireStoreService {
         .get();
     return data;
   }
+
 }
