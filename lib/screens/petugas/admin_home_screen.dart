@@ -30,7 +30,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(title: 'Derma'),
+      appBar: CustomAppBar(title: 'Admin'),
       bottomNavigationBar: CustomNavBar(),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:e_masjid/models/quran/surah/surah.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 
@@ -24,6 +25,8 @@ class AppRouter {
         return HadisScreen.route();
       case DoaScreen.routeName:
         return DoaScreen.route();
+      case SurahIndex.routeName:
+        return SurahIndex.route();
       default:
         return _errorRoute();
     }
