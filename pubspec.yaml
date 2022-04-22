@@ -39,6 +39,9 @@ dependencies:
   flutter_easyloading: ^3.0.3
   shimmer: ^2.0.0
 
+  # Payment
+  flutter_stripe: ^2.4.0
+
   # cache
   hive: ^2.0.4
   hive_flutter: ^1.1.0

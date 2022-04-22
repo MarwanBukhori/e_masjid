@@ -32,7 +32,7 @@ class LandingScreen extends StatelessWidget {
                   final userDoc = snapshot.data;
                   final user = userDoc?.data();
                   if((user as Map<String, dynamic>)['role'] == 'petugas') {
-                    return HomeScreen();
+                    return PetugasHomeScreen();
                   } else {
                     return HomeScreen();
                   }

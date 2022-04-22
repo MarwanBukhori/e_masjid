@@ -1,8 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class DermaScreen extends StatefulWidget {
+
+
   static const String routeName = '/derma';
+
+
 
   static Route route(){
     return MaterialPageRoute(
@@ -16,6 +23,12 @@ class DermaScreen extends StatefulWidget {
 }
 
 class _DermaScreenState extends State<DermaScreen> {
+
+  late final String url;
+
+  final Completer<WebViewController> _controller =
+  Completer<WebViewController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
