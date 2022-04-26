@@ -7,6 +7,7 @@ class AppRouter {
     print('This is route: ${settings.name}');
 
     switch (settings.name) {
+      //user
       case HomeScreen.routeName:
         return HomeScreen.route();
       case DermaScreen.routeName:
@@ -29,6 +30,13 @@ class AppRouter {
         return SurahIndex.route();
       case makePayment.routeName:
         return makePayment.route();
+      case PetugasHomeScreen.routeName:
+        return PetugasHomeScreen.route();
+
+        //admin
+      case SahPermohonanScreen.routeName:
+        return SahPermohonanScreen.route();
+
       default:
         return _errorRoute();
     }

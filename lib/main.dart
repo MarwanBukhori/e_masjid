@@ -1,6 +1,6 @@
 import 'package:e_masjid/models/quran/ayat/ayat.dart';
 import 'package:e_masjid/providers/user.provider.dart';
-import 'package:e_masjid/screens/landing-page.screen.dart';
+import 'package:e_masjid/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'config/app_router.dart';
@@ -58,8 +58,8 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: AppRouter.onGenerateRoute,
         initialRoute: '/',
         routes: {
-          '/': (context) => LandingScreen(),
-          // '/home': (context) => HomeScreen(),
+          // '/': (context) => LandingScreen(),
+          '/': (context) => PetugasHomeScreen(maxSlide: MediaQuery.of(context).size.width * 0.835),
         },
       ),
     );

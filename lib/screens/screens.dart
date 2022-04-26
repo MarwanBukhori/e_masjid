@@ -13,5 +13,7 @@ export 'login/forgotpass_screen.dart';
 export 'quran/surah_index.dart';
 export 'makePayment.dart';
 
+
 //admin
-export 'petugas/admin_home_screen.dart';
+export 'petugas/petugas_home_screen.dart';
+export 'petugas/sah_permohonan_screen.dart';
