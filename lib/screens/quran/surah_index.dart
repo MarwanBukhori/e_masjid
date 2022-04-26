@@ -2,7 +2,6 @@ import 'package:e_masjid/animations/bottom_animation.dart';
 import 'package:e_masjid/services/quran_controller.dart';
 import 'package:e_masjid/widgets/quran/back_btn.dart';
 import 'package:e_masjid/widgets/quran/custom_image.dart';
-import 'package:e_masjid/widgets/quran/flare.dart';
 import 'package:e_masjid/widgets/quran/loading_shimmer.dart';
 import 'package:e_masjid/widgets/quran/title.dart';
 import 'package:e_masjid/models/quran/surah/surah.dart';
@@ -10,7 +9,6 @@ import 'package:e_masjid/models/quran/surah/surah_list.dart';
 import 'package:e_masjid/screens/quran/surah.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:provider/provider.dart';
 
 class SurahIndex extends StatefulWidget {
   const SurahIndex({Key? key}) : super(key: key);

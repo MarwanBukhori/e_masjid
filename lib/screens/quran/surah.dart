@@ -1,7 +1,6 @@
 import 'package:e_masjid/animations/bottom_animation.dart';
 import 'package:e_masjid/models/quran/ayat/ayat.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SurahAyats extends StatelessWidget {
   final List<Ayat>? ayatsList;

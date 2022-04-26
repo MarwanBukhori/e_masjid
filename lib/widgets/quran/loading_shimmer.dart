@@ -23,7 +23,7 @@ class LoadingShimmer extends StatelessWidget {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset('assets/logo.png', height: height * 0.1),
+            Image.asset('assets/images/logo.png', height: height * 0.1),
             WidgetAnimator(
                 child: Text("Loading $text..!",
                     style: TextStyle(fontSize: height * 0.02)))
