@@ -35,18 +35,18 @@ dependencies:
   webview_flutter: ^3.0.2
   flutter_widget_from_html: ^0.8.5
   html: ^0.15.0
+  http_auth: ^0.3.1
+  get: ^4.6.1
   email_validator: ^1.0.6
   flutter_easyloading: ^3.0.3
   shimmer: ^2.0.0
-
-  # Payment
-  flutter_stripe: ^2.4.0
 
   # cache
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   shared_preferences: ^2.0.8
 
+  http: ^0.13.4
 #  device_info_plus: ^3.2.2
   package_info_plus: ^1.4.2
 

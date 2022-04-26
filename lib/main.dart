@@ -2,14 +2,11 @@ import 'package:e_masjid/models/quran/ayat/ayat.dart';
 import 'package:e_masjid/providers/user.provider.dart';
 import 'package:e_masjid/screens/landing-page.screen.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'config/app_router.dart';
 import 'config/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-
-// import 'dark_mode_controller/theme_provider.dart';
 import 'models/quran/juzz/juz.dart';
 import 'models/quran/juzz/juz_list.dart';
 import 'models/quran/sajda/sajda.dart';

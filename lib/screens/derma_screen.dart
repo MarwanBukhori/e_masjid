@@ -7,7 +7,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class DermaScreen extends StatefulWidget {
 
 
-  static const String routeName = '/derma';
+  static const String routeName = '/lol';
 
 
 
@@ -31,6 +31,7 @@ class _DermaScreenState extends State<DermaScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(title: 'Derma'),

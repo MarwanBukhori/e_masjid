@@ -27,6 +27,8 @@ class AppRouter {
         return DoaScreen.route();
       case SurahIndex.routeName:
         return SurahIndex.route();
+      case makePayment.routeName:
+        return makePayment.route();
       default:
         return _errorRoute();
     }
