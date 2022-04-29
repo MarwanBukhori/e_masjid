@@ -4,7 +4,7 @@ import 'package:get_storage/get_storage.dart';
 
 
 class TemuJanjiProvider extends ChangeNotifier {
-  List<TemuJanji> temujanjiList;
+  List<Program> temujanjiList;
 
   TemuJanjiProvider({required this.temujanjiList});
 
@@ -17,7 +17,7 @@ class TemuJanjiProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  addTemujanji(TemuJanji temujanji) {
+  addTemujanji(Program temujanji) {
     temujanjiList.add(temujanji);
     update();
   }

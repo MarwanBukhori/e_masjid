@@ -1,7 +1,9 @@
 import 'package:e_masjid/models/quran/ayat/ayat.dart';
 import 'package:e_masjid/providers/user.provider.dart';
+import 'package:e_masjid/screens/landing-page.screen.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'config/app_router.dart';
 import 'config/constants.dart';
@@ -53,13 +55,13 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'E-Masjid',
         theme: theme(),
-        // home: LoginScreen(),
-        // home: ProgramScreen(),
+        builder: EasyLoading.init(),
         onGenerateRoute: AppRouter.onGenerateRoute,
         initialRoute: '/',
         routes: {
-          // '/': (context) => LandingScreen(),
-          '/': (context) => PetugasHomeScreen(maxSlide: MediaQuery.of(context).size.width * 0.835),
+          '/': (context) => LandingScreen(),
+          // // '/': (context) => PetugasHomeScreen(maxSlide: MediaQuery.of(context).size.width * 0.835),
+          // '/':(context)=> ProgramPetugasScreen()
         },
       ),
     );

@@ -116,7 +116,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                       try {
                         LoadingIndicator.showLoadingDialog(context);
 
-                        final temujanji = TemuJanji(
+                        final temujanji = Program(
                             TemuJanjiID: 'TJ2',
                             JenisTemuJanji: 'Pertanyaan',
                             tajuk: tajukTextController.text,

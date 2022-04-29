@@ -114,7 +114,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                         try {
                           LoadingIndicator.showLoadingDialog(context);
 
-                          final temujanji = TemuJanji(
+                          final temujanji = Program(
                               // TemuJanjiID: 'TJ2',
                               JenisTemuJanji: 'nikah',
                               pemohon: pemohonTextController.text,

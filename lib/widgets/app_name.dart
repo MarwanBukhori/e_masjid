@@ -11,9 +11,9 @@ class AppName extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("The", style: Theme.of(context).textTheme.headline2),
+          // Text("The", style: Theme.of(context).textTheme.headline2),
           Text(
-            "E-Masjid\nApp",
+            "\nE-Masjid",
             style: Theme.of(context).textTheme.headline1,
           )
         ],

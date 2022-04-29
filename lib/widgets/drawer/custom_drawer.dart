@@ -1,4 +1,5 @@
 import 'package:e_masjid/widgets/app_version.dart';
+import '../../providers/user.provider.dart';
 import 'drawer_app_name.dart';
 import 'package:e_masjid/models/drawer_list.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +15,16 @@ class MyDrawer extends StatefulWidget {
 class _MyDrawerState extends State<MyDrawer> {
   final List<DrawerListItem> _items = [
     DrawerListItem(
-      iconData: Icons.format_list_bulleted,
-      title: 'Quran',
-      route: '/quran',
+      iconData: Icons.logout_rounded,
+      title: 'Log Keluar',
+      route: '/',
     ),
+
+    // DrawerListItem(
+    // iconData: Icons.format_list_bulleted,
+    // title: 'Quran',
+    // route: '/quran',
+    // ),
     // DrawerListItem(
     //   iconData: Icons.format_list_numbered,
     //   title: 'Surah Index',
@@ -47,7 +54,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
   @override
   Widget build(BuildContext context) {
-
+    final appUser = Provider.of<AppUser>(context);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -67,15 +74,49 @@ class _MyDrawerState extends State<MyDrawer> {
               Column(
                 children: _items
                     .map(
-                      (tile) => Card(
-                        color: Colors.white,
-                        child: ListTile(
-                          leading: Icon(tile.iconData),
-                          title: Text(tile.title!),
-                          onTap: () => Navigator.pushNamed(
-                            context,
-                            tile.route!,
-                          ),
+                      (tile) => GestureDetector(
+                        child: Card(
+                          color: Colors.white,
+                          child: ListTile(
+                              leading: Icon(tile.iconData),
+                              title: Text(tile.title!),
+                              onTap: () async {
+                                Widget continueButton = TextButton(
+                                  child: Text("Ya"),
+                                  onPressed: () async {
+                                    await appUser.signOut();
+                                    Navigator.pop(context);
+                                    // Navigator.push(context,
+                                    //     MaterialPageRoute(builder: (context) => LoginScreen()));
+                                  },
+                                );
+                                Widget cancelButton = TextButton(
+                                  child: Text("Tidak"),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                );
+
+
+                                // set up the AlertDialog
+                                AlertDialog alert = AlertDialog(
+                                  title: Text("Log Keluar"),
+                                  content: Text("Anda pasti mahu log keluar?"),
+                                  actions: [
+                                    continueButton,
+                                    cancelButton,
+                                  ],
+                                );
+
+                                // show the dialog
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return alert;
+                                  },
+                                );
+
+                              }),
                         ),
                       ),
                     )

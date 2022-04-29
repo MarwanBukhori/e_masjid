@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
-class TemuJanji{
+class Program{
   String ?TemuJanjiID;
   String JenisTemuJanji;
   // String ?KariahID;
@@ -16,7 +16,7 @@ class TemuJanji{
   DateTime? tarikh;
   Bool ?privasi;
 
-  TemuJanji({
+  Program({
     this.TemuJanjiID,
     required this.JenisTemuJanji,
     this.pemohon,
@@ -31,9 +31,9 @@ class TemuJanji{
 
 
 
-  static TemuJanji fromMap(Map<String, dynamic> data, {String? id}) {
+  static Program fromMap(Map<String, dynamic> data, {String? id}) {
     try {
-      return TemuJanji(
+      return Program(
           TemuJanjiID: data['TemuJanjiID'] ?? '',
           JenisTemuJanji: data['JenisTemuJanji'] ?? '',
           pemohon: data['namaPemohon'],

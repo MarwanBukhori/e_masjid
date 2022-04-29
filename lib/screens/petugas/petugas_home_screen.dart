@@ -2,33 +2,37 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:async';
 import 'package:e_masjid/animations/bottom_animation.dart';
+import 'package:e_masjid/screens/petugas/programPetugas_screen.dart';
 import 'package:e_masjid/widgets/app_name.dart';
 import 'package:e_masjid/widgets/calligraphy.dart';
 import 'package:e_masjid/widgets/quran_rail.dart';
+import 'package:provider/provider.dart';
+import '../../providers/user.provider.dart';
 import '../../widgets/drawer/custom_drawer.dart';
 import 'package:flutter/material.dart';
 
 class PetugasHomeScreen extends StatefulWidget {
-
-
   static const String routeName = '/petugas_home';
 
   static Route route() {
     return MaterialPageRoute(
       settings: RouteSettings(name: routeName),
-      builder: (context) => PetugasHomeScreen(maxSlide: MediaQuery.of(context).size.width * 0.835,),
+      builder: (context) => PetugasHomeScreen(
+        maxSlide: MediaQuery.of(context).size.width * 0.835,
+      ),
     );
   }
 
-
-
   final double maxSlide;
+
   const PetugasHomeScreen({Key? key, required this.maxSlide}) : super(key: key);
+
   @override
   _PetugasHomeScreenState createState() => _PetugasHomeScreenState();
 }
 
-class _PetugasHomeScreenState extends State<PetugasHomeScreen> with TickerProviderStateMixin {
+class _PetugasHomeScreenState extends State<PetugasHomeScreen>
+    with TickerProviderStateMixin {
   late AnimationController animationController;
 
   @override
@@ -121,6 +125,7 @@ class _PetugasHomeScreenState extends State<PetugasHomeScreen> with TickerProvid
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
+
     return WillPopScope(
       onWillPop: _onWillPop,
       child: GestureDetector(
@@ -132,7 +137,7 @@ class _PetugasHomeScreenState extends State<PetugasHomeScreen> with TickerProvid
           animation: animationController,
           builder: (context, _) {
             return Material(
-              color:  Colors.white70,
+              color: Colors.white70,
               child: SafeArea(
                 child: Stack(
                   children: <Widget>[
@@ -159,6 +164,52 @@ class _PetugasHomeScreenState extends State<PetugasHomeScreen> with TickerProvid
                         child: const MainScreen(),
                       ),
                     ),
+                    // Positioned(
+                    //   top: 4.0 + MediaQuery.of(context).padding.top,
+                    //   left: width * 0.11 +
+                    //       animationController.value * widget.maxSlide,
+                    //   child: IconButton(
+                    //     icon: const Icon(Icons.logout_rounded),
+                    //     onPressed: () async {
+                    //       Widget continueButton = TextButton(
+                    //         child: Text("Ya"),
+                    //         onPressed: () async {
+                    //           await appUser.signOut();
+                    //           Navigator.pop(context);
+                    //           // Navigator.push(context,
+                    //           //     MaterialPageRoute(builder: (context) => LoginScreen()));
+                    //         },
+                    //       );
+                    //
+                    //       Widget cancelButton = TextButton(
+                    //         child: Text("Tidak"),
+                    //         onPressed: () {
+                    //           Navigator.pop(context);
+                    //         },
+                    //       );
+                    //
+                    //       // set up the AlertDialog
+                    //       AlertDialog alert = AlertDialog(
+                    //         title: Text("Log Keluar"),
+                    //         content: Text("Anda pasti mahu log keluar?"),
+                    //         actions: [
+                    //           continueButton,
+                    //           cancelButton,
+                    //         ],
+                    //       );
+                    //
+                    //       // show the dialog
+                    //       showDialog(
+                    //         context: context,
+                    //         builder: (BuildContext context) {
+                    //           return alert;
+                    //         },
+                    //       );
+                    //       // createAlertDialog(context);
+                    //     },
+                    //     color: Colors.black,
+                    //   ),
+                    // ),
                     Positioned(
                       top: 4.0 + MediaQuery.of(context).padding.top,
                       left: width * 0.01 +
@@ -166,8 +217,7 @@ class _PetugasHomeScreenState extends State<PetugasHomeScreen> with TickerProvid
                       child: IconButton(
                         icon: const Icon(Icons.menu),
                         onPressed: toggle,
-                        color:
-                            Colors.black,
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -186,8 +236,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Container(
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
@@ -200,7 +248,7 @@ class MainScreen extends StatelessWidget {
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[SahPermohonanBtn(), JuzzIndexBtn(), SajdaBtn()],
+              children: const <Widget>[SahPermohonanBtn(), ProgramPetugasBtn()],
             ),
           ),
           const AyahBottom(),
@@ -240,8 +288,8 @@ class SahPermohonanBtn extends StatelessWidget {
   }
 }
 
-class SajdaBtn extends StatelessWidget {
-  const SajdaBtn({Key? key}) : super(key: key);
+class ProgramPetugasBtn extends StatelessWidget {
+  const ProgramPetugasBtn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -256,11 +304,11 @@ class SajdaBtn extends StatelessWidget {
         child: MaterialButton(
           shape: const StadiumBorder(),
           onPressed: () {
-            Navigator.pushNamed(context, '/sajda');
+            MaterialPageRoute(builder: (context) => ProgramPetugasScreen());
           },
           child: WidgetAnimator(
             child: Text(
-              "Sajda Index",
+              "Petugas Program",
               style: TextStyle(
                   fontSize: height * 0.023, fontWeight: FontWeight.w400),
             ),
@@ -272,37 +320,37 @@ class SajdaBtn extends StatelessWidget {
   }
 }
 
-class JuzzIndexBtn extends StatelessWidget {
-  const JuzzIndexBtn({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: height * 0.01),
-      child: SizedBox(
-        width: width * 0.7,
-        height: height * 0.06,
-        child: MaterialButton(
-          shape: const StadiumBorder(),
-          onPressed: () {
-            Navigator.pushNamed(context, '/juzIndex');
-          },
-          child: WidgetAnimator(
-            child: Text(
-              "Juz Index",
-              style: TextStyle(
-                  fontSize: height * 0.023, fontWeight: FontWeight.w400),
-            ),
-          ),
-          color: const Color(0xffee8f8b),
-        ),
-      ),
-    );
-  }
-}
+// class JuzzIndexBtn extends StatelessWidget {
+//   const JuzzIndexBtn({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     double width = MediaQuery.of(context).size.width;
+//     double height = MediaQuery.of(context).size.height;
+//
+//     return Padding(
+//       padding: EdgeInsets.symmetric(vertical: height * 0.01),
+//       child: SizedBox(
+//         width: width * 0.7,
+//         height: height * 0.06,
+//         child: MaterialButton(
+//           shape: const StadiumBorder(),
+//           onPressed: () {
+//             Navigator.pushNamed(context, '/juzIndex');
+//           },
+//           child: WidgetAnimator(
+//             child: Text(
+//               "Juz Index",
+//               style: TextStyle(
+//                   fontSize: height * 0.023, fontWeight: FontWeight.w400),
+//             ),
+//           ),
+//           color: const Color(0xffee8f8b),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class AyahBottom extends StatelessWidget {
   const AyahBottom({Key? key}) : super(key: key);

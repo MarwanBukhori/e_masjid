@@ -41,11 +41,11 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
         ),
       ),
 
-      body: StreamBuilder<List<TemuJanji>>(
+      body: StreamBuilder<List<Program>>(
           stream: getTaskListStream(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              List<TemuJanji> temujanjiList = snapshot.data!;
+              List<Program> temujanjiList = snapshot.data!;
               return ListView(
                 children: List.generate(
                   temujanjiList.length,
@@ -84,7 +84,7 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
 
 //TASK CONTAINER SECTION
 class TemuJanjiContainer extends StatelessWidget {
-  final TemuJanji temujanji;
+  final Program temujanji;
   final int index;
 
   TemuJanjiContainer({required this.temujanji, required this.index});

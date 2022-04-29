@@ -41,6 +41,8 @@ dependencies:
   flutter_easyloading: ^3.0.3
   shimmer: ^2.0.0
 
+  #Event
+  calendar_view: ^0.0.4
   # cache
   hive: ^2.0.4
   hive_flutter: ^1.1.0

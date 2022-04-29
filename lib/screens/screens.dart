@@ -17,3 +17,6 @@ export 'makePayment.dart';
 //admin
 export 'petugas/petugas_home_screen.dart';
 export 'petugas/sah_permohonan_screen.dart';
+export 'petugas/programPetugas_screen.dart';
+export 'petugas/add_program_screen.dart';
+export 'petugas/edit_program.dart';

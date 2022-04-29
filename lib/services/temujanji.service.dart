@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_masjid/models/temujanji_model.dart';
 
-Future<List<TemuJanji>> getTaskList() async {
+Future<List<Program>> getTaskList() async {
   final snapshot = await FirebaseFirestore.instance
       .collection('temujanji')
       // .where('authorId', isEqualTo: AppUser().user!.uid)
       .get();
-  return snapshot.docs.map((e) => TemuJanji.fromMap(e.data())).toList();
+  return snapshot.docs.map((e) => Program.fromMap(e.data())).toList();
 }
 
-Stream<List<TemuJanji>> getNikahListStream() {
+Stream<List<Program>> getNikahListStream() {
   final snapshots = FirebaseFirestore.instance
       .collection('nikah')
   // .where('authorId', isEqualTo: AppUser().user!.uid)
@@ -17,12 +17,12 @@ Stream<List<TemuJanji>> getNikahListStream() {
       .snapshots();
   return snapshots.map((snapshot) => snapshot.docs
       .map(
-        (e) => TemuJanji.fromMap(e.data(), id: e.id),
+        (e) => Program.fromMap(e.data(), id: e.id),
   )
       .toList());
 }
 
-Stream<List<TemuJanji>> getQurbanListStream() {
+Stream<List<Program>> getQurbanListStream() {
   final snapshots = FirebaseFirestore.instance
       .collection('qurban')
   // .where('authorId', isEqualTo: AppUser().user!.uid)
@@ -30,13 +30,13 @@ Stream<List<TemuJanji>> getQurbanListStream() {
       .snapshots();
   return snapshots.map((snapshot) => snapshot.docs
       .map(
-        (e) => TemuJanji.fromMap(e.data(), id: e.id),
+        (e) => Program.fromMap(e.data(), id: e.id),
   )
       .toList());
 }
 
 
-Stream<List<TemuJanji>> getTaskListStream() {
+Stream<List<Program>> getTaskListStream() {
   final snapshots = FirebaseFirestore.instance
       .collection('tanya')
       // .where('authorId', isEqualTo: AppUser().user!.uid)
@@ -55,14 +55,14 @@ Stream<List<TemuJanji>> getTaskListStream() {
 
   return snapshots.map((snapshot) => snapshot.docs
       .map(
-        (e) => TemuJanji.fromMap(e.data(), id: e.id),
+        (e) => Program.fromMap(e.data(), id: e.id),
   )
       .toList());
 
 
 }
 
-Future<bool> addTanya(TemuJanji temujanji) async {
+Future<bool> addTanya(Program temujanji) async {
   try {
     await FirebaseFirestore.instance.collection('tanya').add(temujanji.toMap());
     return true;
@@ -82,7 +82,7 @@ Future<bool> deleteTemujanji(String temujanjiID) async {
   }
 }
 
-Future<bool> addNikah(TemuJanji temujanji) async {
+Future<bool> addNikah(Program temujanji) async {
   try {
     await FirebaseFirestore.instance.collection('nikah').add(temujanji.toMap());
     return true;
@@ -92,7 +92,7 @@ Future<bool> addNikah(TemuJanji temujanji) async {
   }
 }
 
-Future<bool> addQurban(TemuJanji temujanji) async {
+Future<bool> addQurban(Program temujanji) async {
   try {
     await FirebaseFirestore.instance.collection('qurban').add(temujanji.toMap());
     return true;
