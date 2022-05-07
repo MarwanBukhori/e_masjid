@@ -1,3 +1,4 @@
+import 'package:e_masjid/screens/landing-page.screen.dart';
 import 'package:e_masjid/widgets/app_version.dart';
 import '../../providers/user.provider.dart';
 import 'drawer_app_name.dart';
@@ -86,8 +87,9 @@ class _MyDrawerState extends State<MyDrawer> {
                                   onPressed: () async {
                                     await appUser.signOut();
                                     Navigator.pop(context);
-                                    // Navigator.push(context,
-                                    //     MaterialPageRoute(builder: (context) => LoginScreen()));
+
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => LandingScreen()));
                                   },
                                 );
                                 Widget cancelButton = TextButton(

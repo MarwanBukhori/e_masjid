@@ -51,4 +51,12 @@ class FireStoreService {
       "description": desc,
     });
   }
+
+  // use in add Program screen
+  Future<void> uploadServiceData(String title, String desc) async {
+    await _firebaseFirestore.collection("program").doc().set({
+      "title": title,
+      "description": desc,
+    });
+  }
 }

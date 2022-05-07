@@ -1,6 +1,6 @@
 export 'home_screen.dart';
 export 'derma_screen.dart';
-export 'program_screen.dart';
+// export 'program_screen.dart';
 export 'login/login_screen.dart';
 export 'login/signup_screen.dart';
 export 'modul_tanya/tanya_imam_screen.dart';
@@ -12,11 +12,10 @@ export 'modul_produktiviti/doa_screen.dart';
 export 'login/forgotpass_screen.dart';
 export 'quran/surah_index.dart';
 export 'makePayment.dart';
-
+export 'program_screen.dart';
 
 //admin
 export 'petugas/petugas_home_screen.dart';
 export 'petugas/sah_permohonan_screen.dart';
-export 'petugas/programPetugas_screen.dart';
 export 'petugas/add_program_screen.dart';
 export 'petugas/edit_program.dart';

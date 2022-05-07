@@ -1,12 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_masjid/screens/petugas/program_detail_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../widgets/widgets.dart';
-import 'package:e_masjid/config/table_calendar_utils.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:e_masjid/config/constants.dart';
+import 'package:e_masjid/screens/screens.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProgramScreen extends StatefulWidget {
-  const ProgramScreen({Key? key}) : super(key: key);
-
   static const String routeName = '/program';
 
   static Route route() {
@@ -17,156 +16,338 @@ class ProgramScreen extends StatefulWidget {
   }
 
   @override
-  _ProgramScreenState createState() => _ProgramScreenState();
+  State<ProgramScreen> createState() => _ProgramScreenState();
 }
 
 class _ProgramScreenState extends State<ProgramScreen> {
-
-  late final ValueNotifier<List<Event>> _selectedEvents;
-  CalendarFormat _calendarFormat = CalendarFormat.week;
-  RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
-      .toggledOff; // Can be toggled on/off by longpressing a date
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-  DateTime? _rangeStart;
-  DateTime? _rangeEnd;
+  bool visible = false;
+  bool loading = true;
 
   @override
   void initState() {
     super.initState();
-
-    _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+    getData();
+    checkUserRole();
   }
 
-  @override
-  void dispose() {
-    _selectedEvents.dispose();
-    super.dispose();
-  }
-
-
-  List<Event> _getEventsForDay(DateTime day) {
-    // Implementation example
-    return kEvents[day] ?? [];
-  }
-
-  List<Event> _getEventsForRange(DateTime start, DateTime end) {
-    // Implementation example
-    final days = daysInRange(start, end);
-
-    return [
-      for (final d in days) ..._getEventsForDay(d),
-    ];
-  }
-
-  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    if (!isSameDay(_selectedDay, selectedDay)) {
-      setState(() {
-        _selectedDay = selectedDay;
-        _focusedDay = focusedDay;
-        _rangeStart = null; // Important to clean those
-        _rangeEnd = null;
-        _rangeSelectionMode = RangeSelectionMode.toggledOff;
-      });
-
-      _selectedEvents.value = _getEventsForDay(selectedDay);
-    }
-  }
-
-  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
-    setState(() {
-      _selectedDay = null;
-      _focusedDay = focusedDay;
-      _rangeStart = start;
-      _rangeEnd = end;
-      _rangeSelectionMode = RangeSelectionMode.toggledOn;
-    });
-
-    // `start` or `end` could be null
-    if (start != null && end != null) {
-      _selectedEvents.value = _getEventsForRange(start, end);
-    } else if (start != null) {
-      _selectedEvents.value = _getEventsForDay(start);
-    } else if (end != null) {
-      _selectedEvents.value = _getEventsForDay(end);
-    }
-  }
+  List<Map<String, dynamic>> programs = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Jadual Program',
-            style: TextStyle(
-              fontFamily: 'Montserrat',
-                color: Colors.white,
-              fontSize: 18,
-            )
+      // Floating action button sunting
+      floatingActionButton: Visibility(
+        visible: visible,
+        child: FloatingActionButton.extended(
+          heroTag: 'servis_hero',
+          onPressed: () async {
+            await Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddProgramScreen()));
+          },
+          label: const Text(" Program"),
+          icon: const Icon(Icons.add),
+          backgroundColor: const Color.fromARGB(255, 150, 100, 55),
         ),
-        elevation: 0,
-        backgroundColor: kPrimaryColor,
       ),
+
+      //appbar
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.black,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Senarai Program'),
+              Icon(
+                Icons.store,
+                size: 30.sp,
+              ),
+              //icon button tambah servis
+            ],
+          ),
+          actions: [
+            //search button
+            IconButton(
+                onPressed: () {
+                  // showSearch(
+                  //   context: context,
+                  //   delegate: MySearchDelegate(services: services),
+                  // );
+                },
+                icon: const Icon(
+                  Icons.search,
+                  size: 35,
+                ))
+          ]),
       body: Column(
         children: [
-          TableCalendar<Event>(
-            firstDay: kFirstDay,
-            lastDay: kLastDay,
-            focusedDay: _focusedDay,
-            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-            rangeStartDay: _rangeStart,
-            rangeEndDay: _rangeEnd,
-            calendarFormat: _calendarFormat,
-            rangeSelectionMode: _rangeSelectionMode,
-            eventLoader: _getEventsForDay,
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            calendarStyle: CalendarStyle(
-              // Use `CalendarStyle` to customize the UI
-              outsideDaysVisible: false,
-            ),
-            onDaySelected: _onDaySelected,
-            onRangeSelected: _onRangeSelected,
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
-            },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
+          SizedBox(
+            height: 20.h,
           ),
-          const SizedBox(height: 8.0),
+          //List View
           Expanded(
-            child: ValueListenableBuilder<List<Event>>(
-              valueListenable: _selectedEvents,
-              builder: (context, value, _) {
-                return ListView.builder(
-                  itemCount: value.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 4.0,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: ListTile(
-                        onTap: () => print('${value[index]}'),
-                        title: Text('${value[index]}'),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
+            child: loading
+                ? const SizedBox(
+                    width: double.infinity,
+                    child: Center(child: CircularProgressIndicator()))
+                : ListView.builder(
+                    key: UniqueKey(),
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: programs.length,
+                    itemBuilder: ((context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (c) => ProgramDetail(
+                                        data: programs[index],
+                                      )));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                          height: 100,
+                          decoration: const BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 50.w,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    programs[index]["title"],
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Row(children: [
+                                    const Icon(Icons.calendar_month_rounded),
+                                    Text(
+                                      programs[index]["description"],
+                                    ),
+                                  ]),
+                                  // Row(children: [
+                                  //   const Icon(Icons.access_alarm),
+                                  //   Text(
+                                  //     programs[index]["ser_waktu"],
+                                  //   ),
+                                  // ]),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
           ),
         ],
       ),
-      bottomNavigationBar: CustomNavBar(),
     );
   }
+
+  //get data into list
+  Future getData() async {
+    await FirebaseFirestore.instance.collection("program").get().then((value) {
+      for (var element in value.docs) {
+        Map<String, dynamic> data = element.data();
+        data.addAll({'id': element.id});
+        programs.add(data);
+      }
+      if (mounted) {
+        loading = false;
+        setState(() {});
+      }
+    });
+  }
+
+  //check user role
+  checkUserRole() {
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      if (value.data()!["role"].toString() == "petugas") {
+        visible = true;
+      } else {
+        visible = false;
+      }
+      setState(() {});
+    });
+  }
 }
+
+//search function
+//
+// class MySearchDelegate extends SearchDelegate {
+//   List programs;
+//
+//   MySearchDelegate({
+//     required this.programs,
+//   });
+//
+//   @override
+//   //
+//   String? get searchFieldLabel => "Cari program";
+//
+//   @override
+//   Widget? buildLeading(BuildContext context) => IconButton(
+//         icon: const Icon(Icons.arrow_back_ios),
+//         onPressed: () => close(context, null),
+//       );
+//
+//   @override
+//   List<Widget>? buildActions(BuildContext context) => [
+//         IconButton(
+//           icon: const Icon(Icons.clear),
+//           onPressed: () {
+//             if (query.isEmpty) {
+//               close(context, null); //close search bar
+//             } else {
+//               query = '';
+//             }
+//           },
+//         ),
+//       ];
+//
+//   @override
+//   Widget buildResults(BuildContext context) {
+//     List data = [];
+//
+//     for (int i = 0; i < programs.length; i++) {
+//       if ((programs[i]["title"] as String).toLowerCase() ==
+//           query.toLowerCase()) {
+//         data.add(programs[i]);
+//       }
+//     }
+//
+//     return ListView.builder(
+//       itemCount: data.length,
+//       itemBuilder: (context, index) {
+//         return GestureDetector(
+//           onTap: () {
+//             Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                     builder: (c) => ProgramDetail(
+//                           data: data[index],
+//                         )));
+//           },
+//           child: Container(
+//             margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+//             height: 100,
+//             decoration: const BoxDecoration(
+//                 color: Color.fromARGB(255, 216, 192, 161),
+//                 borderRadius: BorderRadius.all(Radius.circular(20))),
+//             child: Row(
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               children: [
+//                 SizedBox(
+//                   width: 50.w,
+//                 ),
+//                 Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: <Widget>[
+//                     Text(
+//                       data[index]["title"],
+//                       style: const TextStyle(
+//                           fontSize: 20, fontWeight: FontWeight.bold),
+//                     ),
+//                     Row(children: [
+//                       const Icon(Icons.calendar_month_rounded),
+//                       Text(
+//                         data[index]["description"],
+//                       ),
+//                     ]),
+//                     // Row(children: [
+//                     //   const Icon(Icons.access_alarm),
+//                     //   Text(
+//                     //     data[index]["ser_waktu"],
+//                     //   ),
+//                     // ]),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
+//
+//   @override
+//   Widget buildSuggestions(BuildContext context) {
+//     List data = [];
+//
+//     for (int i = 0; i < programs.length; i++) {
+//       if ((programs[i]["title"] as String)
+//           .toLowerCase()
+//           .contains(query.toLowerCase())) {
+//         data.add(programs[i]);
+//       }
+//     }
+//
+//     return ListView.builder(
+//       itemCount: data.length,
+//       itemBuilder: (context, index) {
+//         return GestureDetector(
+//           onTap: () {
+//             Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                     builder: (c) => ProgramDetail(
+//                           data: data[index],
+//                         )));
+//           },
+//           child: Container(
+//             margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+//             height: 100,
+//             decoration: const BoxDecoration(
+//                 color: Color.fromARGB(255, 216, 192, 161),
+//                 borderRadius: BorderRadius.all(Radius.circular(20))),
+//             child: Row(
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               children: [
+//                 SizedBox(
+//                   width: 50.w,
+//                 ),
+//                 Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: <Widget>[
+//                     Text(
+//                       data[index]["title"],
+//                       style: const TextStyle(
+//                           fontSize: 20, fontWeight: FontWeight.bold),
+//                     ),
+//                     Row(children: [
+//                       const Icon(Icons.calendar_month_rounded),
+//                       Text(
+//                         data[index]["description"],
+//                       ),
+//                     ]),
+//                     // Row(children: [
+//                     //   const Icon(Icons.access_alarm),
+//                     //   Text(
+//                     //     data[index]["ser_waktu"],
+//                     //   ),
+//                     // ]),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }

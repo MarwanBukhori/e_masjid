@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:async';
 import 'package:e_masjid/animations/bottom_animation.dart';
-import 'package:e_masjid/screens/petugas/programPetugas_screen.dart';
+import '../program_screen.dart';
 import 'package:e_masjid/widgets/app_name.dart';
 import 'package:e_masjid/widgets/calligraphy.dart';
 import 'package:e_masjid/widgets/quran_rail.dart';
@@ -164,52 +164,6 @@ class _PetugasHomeScreenState extends State<PetugasHomeScreen>
                         child: const MainScreen(),
                       ),
                     ),
-                    // Positioned(
-                    //   top: 4.0 + MediaQuery.of(context).padding.top,
-                    //   left: width * 0.11 +
-                    //       animationController.value * widget.maxSlide,
-                    //   child: IconButton(
-                    //     icon: const Icon(Icons.logout_rounded),
-                    //     onPressed: () async {
-                    //       Widget continueButton = TextButton(
-                    //         child: Text("Ya"),
-                    //         onPressed: () async {
-                    //           await appUser.signOut();
-                    //           Navigator.pop(context);
-                    //           // Navigator.push(context,
-                    //           //     MaterialPageRoute(builder: (context) => LoginScreen()));
-                    //         },
-                    //       );
-                    //
-                    //       Widget cancelButton = TextButton(
-                    //         child: Text("Tidak"),
-                    //         onPressed: () {
-                    //           Navigator.pop(context);
-                    //         },
-                    //       );
-                    //
-                    //       // set up the AlertDialog
-                    //       AlertDialog alert = AlertDialog(
-                    //         title: Text("Log Keluar"),
-                    //         content: Text("Anda pasti mahu log keluar?"),
-                    //         actions: [
-                    //           continueButton,
-                    //           cancelButton,
-                    //         ],
-                    //       );
-                    //
-                    //       // show the dialog
-                    //       showDialog(
-                    //         context: context,
-                    //         builder: (BuildContext context) {
-                    //           return alert;
-                    //         },
-                    //       );
-                    //       // createAlertDialog(context);
-                    //     },
-                    //     color: Colors.black,
-                    //   ),
-                    // ),
                     Positioned(
                       top: 4.0 + MediaQuery.of(context).padding.top,
                       left: width * 0.01 +
@@ -278,10 +232,10 @@ class SahPermohonanBtn extends StatelessWidget {
             child: Text(
               "Pengesahan Permohonan",
               style: TextStyle(
-                  fontSize: height * 0.023, fontWeight: FontWeight.w400),
+                  fontSize: height * 0.023, fontWeight: FontWeight.w600),
             ),
           ),
-          color: const Color(0xffee8f8b),
+          color: const Color(0xffee8f5b),
         ),
       ),
     );
@@ -304,16 +258,17 @@ class ProgramPetugasBtn extends StatelessWidget {
         child: MaterialButton(
           shape: const StadiumBorder(),
           onPressed: () {
-            MaterialPageRoute(builder: (context) => ProgramPetugasScreen());
+            // MaterialPageRoute(builder: (context) => ProgramPetugasScreen());
+            Navigator.pushNamed(context, "/petugas_program");
           },
           child: WidgetAnimator(
             child: Text(
-              "Petugas Program",
+              "Sunting Program",
               style: TextStyle(
-                  fontSize: height * 0.023, fontWeight: FontWeight.w400),
+                  fontSize: height * 0.023, fontWeight: FontWeight.w600),
             ),
           ),
-          color: const Color(0xffee8f8b),
+          color: const Color(0xffee8f5b),
         ),
       ),
     );

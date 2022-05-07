@@ -12,8 +12,8 @@ class AppRouter {
         return HomeScreen.route();
       case DermaScreen.routeName:
         return DermaScreen.route();
-      case ProgramScreen.routeName:
-        return ProgramScreen.route();
+      // case ProgramScreen.routeName:
+      //   return ProgramScreen.route();
       case TanyaImamScreen.routeName:
         return TanyaImamScreen.route();
       case MohonNikahScreen.routeName:
@@ -36,8 +36,8 @@ class AppRouter {
         //admin
       case SahPermohonanScreen.routeName:
         return SahPermohonanScreen.route();
-      // case ProgramPetugasScreen.routeName:
-      //   return ProgramPetugasScreen.route();
+      case ProgramScreen.routeName:
+        return ProgramScreen.route();
 
       default:
         return _errorRoute();

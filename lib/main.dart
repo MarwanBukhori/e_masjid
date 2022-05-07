@@ -4,6 +4,7 @@ import 'package:e_masjid/screens/landing-page.screen.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'config/app_router.dart';
 import 'config/constants.dart';
@@ -47,23 +48,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<AppUser>(create: (_) => AppUser())
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'E-Masjid',
-        theme: theme(),
-        builder: EasyLoading.init(),
-        onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: '/',
-        routes: {
-          '/': (context) => LandingScreen(),
-          // // '/': (context) => PetugasHomeScreen(maxSlide: MediaQuery.of(context).size.width * 0.835),
-          // '/':(context)=> ProgramPetugasScreen()
-        },
-      ),
+    return ScreenUtilInit(
+      designSize: const Size(480.0, 965.3333333333334),
+      builder: (BuildContext context) {
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider<AppUser>(create: (_) => AppUser())
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'E-Masjid',
+            theme: theme(),
+            builder: EasyLoading.init(),
+            onGenerateRoute: AppRouter.onGenerateRoute,
+            initialRoute: '/',
+            routes: {
+              '/': (context) => LandingScreen(),
+              // '/': (context) => PetugasHomeScreen(maxSlide: MediaQuery.of(context).size.width * 0.835),
+
+            },
+          ),
+        );
+      },
+
     );
   }
 }

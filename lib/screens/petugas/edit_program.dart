@@ -3,6 +3,7 @@ import 'dart:io';
 
 // import 'package:Jorania/screen/service.dart';
 import 'package:e_masjid/services/firestore_service.dart';
+
 // import 'package:Jorania/services/storage_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_masjid/screens/petugas/program_detail_screen.dart';
@@ -11,9 +12,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
-
-// import 'package:Jorania/providers/place_provider.dart';
 
 class EditProgram extends StatefulWidget {
   final String id;
@@ -100,7 +98,7 @@ class _EditProgramState extends State<EditProgram> {
                     margin: EdgeInsets.all(20.w),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.orange, width: 2),
+                      border: Border.all(color: Colors.black, width: 2),
                       borderRadius: BorderRadius.circular(20.w),
                     ),
                     child: Column(
@@ -110,7 +108,7 @@ class _EditProgramState extends State<EditProgram> {
                           height: 15,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.orange,
+                            color: Colors.black,
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20.w),
                               topRight: Radius.circular(20.w),
@@ -175,8 +173,8 @@ class _EditProgramState extends State<EditProgram> {
                               //   ),
                               // )
                               //     : const SizedBox(),
-                              SizedBox(
-                                height: 10.h,
+                              // SizedBox(
+                              //   height: 10.h,
                                 // ),
                                 // imageFileList!.isEmpty
                                 //     ? ElevatedButton(
@@ -239,7 +237,7 @@ class _EditProgramState extends State<EditProgram> {
                                 //           ],
                                 //         );
                                 //       })),
-                              ),
+                              // ),
                               SizedBox(
                                 height: 10.h,
                               ),
@@ -316,7 +314,7 @@ class _EditProgramState extends State<EditProgram> {
                                     width: 5.w,
                                   ),
                                   Text(
-                                    '(cth: Program Gotong Royong...)',
+                                    '(cth Gotong Royong...)',
                                     style: TextStyle(
                                         fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
@@ -356,184 +354,6 @@ class _EditProgramState extends State<EditProgram> {
                               ),
                               const SizedBox(height: 15),
 
-                              //waktu operasi
-                              // Row(
-                              //   children: [
-                              //     Text(
-                              //       'WAKTU OPERASI',
-                              //       style: TextStyle(
-                              //           fontSize: 18.sp,
-                              //           fontWeight: FontWeight.bold,
-                              //           color: Colors.black54),
-                              //     ),
-                              //     SizedBox(
-                              //       width: 5.w,
-                              //     ),
-                              //     const Icon(
-                              //       Icons.alarm,
-                              //       color: Colors.black54,
-                              //     ),
-                              //     SizedBox(
-                              //       width: 5.w,
-                              //     ),
-                              //     Text(
-                              //       '(cth: 8.30pg-10.30mlm)',
-                              //       style: TextStyle(
-                              //           fontSize: 18.sp,
-                              //           fontWeight: FontWeight.bold,
-                              //           color: Colors.black54),
-                              //     )
-                              //   ],
-                              // ),
-                              // const SizedBox(height: 3),
-                              // TextFormField(
-                              //   controller: waktuController,
-                              //   autofocus: false,
-                              //   cursorColor: Colors.white,
-                              //   keyboardType: TextInputType.name,
-                              //   autovalidateMode:
-                              //   AutovalidateMode.onUserInteraction,
-                              //   validator: (value) {
-                              //     RegExp regex = RegExp(r'^.{5,}$');
-                              //     if (value!.isEmpty) {
-                              //       return ("Sila isi butiran waktu operasi");
-                              //     }
-                              //     if (!regex.hasMatch(value)) {
-                              //       return ("masukkan minimum 5 huruf");
-                              //     }
-                              //     return null;
-                              //   },
-                              //   onSaved: (value) {
-                              //     nameController.text = value!;
-                              //   },
-                              //   textInputAction: TextInputAction.next,
-                              //   decoration: InputDecoration(
-                              //     contentPadding:
-                              //     const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                              //     labelText: '',
-                              //     border: OutlineInputBorder(
-                              //         borderRadius: BorderRadius.circular(10)),
-                              //   ),
-                              // ),
-                              // SizedBox(
-                              //   height: 15.h,
-                              // ),
-
-                              //nombor telefon
-                              // Row(
-                              //   children: [
-                              //     Text(
-                              //       'NO. TELEFON',
-                              //       style: TextStyle(
-                              //           fontSize: 18.sp,
-                              //           fontWeight: FontWeight.bold,
-                              //           color: Colors.black54),
-                              //     ),
-                              //     SizedBox(
-                              //       width: 5.w,
-                              //     ),
-                              //     const Icon(
-                              //       Icons.whatsapp,
-                              //       color: Colors.black54,
-                              //     ),
-                              //     SizedBox(
-                              //       width: 5.w,
-                              //     ),
-                              //     Text(
-                              //       '(cth: 01234567891)',
-                              //       style: TextStyle(
-                              //           fontSize: 18.sp,
-                              //           fontWeight: FontWeight.bold,
-                              //           color: Colors.black54),
-                              //     )
-                              //   ],
-                              // ),
-                              // const SizedBox(height: 3),
-                              // TextFormField(
-                              //   controller: telefonController,
-                              //   autofocus: false,
-                              //   cursorColor: Colors.white,
-                              //   keyboardType: TextInputType.number,
-                              //   autovalidateMode:
-                              //   AutovalidateMode.onUserInteraction,
-                              //   validator: (value) {
-                              //     RegExp regex =
-                              //     RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
-                              //     if (value!.isEmpty) {
-                              //       return ("Sila isi butiran no. telefon");
-                              //     }
-                              //     if (!regex.hasMatch(value)) {
-                              //       return ("masukkan no. telefon yang betul seperti contoh");
-                              //     }
-                              //     return null;
-                              //   },
-                              //   onSaved: (value) {
-                              //     nameController.text = value!;
-                              //   },
-                              //   textInputAction: TextInputAction.next,
-                              //   decoration: InputDecoration(
-                              //     contentPadding:
-                              //     const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                              //     labelText: '',
-                              //     border: OutlineInputBorder(
-                              //         borderRadius: BorderRadius.circular(10)),
-                              //   ),
-                              // ),
-                              // SizedBox(
-                              //   height: 15.h,
-                              // ),
-
-                              //ULASAN
-                              // Row(
-                              //   children: [
-                              //     Text(
-                              //       'KETERANGAN',
-                              //       style: TextStyle(
-                              //           fontSize: 18.sp,
-                              //           fontWeight: FontWeight.bold,
-                              //           color: Colors.black54),
-                              //     ),
-                              //     SizedBox(
-                              //       width: 5.w,
-                              //     ),
-                              //     const Icon(
-                              //       Icons.draw_rounded,
-                              //       color: Colors.black54,
-                              //     ),
-                              //   ],
-                              // ),
-                              // TextFormField(
-                              //   minLines: 3,
-                              //   maxLines: null,
-                              //   controller: detailController,
-                              //   autofocus: false,
-                              //   cursorColor: Colors.white,
-                              //   keyboardType: TextInputType.multiline,
-                              //   autovalidateMode:
-                              //   AutovalidateMode.onUserInteraction,
-                              //   validator: (value) {
-                              //     RegExp regex = RegExp(r'^.{10,}$');
-                              //     if (value!.isEmpty) {
-                              //       return ("Sila isi butiran keterangan");
-                              //     }
-                              //     // if (!regex.hasMatch(value)) {
-                              //     //   return ("masukkan minimum 10 huruf");
-                              //     // }
-                              //     return null;
-                              //   },
-                              //   onSaved: (value) {
-                              //     nameController.text = value!;
-                              //   },
-                              //   textInputAction: TextInputAction.newline,
-                              //   decoration: InputDecoration(
-                              //     contentPadding:
-                              //     const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                              //     labelText: '',
-                              //     border: OutlineInputBorder(
-                              //         borderRadius: BorderRadius.circular(10)),
-                              //   ),
-                              // ),
-                              // SizedBox(height: 10.h),
 
                               Row(
                                 mainAxisAlignment:
@@ -542,7 +362,7 @@ class _EditProgramState extends State<EditProgram> {
                                   Expanded(
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          primary: Colors.orange),
+                                          primary: Colors.black),
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
@@ -568,11 +388,11 @@ class _EditProgramState extends State<EditProgram> {
                                   Expanded(
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                          primary: Colors.orange),
+                                          primary: Colors.black),
                                       onPressed: () {
                                         EasyLoading.show(
                                             status: 'Sedang diproses');
-                                        ((value) {
+
                                           fireStoreService
                                               .updateServiceData(
                                             titleController.text,
@@ -597,18 +417,6 @@ class _EditProgramState extends State<EditProgram> {
                                                     titleController.text);
                                             a.update('description',
                                                 (value) => descController.text);
-                                            // a.update(
-                                            //     'ser_waktu',
-                                            //         (value) =>
-                                            //     waktuController.text);
-                                            // a.update(
-                                            //     'ser_tel',
-                                            //         (value) =>
-                                            //     telefonController.text);
-                                            // a.update(
-                                            //     'ser_desc',
-                                            //         (value) =>
-                                            //     detailController.text);
                                             Navigator.pop(context);
 
                                             Navigator.pushReplacement(
@@ -618,7 +426,7 @@ class _EditProgramState extends State<EditProgram> {
                                                         ProgramDetail(
                                                             data: a)));
                                           });
-                                        });
+
                                       },
                                       child: Row(
                                         mainAxisAlignment:
@@ -654,7 +462,8 @@ class _EditProgramState extends State<EditProgram> {
                                               .delete();
                                           Navigator.of(context).pop();
                                           Navigator.of(context).pop();
-                                          Navigator.of(context).pop();
+                                          // Navigator.of(context).pop();
+                                          Navigator.of(context).popAndPushNamed('/petugas_program');
                                         },
                                       );
 
@@ -664,8 +473,8 @@ class _EditProgramState extends State<EditProgram> {
                                         content: const Text(
                                             "Anda pasti mahu buang servis?"),
                                         actions: [
-                                          cancelButton,
                                           continueButton,
+                                          cancelButton,
                                         ],
                                       );
 

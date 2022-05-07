@@ -29,7 +29,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
   @override
   void initState() {
     super.initState();
-    // checkUserRole();
+    checkUserRole();
     // picUrl = widget.data["ser_pic"];
   }
 
@@ -49,14 +49,14 @@ class _ProgramDetailState extends State<ProgramDetail> {
                 MaterialPageRoute(
                     builder: (context) => EditProgram(id: widget.data["id"])));
           },
-          label: const Text("kemaskini"),
+          label: const Text("Sunting"),
           icon: const Icon(Icons.edit),
-          backgroundColor: Colors.orange,
+          backgroundColor: Colors.black,
         ),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.orange[300],
-        title: const Text('Servis '),
+        backgroundColor: Colors.black,
+        title: const Text('Program '),
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -181,45 +181,9 @@ class _ProgramDetailState extends State<ProgramDetail> {
               ),
             ),
 
-            //header tips
-
-            //content tips
 
             SizedBox(height: 20.h),
-            //button GPS
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(50, 50),
-                        primary: Colors.deepOrange[300],
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(13))),
-                    onPressed: () {
-                      _launchUrl();
-                    },
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.whatsapp,
-                          color: Colors.green[400],
-                          size: 35,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          'Whatsapp',
-                          style: TextStyle(fontSize: 25.sp),
-                        ),
-                        SizedBox(
-                          width: 10.w,
-                        )
-                      ],
-                    )),
-              ],
-            ),
+
             const SizedBox(
               height: 30,
             )
@@ -229,20 +193,20 @@ class _ProgramDetailState extends State<ProgramDetail> {
     );
   }
 
-  // checkUserRole() {
-  //   FirebaseFirestore.instance
-  //       .collection("users")
-  //       .doc(FirebaseAuth.instance.currentUser!.uid)
-  //       .get()
-  //       .then((value) {
-  //     if (value.data()!["role"].toString() == "petugas") {
-  //       visible = true;
-  //     } else {
-  //       visible = false;
-  //     }
-  //     setState(() {});
-  //   });
-  // }
+  checkUserRole() {
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((value) {
+      if (value.data()!["role"].toString() == "petugas") {
+        visible = true;
+      } else {
+        visible = false;
+      }
+      setState(() {});
+    });
+  }
 
   void _launchUrl() async {
     if (!await launch(
