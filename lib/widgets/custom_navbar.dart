@@ -1,5 +1,10 @@
+import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:e_masjid/screens/derma_screen.dart';
+import 'package:e_masjid/screens/home_screen.dart';
+import 'package:e_masjid/screens/program_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:e_masjid/screens/screens.dart';
 import 'package:e_masjid/config/constants.dart';
 
 class CustomNavBar extends StatefulWidget {
@@ -12,7 +17,10 @@ class CustomNavBar extends StatefulWidget {
 }
 
 class _CustomNavBarState extends State<CustomNavBar> {
-  @override
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,10 +33,12 @@ class _CustomNavBarState extends State<CustomNavBar> {
         ],
       ),
       child: BottomAppBar(
+        notchMargin: 6.0,
+        shape: CircularNotchedRectangle(),
         color: kWhiteColor,
         elevation: 1,
         child: Container(
-          height: 70,
+          height: 80,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -39,22 +49,27 @@ class _CustomNavBarState extends State<CustomNavBar> {
                   IconButton(
                       icon: Icon(
                         Icons.home,
-                        color: kPrimaryColor,
+                        color:  Colors.teal,
                       ),
                       onPressed: () {
+
                         if (ModalRoute.of(context)?.settings.name == '/home') {
                           DoNothingAction;
                         } else {
                           // Navigator.of(context).pop();
-                          Navigator.pushNamedAndRemoveUntil(context, '/home', (_)=> false); //bukak new screen
+                          Navigator.pushNamedAndRemoveUntil(context, '/home',
+                              (_) => false); //bukak new screen
                           // Navigator.pushAndRemoveUntil; //remove previous
                         }
                       }),
-                  Text('Home',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6!
-                          .copyWith(color: kPrimaryColor)),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: Text('Home',
+                        style:TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 13.0,
+                            color: Colors.black45)),
+                  ),
                 ],
               ),
 
@@ -65,10 +80,12 @@ class _CustomNavBarState extends State<CustomNavBar> {
                   IconButton(
                       icon: Icon(
                         Icons.calendar_today,
-                        color: kPrimaryColor,
+                        color:  Colors.lightBlueAccent,
                       ),
                       onPressed: () {
-                        if (ModalRoute.of(context)?.settings.name == '/program') {
+
+                        if (ModalRoute.of(context)?.settings.name ==
+                            '/program') {
                           DoNothingAction;
                         } else {
                           // Navigator.of(context).pop();
@@ -77,10 +94,14 @@ class _CustomNavBarState extends State<CustomNavBar> {
                           // Navigator.pushAndRemoveUntil; //remove previous
                         }
                       }),
-                  Text('Program',
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                            color:kPrimaryColor,
-                          )),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: Text('Program',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 13.0,
+                            color: Colors.black45)),
+                  ),
                 ],
               ),
 
@@ -91,9 +112,10 @@ class _CustomNavBarState extends State<CustomNavBar> {
                   IconButton(
                       icon: Icon(
                         Icons.monetization_on,
-                        color: kPrimaryColor,
+                        color:  Colors.yellow,
                       ),
                       onPressed: () {
+
                         if (ModalRoute.of(context)?.settings.name == '/derma') {
                           DoNothingAction;
                         } else {
@@ -103,17 +125,21 @@ class _CustomNavBarState extends State<CustomNavBar> {
                           // Navigator.pushAndRemoveUntil; //remove previous
                         }
                       }),
-                  Text('Derma',
-                      style: Theme.of(context).textTheme.headline6!.copyWith(
-                            color: kPrimaryColor,
-                          )),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0),
+                    child: Text('Derma',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w900,
+                            fontSize: 13.0,
+                            color: Colors.black45)),
+                  ),
                 ],
               ),
-
             ],
           ),
         ),
       ),
     );
+
   }
 }

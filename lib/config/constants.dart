@@ -9,7 +9,7 @@ ThemeData theme(){
 }
 const kPrimaryColor = Color(0xFF000000);
 const kSecondaryColor = Color(0xFF59706F);
-const kDarkGreyColor = Color(0xFFA8A8A8);
+const kDarkGreyColor = Color(0xFFEEEEEE);
 const kWhiteColor = Color(0xFFFFFFFF);
 const kZambeziColor = Color(0xFF5B5B5B);
 const kBlackColor = Color(0xFF272726);

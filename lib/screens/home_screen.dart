@@ -8,6 +8,7 @@ import 'package:e_masjid/providers/user.provider.dart';
 import '../providers/user.provider.dart';
 import '../services/firestore_service.dart';
 
+
 class HomeScreen extends StatefulWidget {
 
   static const String routeName = '/home';
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
 
     fireStoreService.getdata().then((value) {
-      username = value.data()!["name"];
+      username = value.data()?["name"];
       setState(() {});
     });
 
@@ -172,8 +173,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
 
+      // bottomNavigationBar: CurvedBottomNavBar(),
       bottomNavigationBar: CustomNavBar(),
-      // bottomNavigationBar: CustomNavBar(),
     );
   }
 

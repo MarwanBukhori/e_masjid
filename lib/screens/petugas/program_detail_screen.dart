@@ -9,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../config/constants.dart';
+
 class ProgramDetail extends StatefulWidget {
   final Map<String, dynamic> data;
 
@@ -51,37 +53,26 @@ class _ProgramDetailState extends State<ProgramDetail> {
           },
           label: const Text("Sunting"),
           icon: const Icon(Icons.edit),
-          backgroundColor: Colors.black,
+          backgroundColor: kZambeziColor,
         ),
       ),
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text('Program '),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black87,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            SizedBox(
-              height: 10.h,
-            ),
-            // Container(
-            //   margin: EdgeInsets.all(20.w),
-            //   // color: Color.fromARGB(255, 163, 130, 130),
-            //   child: CarouselSlider(
-            //     options: CarouselOptions(height: 255.0),
-            //     items: picUrl!.map((i) {
-            //       return Builder(
-            //         builder: (BuildContext context) {
-            //           return Image.network(
-            //             i,
-            //             fit: BoxFit.cover,
-            //           );
-            //         },
-            //       );
-            //     }).toList(),
-            //   ),
-            // ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -99,9 +90,9 @@ class _ProgramDetailState extends State<ProgramDetail> {
               height: 5.h,
             ),
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25, top: 15),
               child: Container(
-                height: 300.h,
+                height: 200.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Colors.grey[200],
@@ -110,83 +101,84 @@ class _ProgramDetailState extends State<ProgramDetail> {
                   padding: const EdgeInsets.all(20),
                   child: Text(
                     widget.data["description"],
-                    style: const TextStyle(),
+                    style: const TextStyle(
+                      fontSize: 15,
+                    ),
                   ),
                 ),
               ),
             ),
 
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 1, 1, 1),
+              padding: const EdgeInsets.fromLTRB(25, 10, 1, 5),
               child: Row(children: [
                 Text(
-                  'Info servis',
+                  'Maklumat Program',
                   style:
                   TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                 )
               ]),
             ),
 
-            //content keterangan
+            //content
             Padding(
-              padding: const EdgeInsets.all(16),
-              child: Container(
-                height: 160.h,
-                decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: const BorderRadius.all(Radius.circular(15))),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.calendar_month_rounded),
-                          SizedBox(width: 5.w),
-                          Text(
-                            widget.data["title"],
-                            style: const TextStyle(),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.h,
-                      ),
-                      Row(
-                        children: [
-                          const Icon(Icons.alarm),
-                          SizedBox(width: 5.w),
-                          Text(
-                            widget.data["description"],
-                            style: const TextStyle(),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8.h,
-                      ),
-                      // Row(
-                      //   children: [
-                      //     const Icon(Icons.phone),
-                      //     SizedBox(width: 5.w),
-                      //     Text(
-                      //       widget.data["ser_tel"],
-                      //       style: const TextStyle(),
-                      //     ),
-                      //   ],
-                      // ),
-                    ],
+              padding: const EdgeInsets.only(left: 25, right: 25, top: 15),
+                child: Container(
+                  height: 300.h,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: const BorderRadius.all(Radius.circular(15))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(Icons.calendar_month_rounded),
+                            SizedBox(width: 11.w),
+                            Text(
+                              widget.data["title"],
+                              style: const TextStyle(
+                                fontSize: 15
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          children: [
+                            const Icon(Icons.alarm),
+                            SizedBox(width: 11.w),
+                            Text(
+                              widget.data["description"],
+                              style: const TextStyle(
+                                  fontSize: 15
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 8.h,
+                        ),
+                        // Row(
+                        //   children: [
+                        //     const Icon(Icons.phone),
+                        //     SizedBox(width: 5.w),
+                        //     Text(
+                        //       widget.data["ser_tel"],
+                        //       style: const TextStyle(),
+                        //     ),
+                        //   ],
+                        // ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
 
 
-            SizedBox(height: 20.h),
-
-            const SizedBox(
-              height: 30,
-            )
           ],
         ),
       ),

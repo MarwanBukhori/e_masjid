@@ -1,17 +1,9 @@
-import 'dart:developer';
-import 'dart:io';
-
-// import 'package:Jorania/screen/service.dart';
 import 'package:e_masjid/services/firestore_service.dart';
-
-// import 'package:Jorania/services/storage_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_masjid/screens/petugas/program_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-// import 'package:image_picker/image_picker.dart';
 
 class EditProgram extends StatefulWidget {
   final String id;
@@ -26,10 +18,6 @@ class EditProgram extends StatefulWidget {
 }
 
 class _EditProgramState extends State<EditProgram> {
-  // final ImagePicker imagePicker = ImagePicker();
-  // List<dynamic>? imageNetworkList = [];
-  // List<XFile>? imageFileList = [];
-  // StorageServices storageServices = StorageServices();
   FireStoreService fireStoreService = FireStoreService();
 
   bool loading = true;
@@ -65,8 +53,6 @@ class _EditProgramState extends State<EditProgram> {
 
   @override
   Widget build(BuildContext context) {
-    // var place = Provider.of<PlaceProvider>(context);
-    // place.place = widget;
 
     return Scaffold(
       appBar: AppBar(

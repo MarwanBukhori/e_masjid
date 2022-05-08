@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_masjid/screens/petugas/program_detail_screen.dart';
+import 'package:e_masjid/widgets/custom_appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../config/constants.dart';
+import '../widgets/custom_navbar.dart';
 
 class ProgramScreen extends StatefulWidget {
   static const String routeName = '/program';
@@ -46,45 +50,50 @@ class _ProgramScreenState extends State<ProgramScreen> {
           },
           label: const Text(" Program"),
           icon: const Icon(Icons.add),
-          backgroundColor: const Color.fromARGB(255, 150, 100, 55),
+          backgroundColor: kZambeziColor,
         ),
       ),
 
-      //appbar
       appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.black,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Senarai Program'),
-              Icon(
-                Icons.store,
-                size: 30.sp,
-              ),
-              //icon button tambah servis
-            ],
+        backgroundColor: Colors.white,
+        brightness: Brightness.light,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black87,
           ),
-          actions: [
-            //search button
-            IconButton(
-                onPressed: () {
-                  // showSearch(
-                  //   context: context,
-                  //   delegate: MySearchDelegate(services: services),
-                  // );
-                },
-                icon: const Icon(
-                  Icons.search,
-                  size: 35,
-                ))
-          ]),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: Text(
+              'Jadual',
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 25.0,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0),
+            child: Text(
+              'Program',
+              style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 35.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
           SizedBox(
             height: 20.h,
           ),
-          //List View
           Expanded(
             child: loading
                 ? const SizedBox(
@@ -105,17 +114,17 @@ class _ProgramScreenState extends State<ProgramScreen> {
                                       )));
                         },
                         child: Container(
-                          margin: const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                          height: 100,
+                          margin: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                          height: 110,
                           decoration: const BoxDecoration(
-                              color: Colors.grey,
+                              color: kDarkGreyColor,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20))),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: 50.w,
+                                width: 35.w,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,10 +136,16 @@ class _ProgramScreenState extends State<ProgramScreen> {
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold),
                                   ),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
                                   Row(children: [
-                                    const Icon(Icons.calendar_month_rounded),
+                                    // const Icon(Icons.calendar_month_rounded),
                                     Text(
                                       programs[index]["description"],
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                         ),
                                     ),
                                   ]),
                                   // Row(children: [
@@ -150,6 +165,7 @@ class _ProgramScreenState extends State<ProgramScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: CustomNavBar(),
     );
   }
 

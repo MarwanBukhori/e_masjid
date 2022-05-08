@@ -259,7 +259,7 @@ class ProgramPetugasBtn extends StatelessWidget {
           shape: const StadiumBorder(),
           onPressed: () {
             // MaterialPageRoute(builder: (context) => ProgramPetugasScreen());
-            Navigator.pushNamed(context, "/petugas_program");
+            Navigator.pushNamed(context, "/program");
           },
           child: WidgetAnimator(
             child: Text(
