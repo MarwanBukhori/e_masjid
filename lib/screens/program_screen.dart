@@ -56,7 +56,7 @@ class _ProgramScreenState extends State<ProgramScreen> {
 
       appBar: AppBar(
         backgroundColor: Colors.white,
-        brightness: Brightness.light,
+
         elevation: 0,
         leading: IconButton(
           icon: Icon(

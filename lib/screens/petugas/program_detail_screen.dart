@@ -1,18 +1,24 @@
-// import 'package:Jorania/providers/place_provider.dart';
 import 'package:e_masjid/screens/petugas/edit_program.dart';
-// import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_masjid/screens/petugas/edit_program.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../config/constants.dart';
+import 'package:intl/intl.dart';
 
 class ProgramDetail extends StatefulWidget {
+  static const String routeName = '/program_detail';
   final Map<String, dynamic> data;
+
+  static Route route() {
+    return MaterialPageRoute(
+      settings: RouteSettings(name: routeName),
+      builder: (_) => ProgramDetail(
+        data: {},
+      ),
+    );
+  }
 
   const ProgramDetail({
     Key? key,
@@ -25,31 +31,31 @@ class ProgramDetail extends StatefulWidget {
 
 class _ProgramDetailState extends State<ProgramDetail> {
   bool visible = false;
-  List<dynamic>? picUrl;
-  bool liked = false;
+
+  String formatDate = "";
+  String formatDate2 = "";
 
   @override
   void initState() {
     super.initState();
     checkUserRole();
-    // picUrl = widget.data["ser_pic"];
+    convertTimestampToString();
   }
 
   @override
   Widget build(BuildContext context) {
-    // var place = Provider.of<PlaceProvider>(context);
-    // place.place = widget;
-
     return Scaffold(
       floatingActionButton: Visibility(
         visible: visible,
         child: FloatingActionButton.extended(
           heroTag: 'sunting_hero',
           onPressed: () {
-            Navigator.push(
+            setState(() {});
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => EditProgram(id: widget.data["id"])));
+                  builder: (context) => EditProgram(id: widget.data["id"]),
+                ));
           },
           label: const Text("Sunting"),
           icon: const Icon(Icons.edit),
@@ -73,7 +79,6 @@ class _ProgramDetailState extends State<ProgramDetail> {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -81,7 +86,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
                   child: Text(
                     widget.data["title"],
                     style:
-                    TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                        TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -90,7 +95,8 @@ class _ProgramDetailState extends State<ProgramDetail> {
               height: 5.h,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25, top: 15),
+              padding: const EdgeInsets.only(
+                  left: 25, right: 25, bottom: 25, top: 15),
               child: Container(
                 height: 200.h,
                 width: double.infinity,
@@ -115,7 +121,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
                 Text(
                   'Maklumat Program',
                   style:
-                  TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                 )
               ]),
             ),
@@ -123,62 +129,86 @@ class _ProgramDetailState extends State<ProgramDetail> {
             //content
             Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, top: 15),
-                child: Container(
-                  height: 300.h,
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: const BorderRadius.all(Radius.circular(15))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.calendar_month_rounded),
-                            SizedBox(width: 11.w),
-                            Text(
-                              widget.data["title"],
-                              style: const TextStyle(
-                                fontSize: 15
-                              ),
+              child: Container(
+                height: 300.h,
+                decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: const BorderRadius.all(Radius.circular(15))),
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          // const Icon(Icons.calendar_month_rounded),
+                          Text(
+                            ' TARIKH :',
+                            style: const TextStyle(
+                              fontSize: 15,
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Icons.alarm),
-                            SizedBox(width: 11.w),
-                            Text(
-                              widget.data["description"],
-                              style: const TextStyle(
-                                  fontSize: 15
+                          ),
+                          SizedBox(width: 11.w),
+                          Row(
+                            children: [
+                              Text(
+                                formatDate,
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
                               ),
+                              Text(
+                                '  ->  ',
+                                style: const TextStyle(fontSize: 15),
+                              ),
+                              Text(
+                                formatDate2,
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      Row(
+                        children: [
+                          // const Icon(Icons.calendar_month_rounded),
+                          Text(
+                            ' MASA :  ',
+                            style: const TextStyle(
+                              fontSize: 15,
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        // Row(
-                        //   children: [
-                        //     const Icon(Icons.phone),
-                        //     SizedBox(width: 5.w),
-                        //     Text(
-                        //       widget.data["ser_tel"],
-                        //       style: const TextStyle(),
-                        //     ),
-                        //   ],
-                        // ),
-                      ],
-                    ),
+                          ),
+
+                          Row(
+                            children: [
+                              Text(
+                                formatDate,
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                '  ->  ',
+                                style: const TextStyle(fontSize: 15),
+                              ),
+                              Text(
+                                formatDate2,
+                                style: const TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                    ],
                   ),
                 ),
               ),
-
-
+            ),
           ],
         ),
       ),
@@ -196,14 +226,44 @@ class _ProgramDetailState extends State<ProgramDetail> {
       } else {
         visible = false;
       }
+
       setState(() {});
     });
   }
 
-  void _launchUrl() async {
-    if (!await launch(
-        "https://wa.me/+6'${widget.data["ser_tel"]}'?text=Jorania%3E%20adakah%20servis%20masih%20tersedia%3F%0A")) {
-      throw 'Could not launch ';
+  convertTimestampToString() {
+    //first date
+    try {
+      print(widget.data['firstDate']);
+      if (widget.data['firstDate'] is Timestamp) {
+
+        Timestamp t = widget.data["firstDate"];
+        String d = t.toDate().toString();
+        DateTime parsedDateTime = DateTime.parse(d);
+        formatDate = DateFormat("dd-MM-yyyy").format(parsedDateTime);
+
+        //second date
+        Timestamp t1 = widget.data["lastDate"];
+        String d1 = t1.toDate().toString();
+        DateTime parsedDateTime1 = DateTime.parse(d1);
+        formatDate2 = DateFormat("dd-MM-yyyy").format(parsedDateTime1);
+
+      } else {
+        DateTime t = widget.data["firstDate"];
+        String d = t.toString();
+        DateTime parsedDateTime = DateTime.parse(d);
+        formatDate = DateFormat("dd-MM-yyyy").format(parsedDateTime);
+
+        //second date
+        DateTime t1 = widget.data["lastDate"];
+        String d1 = t1.toString();
+        DateTime parsedDateTime1 = DateTime.parse(d1);
+        formatDate2 = DateFormat("dd-MM-yyyy").format(parsedDateTime1);
+      }
+    } catch (e) {
+      print(e);
     }
+    setState(() {});
   }
+
 }

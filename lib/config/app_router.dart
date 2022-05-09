@@ -2,6 +2,8 @@ import 'package:e_masjid/models/quran/surah/surah.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 
+import '../screens/petugas/program_detail_screen.dart';
+
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
     print('This is route: ${settings.name}');
@@ -12,8 +14,6 @@ class AppRouter {
         return HomeScreen.route();
       case DermaScreen.routeName:
         return DermaScreen.route();
-      // case ProgramScreen.routeName:
-      //   return ProgramScreen.route();
       case TanyaImamScreen.routeName:
         return TanyaImamScreen.route();
       case MohonNikahScreen.routeName:
@@ -32,12 +32,14 @@ class AppRouter {
         return makePayment.route();
       case PetugasHomeScreen.routeName:
         return PetugasHomeScreen.route();
-
+      case ProgramScreen.routeName:
+        return ProgramScreen.route();
+      case ProgramDetail.routeName:
+        return ProgramDetail.route();
         //admin
       case SahPermohonanScreen.routeName:
         return SahPermohonanScreen.route();
-      case ProgramScreen.routeName:
-        return ProgramScreen.route();
+
 
       default:
         return _errorRoute();

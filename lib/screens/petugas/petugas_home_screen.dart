@@ -2,12 +2,9 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'dart:async';
 import 'package:e_masjid/animations/bottom_animation.dart';
-import '../program_screen.dart';
 import 'package:e_masjid/widgets/app_name.dart';
 import 'package:e_masjid/widgets/calligraphy.dart';
 import 'package:e_masjid/widgets/quran_rail.dart';
-import 'package:provider/provider.dart';
-import '../../providers/user.provider.dart';
 import '../../widgets/drawer/custom_drawer.dart';
 import 'package:flutter/material.dart';
 

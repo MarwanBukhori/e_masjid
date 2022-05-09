@@ -19,7 +19,8 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
       DateTimeRange(start: DateTime(2022, 11, 5), end: DateTime(2022, 12, 24));
   final titleController = TextEditingController();
   final descController = TextEditingController();
-  final dateController = TextEditingController();
+  final startDateController = TextEditingController();
+  final lastDateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -102,11 +103,11 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                             child: Row(
                               children: [
                                 const Icon(
-                                  Icons.subject,
-                                  color: Colors.black54,
+                                  Icons.lightbulb_rounded,
+                                  color: Colors.yellow,
                                 ),
                                 SizedBox(
-                                  width: 5.w,
+                                  width: 7.w,
                                 ),
                                 Text(
                                   'Tajuk',
@@ -155,10 +156,10 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                             children: [
                               const Icon(
                                 Icons.edit_note_outlined,
-                                color: Colors.black54,
+                                color: Colors.teal,
                               ),
                               SizedBox(
-                                width: 5.w,
+                                width: 7.w,
                               ),
                               Text(
                                 'Huraian',
@@ -184,7 +185,7 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                             validator: (value) {
                               RegExp regex = RegExp(r'^.{5,}$');
                               if (value!.isEmpty) {
-                                return ("Sila isi butiran hari operasi");
+                                return ("Sila isi huraian program");
                               }
                               if (!regex.hasMatch(value)) {
                                 return ("masukkan minimum 5 huruf");
@@ -229,87 +230,143 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                           ),
                           const SizedBox(height: 5),
 
+                          //TextField Tarikh
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  enabled: false,
+                                  controller: startDateController,
+                                  autofocus: false,
+                                  cursorColor: Colors.white,
+                                  keyboardType: TextInputType.name,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  onSaved: (value) {
+                                    startDateController.text = value!;
+                                  },
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.fromLTRB(
+                                        20, 15, 20, 15),
+                                    labelText:
+                                        '${start.year}/${start.month}/${start.day}',
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Expanded(
+                                child: TextFormField(
+                                  enabled: false,
+                                  controller: lastDateController,
+                                  autofocus: false,
+                                  cursorColor: Colors.white,
+                                  keyboardType: TextInputType.name,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
+                                  onSaved: (value) {
+                                    lastDateController.text = value!;
+                                  },
+                                  textInputAction: TextInputAction.next,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.fromLTRB(
+                                        20, 15, 20, 15),
+                                    labelText:
+                                        '${end.year}/${end.month}/${end.day}',
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
                                   child: ElevatedButton(
-                                child: Text(
-                                    '${start.year}/${start.month}/${start.day}'),
+                                child: Text('Pilih Tarikh', style: TextStyle(color: Colors.black),),
                                 onPressed: pickDateRange,
                                 style: ElevatedButton.styleFrom(
-                                    primary: kZambeziColor),
+                                    primary: Colors.white70),
                               )),
-                              const SizedBox(
-                                width: 12,
-                              ),
-                              Expanded(
-                                  child: ElevatedButton(
-                                child:
-                                    Text('${end.year}/${end.month}/${end.day}'),
-                                onPressed: pickDateRange,
-                                style: ElevatedButton.styleFrom(
-                                    primary: kZambeziColor),
-                              ))
+
                             ],
                           ),
-
+                          SizedBox(
+                            height: 15,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
+
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: Colors.orange),
+                                      primary: kZambeziColor),
+                                  onPressed: () {
+                                    AddProgram();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.add,
+                                        color: Colors.green,
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Text(
+                                        "Tambah",
+                                        style: TextStyle(fontSize: 16.sp),
+                                      ),
+
+
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: kZambeziColor),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
+                                      const Icon(
+                                        Icons.cancel,
+                                        color: Colors.red,
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
                                       Text(
                                         "Batal",
                                         style: TextStyle(fontSize: 16.sp),
                                       ),
-                                      SizedBox(
-                                        width: 20.w,
-                                      ),
-                                      const Icon(
-                                        Icons.cancel_outlined,
-                                        color: Colors.red,
-                                      )
+
+
                                     ],
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                width: 20.w,
-                              ),
-                              Expanded(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.orange),
-                                  onPressed: () {
-                                    AddService();
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Tambah",
-                                        style: TextStyle(fontSize: 16.sp),
-                                      ),
-                                      SizedBox(
-                                        width: 20.w,
-                                      ),
-                                      const Icon(
-                                        Icons.add_circle_outline,
-                                        color: Colors.green,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
+
                             ],
                           )
                         ],
@@ -326,16 +383,14 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
     );
   }
 
-  void AddService() async {
+  void AddProgram() async {
     EasyLoading.show(status: 'sedang diproses...');
 
-    // List<String> picUrl = await uploadImage();
+    await fireStoreService.uploadProgramData(titleController.text,
+        descController.text, dateRange.start, dateRange.end);
 
-    await fireStoreService.uploadServiceData(
-        titleController.text, descController.text);
-
-    EasyLoading.showSuccess('Program berjaya ditambah!');
-    Navigator.of(context).popAndPushNamed('/petugas_program');
+    EasyLoading.showSuccess('Program berjaya ditambah');
+    Navigator.of(context).popAndPushNamed('/program');
 
     setState(() {});
   }
@@ -349,10 +404,8 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
     );
 
     //press cancel x
-    if (newDateRange == null)
-      return;
+    if (newDateRange == null) return;
 
     setState(() => dateRange = newDateRange);
   }
-
 }

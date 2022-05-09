@@ -44,19 +44,27 @@ class FireStoreService {
   Future<void> updateServiceData(
     String title,
     String desc,
+    DateTime firstDate,
+    DateTime lastDate,
     String id,
   ) async {
     await _firebaseFirestore.collection("program").doc(id).update({
       "title": title,
       "description": desc,
+      "firstDate": firstDate,
+      "lastDate" : lastDate
     });
   }
 
   // use in add Program screen
-  Future<void> uploadServiceData(String title, String desc) async {
+  Future<void> uploadProgramData(String title, String desc, DateTime firstDate, DateTime lastDate) async {
+    // int intlastDate = lastDate.millisecondsSinceEpoch;
+
     await _firebaseFirestore.collection("program").doc().set({
       "title": title,
       "description": desc,
+      "firstDate": firstDate,
+      "lastDate" : lastDate
     });
   }
 }
