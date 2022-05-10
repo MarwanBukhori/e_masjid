@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 import '../config/constants.dart';
 import '../widgets/custom_navbar.dart';
@@ -24,8 +25,11 @@ class ProgramScreen extends StatefulWidget {
 }
 
 class _ProgramScreenState extends State<ProgramScreen> {
+  bool isDaily = false;
   bool visible = false;
   bool loading = true;
+  String date = '';
+  String formatDate = "";
 
   @override
   void initState() {
@@ -56,7 +60,6 @@ class _ProgramScreenState extends State<ProgramScreen> {
 
       appBar: AppBar(
         backgroundColor: Colors.white,
-
         elevation: 0,
         leading: IconButton(
           icon: Icon(
@@ -71,25 +74,50 @@ class _ProgramScreenState extends State<ProgramScreen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: Text(
-              'Jadual',
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 25.0,
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Text(
+                      'Jadual',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 25.0,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: Text(
+                      'Program',
+                      style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 35.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: Text(
-              'Program',
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 35.0,
-                  fontWeight: FontWeight.bold),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(left: 60),
+                child: TextButton.icon(
+                    onPressed: () {},
+                    icon: RotatedBox(
+                      quarterTurns: 1,
+                      child: Icon(
+                        Icons.compare_arrows,
+                        size: 28,
+                      ),
+                    ),
+                    label: Text(
+                      isDaily ? 'Harian' : 'Mingguan',
+                      style: TextStyle(fontSize: 16),
+                    )),
+              ),
+            ],
           ),
           SizedBox(
             height: 20.h,
@@ -144,16 +172,14 @@ class _ProgramScreenState extends State<ProgramScreen> {
                                     Text(
                                       programs[index]["description"],
                                       style: const TextStyle(
-                                          fontSize: 15,
-                                         ),
+                                        fontSize: 15,
+                                      ),
                                     ),
                                   ]),
-                                  // Row(children: [
-                                  //   const Icon(Icons.access_alarm),
-                                  //   Text(
-                                  //     programs[index]["ser_waktu"],
-                                  //   ),
-                                  // ]),
+                                  SizedBox(
+                                    height: 15.h,
+                                  ),
+                                  Row(children: [getDate(index)]),
                                 ],
                               ),
                             ],
@@ -177,6 +203,11 @@ class _ProgramScreenState extends State<ProgramScreen> {
         data.addAll({'id': element.id});
         programs.add(data);
       }
+      programs.sort((a,b){
+        var adate = a['firstDate'];
+        var bdate = b['firstDate'];
+        return adate.compareTo(bdate);
+      });
       if (mounted) {
         loading = false;
         setState(() {});
@@ -198,6 +229,14 @@ class _ProgramScreenState extends State<ProgramScreen> {
       }
       setState(() {});
     });
+  }
+
+  Widget getDate(int index) {
+    // getData();
+    date = programs[index]['firstDate'].toDate().toString();
+    DateTime parsedDateTime = DateTime.parse(date);
+    formatDate = DateFormat("dd-MM-yyyy").format(parsedDateTime);
+    return Text(formatDate);
   }
 }
 

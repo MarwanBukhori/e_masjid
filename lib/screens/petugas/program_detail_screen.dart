@@ -224,7 +224,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
       if (value.data()!["role"].toString() == "petugas") {
         visible = true;
       } else {
-        visible = false;
+        visible = false; 
       }
 
       setState(() {});
@@ -234,9 +234,8 @@ class _ProgramDetailState extends State<ProgramDetail> {
   convertTimestampToString() {
     //first date
     try {
-      print(widget.data['firstDate']);
-      if (widget.data['firstDate'] is Timestamp) {
 
+      if (widget.data['firstDate'] is Timestamp) {
         Timestamp t = widget.data["firstDate"];
         String d = t.toDate().toString();
         DateTime parsedDateTime = DateTime.parse(d);
@@ -247,7 +246,6 @@ class _ProgramDetailState extends State<ProgramDetail> {
         String d1 = t1.toDate().toString();
         DateTime parsedDateTime1 = DateTime.parse(d1);
         formatDate2 = DateFormat("dd-MM-yyyy").format(parsedDateTime1);
-
       } else {
         DateTime t = widget.data["firstDate"];
         String d = t.toString();
