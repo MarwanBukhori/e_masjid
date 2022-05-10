@@ -1,7 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:e_masjid/widgets/widgets.dart';
-
 import '../models/temujanji_model.dart';
 import '../services/temujanji.service.dart';
 
@@ -25,15 +22,12 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text('Semak Status Temujanji', style: TextStyle(
-          color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold
-        ),),
+        backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.white,
+            color: Colors.black87,
           ),
           onPressed: () {
             Navigator.of(context).pop();

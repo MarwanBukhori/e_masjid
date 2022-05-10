@@ -566,7 +566,6 @@ class _EditProgramState extends State<EditProgram> {
       formatDate2 = DateFormat("dd-MM-yyyy").format(parsedDateTime2);
       lastDateController.text = formatDate2;
 
-      setState(() {});
     });
   }
 }

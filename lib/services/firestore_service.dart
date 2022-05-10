@@ -67,4 +67,18 @@ class FireStoreService {
       "lastDate" : lastDate
     });
   }
+
+  // use in to add pertanyaan imam
+  Future<void> uploadTanyaData(String title, String desc) async {
+  DateTime date = DateTime.now();
+
+    await _firebaseFirestore.collection("tanya").doc().set({
+      "title": title,
+      "description": desc,
+      "date": date,
+      "JenisTemuJanji" : "Pertanyaan",
+      "balasan" : "",
+      "isApproved" : false,
+    });
+  }
 }
