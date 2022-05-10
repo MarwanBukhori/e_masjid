@@ -1,5 +1,6 @@
 import 'package:e_masjid/config/constants.dart';
 import 'package:e_masjid/models/temujanji_model.dart';
+import 'package:e_masjid/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -212,28 +213,6 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                           ),
                           const SizedBox(height: 15),
 
-                          // // Tarikh
-                          // Row(
-                          //   children: [
-                          //     const Icon(
-                          //       Icons.calendar_month,
-                          //       color: Colors.black54,
-                          //     ),
-                          //     SizedBox(
-                          //       width: 5.w,
-                          //     ),
-                          //     Text(
-                          //       'Tarikh',
-                          //       style: TextStyle(
-                          //           fontSize: 18.sp,
-                          //           fontWeight: FontWeight.bold,
-                          //           color: Colors.black54),
-                          //     ),
-                          //     SizedBox(
-                          //       width: 5.w,
-                          //     ),
-                          //   ],
-                          // ),
                           const SizedBox(height: 5),
 
                           // //TextField Tarikh
@@ -320,6 +299,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                                       primary: kZambeziColor),
                                   onPressed: () {
                                     addTanyaImam();
+
                                   },
                                   child: Row(
                                     children: [

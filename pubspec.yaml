@@ -45,8 +45,9 @@ dependencies:
   shimmer: ^2.0.0
   intl: ^0.17.0
 
-  #Event
-  calendar_view: ^0.0.4
+  #DateTime
+  flutter_datetime_picker: ^1.5.1
+
   # cache
   hive: ^2.0.4
   hive_flutter: ^1.1.0

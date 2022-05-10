@@ -1,10 +1,11 @@
+import 'package:e_masjid/config/constants.dart';
+import 'package:e_masjid/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
-import 'package:e_masjid/config/constants.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../services/firestore_service.dart';
 
-import '../../models/temujanji_model.dart';
-import '../../services/temujanji.service.dart';
-import '../../widgets/loading-indicator.dart';
 
 class MohonNikahScreen extends StatefulWidget {
   const MohonNikahScreen({Key? key}) : super(key: key);
@@ -22,133 +23,402 @@ class MohonNikahScreen extends StatefulWidget {
 }
 
 class _MohonNikahScreenState extends State<MohonNikahScreen> {
+  FireStoreService fireStoreService = FireStoreService();
+  DateTime date = DateTime.now();
+  TimeOfDay time = TimeOfDay.now();
 
-    final pemohonTextController = new TextEditingController();
+  bool pickedDate = false;
+  bool pickedTime = false;
 
-    final pasanganTextController = new TextEditingController();
+  final pemohonController = TextEditingController();
+  final pasanganController = TextEditingController();
 
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
+
+  String getTarikh() {
+    if (pickedDate != true) {
+      return 'Pilih Tarikh';
+    } else {
+      return '${date.month}/${date.day}/${date.year}';
+    }
+  }
+
+  String getMasa() {
+    if (pickedTime != true) {
+      return 'Pilih Masa';
+    } else {
+      final hours = time.hour.toString().padLeft(2, '0');
+      final minutes = time.minute.toString().padLeft(2, '0');
+      return '$hours:$minutes';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black87,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: Text(
+            'Mohon',
+            style: TextStyle(
               color: Colors.black87,
+              fontSize: 25.0,
             ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
           ),
         ),
-        body: ListView(
-          children: <Widget>[
-            SizedBox(height: 15.0),
-            Padding(
-              padding: const EdgeInsets.only(left: 20 ),
-              child: Column(
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: Text(
+            'Nikah',
+            style: TextStyle(
+                color: Colors.black87,
+                fontSize: 35.0,
+                fontWeight: FontWeight.bold),
+          ),
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                margin: EdgeInsets.all(20.w),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: kZambeziColor, width: 1),
+                  borderRadius: BorderRadius.circular(20.w),
+                ),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children:<Widget>[
-                    Text(
-                      'Mohon',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 25.0,
+                  children: [
+                    Container(
+                      height: 15,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: kZambeziColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.w),
+                          topRight: Radius.circular(20.w),
+                        ),
                       ),
                     ),
-                    Text(
-                      'Nikah',
-                      style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 35.0,
-                          fontWeight: FontWeight.bold),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Title
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 0, top: 5, right: 8, bottom: 5),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.verified_user,
+                                  color: Colors.yellow,
+                                ),
+                                SizedBox(
+                                  width: 7.w,
+                                ),
+                                Text(
+                                  'Pemohon',
+                                  style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black54),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          TextFormField(
+                            controller: pemohonController,
+                            autofocus: false,
+                            cursorColor: kZambeziColor,
+                            keyboardType: TextInputType.name,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              RegExp regex = RegExp(r'^.{5,}$');
+                              if (value!.isEmpty) {
+                                return ("Sila isi nama pemohon");
+                              }
+                              if (!regex.hasMatch(value)) {
+                                return ("masukkan minimum 5 aksara");
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              pemohonController.text = value!;
+                            },
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                              labelText: 'Nama penuh pemohon',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+
+                          // Description
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.edit_note_outlined,
+                                color: Colors.teal,
+                              ),
+                              SizedBox(
+                                width: 7.w,
+                              ),
+                              Text(
+                                'Pasangan',
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54),
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+
+                          TextFormField(
+                            controller: pasanganController,
+                            autofocus: false,
+                            cursorColor: Colors.white,
+                            keyboardType: TextInputType.name,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                            validator: (value) {
+                              RegExp regex = RegExp(r'^.{5,}$');
+                              if (value!.isEmpty) {
+                                return ("Sila isi nama pasangan");
+                              }
+                              if (!regex.hasMatch(value)) {
+                                return ("masukkan minimum 5 huruf");
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              pasanganController.text = value!;
+                            },
+                            textInputAction: TextInputAction.next,
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                              labelText: 'Nama penuh pasangan',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+
+                          // Tarikh
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.calendar_month,
+                                color: Colors.black54,
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Text(
+                                'Tarikh',
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54),
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 5),
+//button Tarikh
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  child: Text(
+                                    getTarikh(),
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  onPressed: () {
+                                    pickDate(context);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.white70),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          // Masa
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.punch_clock,
+                                color: Colors.black54,
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Text(
+                                'Masa',
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54),
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                            ],
+                          ),
+
+                          //button masa
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  child: Text(
+                          getMasa(),
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  onPressed: () {
+                                    pickTime(context);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.white70),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: kZambeziColor),
+                                  onPressed: () {
+                                    SemakStatusScreen();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.add,
+                                        color: Colors.green,
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Text(
+                                        "Mohon",
+                                        style: TextStyle(fontSize: 16.sp),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: kZambeziColor),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Icon(
+                                        Icons.cancel,
+                                        color: Colors.red,
+                                      ),
+                                      SizedBox(
+                                        width: 10.w,
+                                      ),
+                                      Text(
+                                        "Batal",
+                                        style: TextStyle(fontSize: 16.sp),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                    SizedBox(
-                      height: 15,
-                    )
-                  ]
+                  ],
+                ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(15.0),
-              child: Column(children: [
-                TextField(
-                  controller: pemohonTextController,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.edit_note_outlined),
-                    border: OutlineInputBorder(),
-                    labelText: 'Nama Pemohon',
-                  ),
-                ),
-                SizedBox(
-                  height: 24,
-                ),
-                TextField(
-                  controller: pasanganTextController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Nama Pasangan'
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                ButtonBar(
-                  alignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton.icon(
-                      icon: Icon(
-                        Icons.add,
-                        size: 27.0,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                          primary: kPrimaryColor,
-                          padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                          textStyle: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold)),
-                      onPressed: () async {
-                        try {
-                          LoadingIndicator.showLoadingDialog(context);
+          ),
+        )
+      ]),
+      bottomNavigationBar: CustomNavBar(),
+    );
+  }
 
-                          final temujanji = Program(
-                              // TemuJanjiID: 'TJ2',
-                              JenisTemuJanji: 'nikah',
-                              pemohon: pemohonTextController.text,
-                              pasangan: pasanganTextController.text,
-                              tarikh: DateTime.now());
+  void addMohonNikah() async {
+    EasyLoading.show(status: 'sedang diproses...');
 
-                          final result = await addNikah(temujanji);
+    await fireStoreService.uploadTanyaData(
+        pemohonController.text, pasanganController.text);
 
-                          if (result) {
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                          } else
-                            throw 'Unable to add soalan';
-                        } catch (e) {
-                          Navigator.pop(context);
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                content: Text(e.toString()),
-                              );
-                            },
-                          );
-                        };
-                      },
-                      label: Text('Hantar Permohonan'),
-                    )
-                  ],
-                )
-              ]),
-            ),
-          ],
-        ),
-        bottomNavigationBar: CustomNavBar(),
-      );
-    }
+    EasyLoading.showSuccess('Permohonan berjaya ditambah');
+    Navigator.of(context).popAndPushNamed('/semak');
+
+    setState(() {});
+  }
+
+  Future pickDate(BuildContext context) async {
+    final initialDate = DateTime.now();
+    final newDate = await showDatePicker(
+        context: context,
+        initialDate: date ?? initialDate,
+        firstDate: DateTime(DateTime.now().year - 5),
+        lastDate: DateTime(DateTime.now().year + 5));
+    if (newDate == null) return;
+    pickedDate = true;
+    setState(() => date = newDate);
+  }
+
+  Future pickTime(BuildContext context) async {
+    final initialTime = TimeOfDay(hour: 9, minute: 0);
+    final newTime = await showTimePicker(
+        context: context, initialTime: time ?? initialTime);
+
+    if(newTime==null) return;
+
+    pickedTime = true;
+    setState(() => time =newTime);
+  }
 }
