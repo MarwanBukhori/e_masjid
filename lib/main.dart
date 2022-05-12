@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: AppRouter.onGenerateRoute,
             initialRoute: '/',
             routes: {
-              '/': (context) => HomeScreen(),
+              '/': (context) => LandingScreen(),
               // '/': (context) => PetugasHomeScreen(maxSlide: MediaQuery.of(context).size.width * 0.835),
 
             },

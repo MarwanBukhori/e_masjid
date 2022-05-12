@@ -15,12 +15,29 @@ class AddProgramScreen extends StatefulWidget {
 
 class _AddProgramScreenState extends State<AddProgramScreen> {
   FireStoreService fireStoreService = FireStoreService();
+  DateTime date = DateTime.now();
+  TimeOfDay time = TimeOfDay.now();
+  String timeString = '';
+
+  bool pickedDate = false;
+  bool pickedTime = false;
+
   DateTimeRange dateRange =
       DateTimeRange(start: DateTime(2022, 11, 5), end: DateTime(2022, 12, 24));
   final titleController = TextEditingController();
   final descController = TextEditingController();
   final startDateController = TextEditingController();
   final lastDateController = TextEditingController();
+
+  String getMasa() {
+    if (pickedTime != true) {
+      return 'Pilih Masa';
+    } else {
+      final hours = time.hour.toString().padLeft(2, '0');
+      final minutes = time.minute.toString().padLeft(2, '0');
+      return '$hours:$minutes';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -306,6 +323,48 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                           SizedBox(
                             height: 15,
                           ),
+                          // Masa
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.punch_clock,
+                                color: Colors.black54,
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              Text(
+                                'Masa',
+                                style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54),
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                            ],
+                          ),
+
+                          //button masa
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  child: Text(
+                                    getMasa(),
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  onPressed: () {
+                                    pickTime(context);
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.white70),
+                                ),
+                              ),
+                            ],
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -385,7 +444,7 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
     EasyLoading.show(status: 'sedang diproses...');
 
     await fireStoreService.uploadProgramData(titleController.text,
-        descController.text, dateRange.start, dateRange.end);
+        descController.text, dateRange.start, dateRange.end, timeString);
 
     EasyLoading.showSuccess('Program berjaya ditambah');
     Navigator.of(context).popAndPushNamed('/program');
@@ -405,5 +464,18 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
     if (newDateRange == null) return;
 
     setState(() => dateRange = newDateRange);
+  }
+
+  Future pickTime(BuildContext context) async {
+    final initialTime = TimeOfDay(hour: 9, minute: 0);
+    final newTime = await showTimePicker(
+        context: context, initialTime: time ?? initialTime);
+
+    if (newTime == null) return;
+
+    pickedTime = true;
+
+    setState(() => time = newTime);
+    timeString = time.toString();
   }
 }

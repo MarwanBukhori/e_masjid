@@ -21,6 +21,14 @@ class EditProgram extends StatefulWidget {
 }
 
 class _EditProgramState extends State<EditProgram> {
+
+  DateTime date = DateTime.now();
+  TimeOfDay time = TimeOfDay.now();
+  String timeString = '';
+
+  bool pickedDate = false;
+  bool pickedTime = false;
+
   FireStoreService fireStoreService = FireStoreService();
   DateTimeRange dateRange =
       DateTimeRange(start: DateTime(2022, 11, 5), end: DateTime(2022, 12, 24));
@@ -69,6 +77,16 @@ class _EditProgramState extends State<EditProgram> {
         });
       }
     });
+  }
+
+  String getMasa() {
+    if (pickedTime != true) {
+      return 'Pilih Masa';
+    } else {
+      final hours = time.hour.toString().padLeft(2, '0');
+      final minutes = time.minute.toString().padLeft(2, '0');
+      return '$hours:$minutes';
+    }
   }
 
   @override
@@ -359,6 +377,50 @@ class _EditProgramState extends State<EditProgram> {
                                     )),
                                   ],
                                 ),
+
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                // Masa
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.punch_clock,
+                                      color: Colors.black54,
+                                    ),
+                                    SizedBox(
+                                      width: 5.w,
+                                    ),
+                                    Text(
+                                      'Masa',
+                                      style: TextStyle(
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black54),
+                                    ),
+
+                                  ],
+                                ),
+
+                                //button masa
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        child: Text(
+                                          getMasa(),
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        onPressed: () {
+                                          pickTime(context);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.white70),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 //button
                               ],
                             ),
@@ -381,6 +443,7 @@ class _EditProgramState extends State<EditProgram> {
                                       minimumSize: Size(100, 40),
                                     ),
                                     onPressed: () {
+                                      print(timeString);
                                       EasyLoading.show(
                                           status: 'Sedang diproses');
 
@@ -390,6 +453,7 @@ class _EditProgramState extends State<EditProgram> {
                                         descController.text,
                                         dateRange.start,
                                         dateRange.end,
+                                        timeString,
                                         widget.id,
                                       )
                                       // imageNetworkList)
@@ -410,6 +474,7 @@ class _EditProgramState extends State<EditProgram> {
                                                 (value) => dateRange.start);
                                         a.update('lastDate',
                                                 (value) => dateRange.end);
+                                        a.update('masa', (value) => timeString);
 
                                         Navigator.pop(context);
                                         // Navigator.pushNamed(
@@ -567,5 +632,18 @@ class _EditProgramState extends State<EditProgram> {
       lastDateController.text = formatDate2;
 
     });
+  }
+
+  Future pickTime(BuildContext context) async {
+    final initialTime = TimeOfDay(hour: 9, minute: 0);
+    final newTime = await showTimePicker(
+        context: context, initialTime: time ?? initialTime);
+
+    if (newTime == null) return;
+
+    pickedTime = true;
+
+    setState(() => time = newTime);
+    timeString = time.toString();
   }
 }

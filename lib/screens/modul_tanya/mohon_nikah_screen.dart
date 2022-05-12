@@ -6,7 +6,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../services/firestore_service.dart';
 
-
 class MohonNikahScreen extends StatefulWidget {
   const MohonNikahScreen({Key? key}) : super(key: key);
   static const String routeName = '/nikah';
@@ -26,13 +25,13 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
   FireStoreService fireStoreService = FireStoreService();
   DateTime date = DateTime.now();
   TimeOfDay time = TimeOfDay.now();
+  String timeString = '';
 
   bool pickedDate = false;
   bool pickedTime = false;
 
   final pemohonController = TextEditingController();
   final pasanganController = TextEditingController();
-
 
   String getTarikh() {
     if (pickedDate != true) {
@@ -273,7 +272,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                               ),
                             ],
                           ),
-
+                          const SizedBox(height: 5),
                           // Masa
                           Row(
                             children: [
@@ -304,7 +303,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   child: Text(
-                          getMasa(),
+                                    getMasa(),
                                     style: TextStyle(color: Colors.black),
                                   ),
                                   onPressed: () {
@@ -324,7 +323,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                                   style: ElevatedButton.styleFrom(
                                       primary: kZambeziColor),
                                   onPressed: () {
-                                    SemakStatusScreen();
+                                    addMohonNikah();
                                   },
                                   child: Row(
                                     children: [
@@ -390,8 +389,8 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
   void addMohonNikah() async {
     EasyLoading.show(status: 'sedang diproses...');
 
-    await fireStoreService.uploadTanyaData(
-        pemohonController.text, pasanganController.text);
+    await fireStoreService.uploadMohonNikah(
+        pemohonController.text, pasanganController.text, date, timeString);
 
     EasyLoading.showSuccess('Permohonan berjaya ditambah');
     Navigator.of(context).popAndPushNamed('/semak');
@@ -416,9 +415,11 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
     final newTime = await showTimePicker(
         context: context, initialTime: time ?? initialTime);
 
-    if(newTime==null) return;
+    if (newTime == null) return;
 
     pickedTime = true;
-    setState(() => time =newTime);
+
+    setState(() => time = newTime);
+    timeString = time.toString();
   }
 }

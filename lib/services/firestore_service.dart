@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class FireStoreService {
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -30,15 +31,12 @@ class FireStoreService {
     return data;
   }
 
-
   //used in edit_program.dart
   Future<DocumentSnapshot<Map<String, dynamic>>> getdataProgram(
       String id) async {
-    var data =
-    await _firebaseFirestore.collection("program").doc(id).get();
+    var data = await _firebaseFirestore.collection("program").doc(id).get();
     return data;
   }
-
 
   //used in edit_program.dart
   Future<void> updateServiceData(
@@ -46,39 +44,66 @@ class FireStoreService {
     String desc,
     DateTime firstDate,
     DateTime lastDate,
+    String time,
     String id,
   ) async {
     await _firebaseFirestore.collection("program").doc(id).update({
       "title": title,
       "description": desc,
       "firstDate": firstDate,
-      "lastDate" : lastDate
+      "lastDate": lastDate,
+      "masa": time,
     });
   }
 
   // use in add Program screen
-  Future<void> uploadProgramData(String title, String desc, DateTime firstDate, DateTime lastDate) async {
+  Future<void> uploadProgramData(String title, String desc, DateTime firstDate,
+      DateTime lastDate, String time) async {
     // int intlastDate = lastDate.millisecondsSinceEpoch;
 
     await _firebaseFirestore.collection("program").doc().set({
       "title": title,
       "description": desc,
       "firstDate": firstDate,
-      "lastDate" : lastDate
+      "lastDate": lastDate,
+      "masa": time,
     });
   }
 
   // use in to add pertanyaan imam
   Future<void> uploadTanyaData(String title, String desc) async {
-  DateTime date = DateTime.now();
+    DateTime date = DateTime.now();
 
     await _firebaseFirestore.collection("tanya").doc().set({
       "title": title,
       "description": desc,
       "date": date,
-      "JenisTemuJanji" : "Pertanyaan",
-      "balasan" : "",
-      "isApproved" : false,
+      "JenisTemuJanji": "Pertanyaan",
+      "balasan": "",
+      "isApproved": false,
+    });
+  }
+
+  // use in to add permohonan nikah
+  Future<void> uploadMohonNikah(
+      String pemohon, String pasangan, DateTime date, String time) async {
+    await _firebaseFirestore.collection("nikah").doc().set({
+      "pemohon": pemohon,
+      "pasangan": pasangan,
+      "tarikh": date,
+      "masa": time,
+      "JenisTemuJanji": "Nikah",
+      "isApproved": false,
+    });
+  }
+
+  // use in to add tempahan qurban
+  Future<void> uploadTempahQurban(String pemohon, int bilangan) async {
+    await _firebaseFirestore.collection("qurban").doc().set({
+      "pemohon": pemohon,
+      "bilangan": bilangan,
+      "JenisTemuJanji": "Qurban",
+      "isApproved": false,
     });
   }
 }
