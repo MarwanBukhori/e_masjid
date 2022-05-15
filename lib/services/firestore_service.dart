@@ -77,10 +77,11 @@ class FireStoreService {
     await _firebaseFirestore.collection("tanya").doc().set({
       "title": title,
       "description": desc,
-      "date": date,
+      "tarikh": date,
       "JenisTemuJanji": "Pertanyaan",
-      "balasan": "",
+      "balasan": "tiada",
       "isApproved": false,
+
     });
   }
 
@@ -94,6 +95,9 @@ class FireStoreService {
       "masa": time,
       "JenisTemuJanji": "Nikah",
       "isApproved": false,
+      "title": "${pemohon} & ${pasangan}",
+      "description": "Permohonan Nikah ${pemohon} & ${pasangan} pada tarikh : ${date}, jam : ${time}",
+      "balasan": "tiada [ nikah ]"
     });
   }
 
@@ -104,6 +108,32 @@ class FireStoreService {
       "bilangan": bilangan,
       "JenisTemuJanji": "Qurban",
       "isApproved": false,
+      "title": "Tempahan Qurban oleh ${pemohon} ",
+      "description": "Tempahan Qurban untuk ${pemohon} iaitu sebanyak bilangan : ${bilangan}",
+      "balasan": "tiada [Qurban]"
     });
   }
+
+  //used in semak_balas_screen.dart
+  Future<void> updateBalasan(
+      String title,
+      String desc,
+      String balas,
+      String id,
+      ) async {
+    await _firebaseFirestore.collection("tanya").doc(id).update({
+      "title": title,
+      "description": desc,
+      "balasan": balas,
+      "isApproved":true
+    });
+  }
+
+  //used in semak_balas_screen.dart
+  Future<DocumentSnapshot<Map<String, dynamic>>> getdataTanya(
+      String id) async {
+    var data = await _firebaseFirestore.collection("tanya").doc(id).get();
+    return data;
+  }
+
 }

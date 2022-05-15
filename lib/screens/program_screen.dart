@@ -30,15 +30,21 @@ class _ProgramScreenState extends State<ProgramScreen> {
   bool loading = true;
   String date = '';
   String formatDate = "";
+  String? _selectedView = "Semua";
+  List<String> _type = ['Harian', 'Mingguan', 'Bulanan', 'Semua'];
 
   @override
   void initState() {
     super.initState();
     getData();
+    calculateDaily();
     checkUserRole();
   }
 
   List<Map<String, dynamic>> programs = [];
+  List<Map<String, dynamic>> dailyList = [];
+  List<Map<String, dynamic>> weeklyList = [];
+  List<Map<String, dynamic>> monthlyList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -101,22 +107,54 @@ class _ProgramScreenState extends State<ProgramScreen> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 60),
-                child: TextButton.icon(
-                    onPressed: () {},
-                    icon: RotatedBox(
-                      quarterTurns: 1,
-                      child: Icon(
-                        Icons.compare_arrows,
-                        size: 28,
-                      ),
-                    ),
-                    label: Text(
-                      isDaily ? 'Harian' : 'Mingguan',
-                      style: TextStyle(fontSize: 16),
-                    )),
-              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40.0, top: 20, right: 20, bottom: 10),
+                  child: DropdownButtonFormField<String>(
+                    hint: Text(_selectedView!),
+                    items: _type.map((view) {
+                      return DropdownMenuItem<String>(
+                        value: view,
+                        child: Text(view),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      if (newValue == "Harian"){
+                        setState(() {
+                          _selectedView = newValue;
+                          programs.clear();
+                          programs.addAll(dailyList);
+
+                        });
+
+                      } else if (newValue == "Mingguan"){
+                        setState(() {
+                          _selectedView = newValue;
+                          // mainList.addAll(qurbanList);
+
+                        });
+
+                      }
+                      else if (newValue == "Semua"){
+                        programs.clear();
+                        setState(() {
+                          _selectedView = newValue;
+                          getData();
+
+                        });
+
+                      }else {
+                        setState(() {
+                          _selectedView = newValue;
+                          // mainList.addAll(pertanyaanList);
+
+                        });
+                      }
+
+                    },
+                  ),
+                ),
+              )
             ],
           ),
           SizedBox(
@@ -208,6 +246,7 @@ class _ProgramScreenState extends State<ProgramScreen> {
         var bdate = b['firstDate'];
         return adate.compareTo(bdate);
       });
+
       if (mounted) {
         loading = false;
         setState(() {});
@@ -238,5 +277,42 @@ class _ProgramScreenState extends State<ProgramScreen> {
     formatDate = DateFormat("dd-MM-yyyy").format(parsedDateTime);
     return Text(formatDate);
   }
+
+   calculateDaily() {
+     DateTime now = DateTime.now();
+     final day = DateTime.now().day;
+     final today = DateTime(now.year, now.month, now.day,);
+
+     for (var day in programs) {
+
+       if(day == today){
+         dailyList.add(day);
+       }
+     }
+
+     if (mounted) {
+       loading = false;
+       setState(() {});
+     }
+   }
+
+  calculateWeekly() {
+    final month = DateTime.now().month;
+    final day = DateTime.now().day;
+    final year = DateTime.now().year;
+    final days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    DateTime now = DateTime.now();
+    DateTime date = DateTime(now.year, now.month, now.day);
+  }
+
+  calculateMonthly() {
+    final month = DateTime.now().month;
+    final day = DateTime.now().day;
+    final year = DateTime.now().year;
+    final days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    DateTime now = DateTime.now();
+    DateTime date = DateTime(now.year, now.month, now.day);
+  }
+
 }
 
