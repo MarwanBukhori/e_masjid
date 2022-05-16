@@ -28,8 +28,6 @@ class AppRouter {
         return DoaScreen.route();
       case SurahIndex.routeName:
         return SurahIndex.route();
-      case makePayment.routeName:
-        return makePayment.route();
       case PetugasHomeScreen.routeName:
         return PetugasHomeScreen.route();
       case ProgramScreen.routeName:

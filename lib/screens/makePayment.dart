@@ -5,7 +5,7 @@ import '../services/PaypalPayment.dart';
 
 class makePayment extends StatefulWidget {
 
-  static const String routeName = '/derma';
+  static const String routeName = '/paypal';
 
 
   static Route route(){

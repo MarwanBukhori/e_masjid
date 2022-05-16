@@ -35,7 +35,7 @@ dependencies:
   convex_bottom_bar: ^3.0.0
   bubble_bottom_bar: ^2.0.0
   # Utils
-  webview_flutter: ^3.0.2
+  webview_flutter: ^3.0.4
   flutter_widget_from_html: ^0.8.5
   html: ^0.15.0
   http_auth: ^0.3.1
