@@ -1,5 +1,4 @@
 import 'package:e_masjid/config/constants.dart';
-import 'package:e_masjid/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -420,6 +419,6 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
     pickedTime = true;
 
     setState(() => time = newTime);
-    timeString = time.toString();
+    timeString = time.format(context);
   }
 }

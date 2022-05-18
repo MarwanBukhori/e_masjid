@@ -363,7 +363,9 @@ class _SemakBalasState extends State<SemakBalas> {
 
                                                       Navigator.pop(context);
 
-                                                      setState(() {});
+                                                      setState(() {
+
+                                                      });
 
                                                       Navigator.pushReplacement(
                                                           context,
@@ -371,6 +373,7 @@ class _SemakBalasState extends State<SemakBalas> {
                                                               builder: (context) =>
                                                                   SemakDetail(
                                                                       data: a)));
+
                                                     });
                                                   });
 
@@ -469,8 +472,8 @@ class _SemakBalasState extends State<SemakBalas> {
                                                   content: const Text(
                                                       "Anda pasti mahu padam soalan?"),
                                                   actions: [
-                                                    cancelButton,
                                                     continueButton,
+                                                    cancelButton,
                                                   ],
                                                 );
 

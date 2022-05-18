@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:e_masjid/screens/petugas/edit_program.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_masjid/screens/semak_balas_screen.dart';
+import 'package:e_masjid/services/firestore_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,7 +35,8 @@ class SemakDetail extends StatefulWidget {
 
 class _SemakDetailState extends State<SemakDetail> {
   bool visible = false;
-
+  bool diSahkan = false;
+  String category = "";
   String formatDate = "";
   String formatDate2 = "";
 
@@ -40,6 +44,7 @@ class _SemakDetailState extends State<SemakDetail> {
   void initState() {
     super.initState();
     checkUserRole();
+    checkCategory();
     convertTimestampToString();
   }
 
@@ -117,7 +122,7 @@ class _SemakDetailState extends State<SemakDetail> {
               height: 15,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(25, 15, 1, 0),
+              padding: const EdgeInsets.fromLTRB(25, 15, 12,0),
               child: Text(
                 widget.data["description"],
                 style: const TextStyle(
@@ -130,7 +135,7 @@ class _SemakDetailState extends State<SemakDetail> {
               child: Row(children: [
                 Text(
                   'Maklumat Temujanji',
-                  style: TextStyle(fontSize: 18.sp),
+                  style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                 )
               ]),
             ),
@@ -156,7 +161,7 @@ class _SemakDetailState extends State<SemakDetail> {
                                   ' Bilangan Bahagian :',
                                   style: const TextStyle(
                                       fontSize: 15,
-                                      fontWeight: FontWeight.bold),
+                                      fontStyle: FontStyle.italic ),
                                 )
                               : Text(
                                   "Tarikh :",
@@ -193,10 +198,10 @@ class _SemakDetailState extends State<SemakDetail> {
                           Text(
                             ' Pengesahan :  ',
                             style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
+                                fontSize: 15, fontStyle: FontStyle.italic),
                           ),
 
-             isApprovedIcon()
+                          displayIconPengesahan()
                         ],
                       ),
                     ],
@@ -209,24 +214,80 @@ class _SemakDetailState extends State<SemakDetail> {
               child: Row(children: [
                 Text(
                   'Balasan',
-                  style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                 )
               ]),
             ),
             Padding(
+                padding: const EdgeInsets.only(
+                    left: 25, right: 25, bottom: 10, top: 10),
+                child: Text(
+                  widget.data["balasan"],
+                  style: const TextStyle(
+                    fontSize: 15,
+                  ),
+                )),
+            Padding(
               padding: const EdgeInsets.only(
-                  left: 25, right: 25, bottom: 25, top: 10),
-                child:
-                        Text(
-                           widget.data["balasan"],
-                          style: const TextStyle(
-                            fontSize: 15,
-                          ),
-                        )
-                      ),
+                  left: 25, right: 25, bottom: 25, top: 0),
+              child: Center(
+                child: ElevatedButton(
 
+                    onPressed: () {
+                      setState(() {
+                        // set up the buttons
+                        Widget cancelButton = TextButton(
+                          child: const Text("Tidak"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        );
+                        Widget continueButton = TextButton(
+                          child: const Text("Ya"),
+                          onPressed: () {
+                            if (category == "Qurban"){
+                              sahkanPermohonanQurban();
+                            }
 
+                            else if (category == "Nikah"){
+                              sahkanPermohonanNikah();
+                            }
+                            else{
+                              sahkanPertanyaan();
+                            }
 
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                            // Navigator.of(context).pop();
+                            Navigator.of(context).popAndPushNamed('/semak');
+
+                            // Navigator.pushNamed(context, "/semak");
+                          },
+                        );
+                        // set up the AlertDialog
+                        AlertDialog alert = AlertDialog(
+                          title: const Text("Sahkan Permohonan"),
+                          content: const Text(
+                              "Anda pasti mahu mengesahkan permohonan?"),
+                          actions: [
+                            continueButton,
+                            cancelButton,
+                          ],
+                        );
+
+                        // show the dialog
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return alert;
+                          },
+                        );
+                      });
+                    },
+                    child: Text('Sahkan')),
+              ),
+            ),
           ],
         ),
       ),
@@ -249,7 +310,49 @@ class _SemakDetailState extends State<SemakDetail> {
     });
   }
 
+  checkCategory() {
+    if (widget.data["JenisTemuJanji"] == "Nikah")
+      category = "Nikah";
 
+    // FireStoreService.updateApprovalNikah();
+    else if (widget.data["JenisTemuJanji"] == "Qurban")
+      category = "Qurban";
+    else
+      category = "Pertanyaan";
+  }
+
+  sahkanPermohonanQurban() {
+    try {
+      setState(() {
+        FireStoreService().updateApprovalQurban(widget.data["id"]);
+        diSahkan = true;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  sahkanPermohonanNikah() {
+    try {
+      setState(() {
+        FireStoreService().updateApprovalNikah(widget.data["id"]);
+        diSahkan = true;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  sahkanPertanyaan() {
+    try {
+      setState(() {
+        FireStoreService().updateApprovalPertanyaan(widget.data["id"]);
+        diSahkan = true;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   convertTimestampToString() {
     //first date
@@ -283,9 +386,8 @@ class _SemakDetailState extends State<SemakDetail> {
     setState(() {});
   }
 
-  isApprovedIcon(){
-    if (widget.data["isApproved"]
-    )
+  isApprovedIcon() {
+    if (widget.data["isApproved"])
       return Icon(
         Icons.check,
         color: Colors.green,
@@ -295,7 +397,19 @@ class _SemakDetailState extends State<SemakDetail> {
         Icons.close,
         color: Colors.red,
       );
+  }
 
+  Widget displayIconPengesahan() {
+    if (widget.data["isApproved"])
+      return Icon(
+        Icons.check,
+        color: Colors.green,
+      );
+    else
+      return Icon(
+        Icons.close,
+        color: Colors.red,
+      );
   }
 
   Widget displayTarikh() {
@@ -313,6 +427,4 @@ class _SemakDetailState extends State<SemakDetail> {
 
     // setState(() {});
   }
-
-
 }

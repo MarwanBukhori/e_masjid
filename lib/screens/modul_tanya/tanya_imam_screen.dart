@@ -370,7 +370,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
         descController.text);
 
     EasyLoading.showSuccess('Pertanyaan berjaya ditambah');
-    Navigator.of(context).popAndPushNamed('/tanya');
+    Navigator.of(context).popAndPushNamed('/semak');
 
     setState(() {});
   }

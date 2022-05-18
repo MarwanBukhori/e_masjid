@@ -23,7 +23,7 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
   bool pickedTime = false;
 
   DateTimeRange dateRange =
-      DateTimeRange(start: DateTime(2022, 11, 5), end: DateTime(2022, 12, 24));
+  DateTimeRange(start: DateTime(2022, 11, 5), end: DateTime(2022, 12, 24));
   final titleController = TextEditingController();
   final descController = TextEditingController();
   final startDateController = TextEditingController();
@@ -143,7 +143,7 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                             cursorColor: kZambeziColor,
                             keyboardType: TextInputType.name,
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               RegExp regex = RegExp(r'^.{5,}$');
                               if (value!.isEmpty) {
@@ -160,7 +160,7 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                               contentPadding:
-                                  const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                              const EdgeInsets.fromLTRB(20, 15, 20, 15),
                               labelText: 'Cth : Gotong Royong..',
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)),
@@ -198,7 +198,7 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                             cursorColor: Colors.white,
                             keyboardType: TextInputType.name,
                             autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                            AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               RegExp regex = RegExp(r'^.{5,}$');
                               if (value!.isEmpty) {
@@ -215,7 +215,7 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                               contentPadding:
-                                  const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                              const EdgeInsets.fromLTRB(20, 15, 20, 15),
                               labelText: 'Cth : Gotong Royong anjuran Masjid..',
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)),
@@ -259,7 +259,7 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                                   cursorColor: Colors.white,
                                   keyboardType: TextInputType.name,
                                   autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onUserInteraction,
                                   onSaved: (value) {
                                     startDateController.text = value!;
                                   },
@@ -268,10 +268,10 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                                     contentPadding: const EdgeInsets.fromLTRB(
                                         20, 15, 20, 15),
                                     labelText:
-                                        '${start.year}/${start.month}/${start.day}',
+                                    '${start.year}/${start.month}/${start.day}',
                                     border: OutlineInputBorder(
                                         borderRadius:
-                                            BorderRadius.circular(10)),
+                                        BorderRadius.circular(10)),
                                   ),
                                 ),
                               ),
@@ -286,7 +286,7 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                                   cursorColor: Colors.white,
                                   keyboardType: TextInputType.name,
                                   autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                  AutovalidateMode.onUserInteraction,
                                   onSaved: (value) {
                                     lastDateController.text = value!;
                                   },
@@ -295,10 +295,10 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                                     contentPadding: const EdgeInsets.fromLTRB(
                                         20, 15, 20, 15),
                                     labelText:
-                                        '${end.year}/${end.month}/${end.day}',
+                                    '${end.year}/${end.month}/${end.day}',
                                     border: OutlineInputBorder(
                                         borderRadius:
-                                            BorderRadius.circular(10)),
+                                        BorderRadius.circular(10)),
                                   ),
                                 ),
                               )
@@ -312,11 +312,11 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                             children: [
                               Expanded(
                                   child: ElevatedButton(
-                                child: Text('Pilih Tarikh', style: TextStyle(color: Colors.black),),
-                                onPressed: pickDateRange,
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.white70),
-                              )),
+                                    child: Text('Pilih Tarikh', style: TextStyle(color: Colors.black),),
+                                    onPressed: pickDateRange,
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.white70),
+                                  )),
 
                             ],
                           ),
@@ -476,6 +476,6 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
     pickedTime = true;
 
     setState(() => time = newTime);
-    timeString = time.toString();
+    timeString = time.format(context);
   }
 }

@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-
+// import 'package:e_masjid/screens/petugas/add_program_screen.dart';
 import '../config/constants.dart';
+import 'package:e_masjid/screens/petugas/add_program_screen.dart';
 import '../widgets/custom_navbar.dart';
 
 class ProgramScreen extends StatefulWidget {
@@ -29,7 +30,11 @@ class _ProgramScreenState extends State<ProgramScreen> {
   bool visible = false;
   bool loading = true;
   String date = '';
+  String date2 = '';
+  String masaMula = '';
+  String masaTamat = '';
   String formatDate = "";
+  String formatDate2 = "";
   String? _selectedView = "Semua";
   List<String> _type = ['Harian', 'Mingguan', 'Bulanan', 'Semua'];
 
@@ -218,6 +223,10 @@ class _ProgramScreenState extends State<ProgramScreen> {
                                     height: 15.h,
                                   ),
                                   Row(children: [getDate(index)]),
+                                  SizedBox(
+                                    height: 10.h,
+                                  ),
+                                  Row(children: [getTime(index)]),
                                 ],
                               ),
                             ],
@@ -275,7 +284,18 @@ class _ProgramScreenState extends State<ProgramScreen> {
     date = programs[index]['firstDate'].toDate().toString();
     DateTime parsedDateTime = DateTime.parse(date);
     formatDate = DateFormat("dd-MM-yyyy").format(parsedDateTime);
-    return Text(formatDate);
+
+    date2 = programs[index]['lastDate'].toDate().toString();
+    DateTime parsedDateTime2 = DateTime.parse(date2);
+    formatDate2 = DateFormat("dd-MM-yyyy").format(parsedDateTime2);
+
+    return Text("Tarikh : ${formatDate}  -  ${formatDate2}");
+  }
+
+  Widget getTime(int index){
+    masaMula = programs[index]['masa'];
+    masaTamat = programs[index]['masaTamat'];
+    return Text("Masa : ${masaMula}  -  ${masaTamat}");
   }
 
    calculateDaily() {

@@ -224,7 +224,7 @@ class SahPermohonanBtn extends StatelessWidget {
         height: height * 0.06,
         child: MaterialButton(
           shape: const StadiumBorder(),
-          onPressed: () => Navigator.pushNamed(context, '/sah_permohonan'),
+          onPressed: () => Navigator.pushNamed(context, '/semak'),
           child: WidgetAnimator(
             child: Text(
               "Pengesahan Permohonan",

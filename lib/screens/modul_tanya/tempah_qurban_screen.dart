@@ -229,25 +229,6 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                           const SizedBox(
                             height: 15,
                           ),
-                          // Masa     // Row(
-                          //                           //   mainAxisAlignment: MainAxisAlignment.center,
-                          //                           //   children: [
-                          //                           //     Expanded(
-                          //                           //       child: ElevatedButton(
-                          //                           //         child: Text(
-                          //                           //           getTarikh(),
-                          //                           //           style: TextStyle(color: Colors.black),
-                          //                           //         ),
-                          //                           //         onPressed: () {
-                          //                           //           pickDate(context);
-                          //                           //         },
-                          //                           //         style: ElevatedButton.styleFrom(
-                          //                           //             primary: Colors.white70),
-                          //                           //       ),
-                          //                           //     ),
-                          //                           //   ],
-                          //                           // ),
-                          //                           // const SizedBox(height: 5),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -331,17 +312,5 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
 
     setState(() {});
   }
-
-  // Future pickDate(BuildContext context) async {
-  //   final initialDate = DateTime.now();
-  //   final newDate = await showDatePicker(
-  //       context: context,
-  //       initialDate: date ?? initialDate,
-  //       firstDate: DateTime(DateTime.now().year - 5),
-  //       lastDate: DateTime(DateTime.now().year + 5));
-  //   if (newDate == null) return;
-  //   pickedDate = true;
-  //   setState(() => date = newDate);
-  // }
 
 }
