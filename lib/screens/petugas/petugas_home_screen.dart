@@ -272,37 +272,6 @@ class ProgramPetugasBtn extends StatelessWidget {
   }
 }
 
-// class JuzzIndexBtn extends StatelessWidget {
-//   const JuzzIndexBtn({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     double width = MediaQuery.of(context).size.width;
-//     double height = MediaQuery.of(context).size.height;
-//
-//     return Padding(
-//       padding: EdgeInsets.symmetric(vertical: height * 0.01),
-//       child: SizedBox(
-//         width: width * 0.7,
-//         height: height * 0.06,
-//         child: MaterialButton(
-//           shape: const StadiumBorder(),
-//           onPressed: () {
-//             Navigator.pushNamed(context, '/juzIndex');
-//           },
-//           child: WidgetAnimator(
-//             child: Text(
-//               "Juz Index",
-//               style: TextStyle(
-//                   fontSize: height * 0.023, fontWeight: FontWeight.w400),
-//             ),
-//           ),
-//           color: const Color(0xffee8f8b),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class AyahBottom extends StatelessWidget {
   const AyahBottom({Key? key}) : super(key: key);

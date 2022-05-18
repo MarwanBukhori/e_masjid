@@ -436,7 +436,7 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
           ),
         )
       ]),
-      bottomNavigationBar: CustomNavBar(),
+      // bottomNavigationBar: CustomNavBar(),
     );
   }
 

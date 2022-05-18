@@ -1,14 +1,9 @@
 import 'package:e_masjid/config/constants.dart';
-import 'package:e_masjid/models/temujanji_model.dart';
-import 'package:e_masjid/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../services/firestore_service.dart';
-import '../../services/temujanji.service.dart';
-import '../../widgets/loading-indicator.dart';
 
 class TanyaImamScreen extends StatefulWidget {
   const TanyaImamScreen({Key? key}) : super(key: key);
@@ -31,7 +26,6 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
       DateTimeRange(start: DateTime(2022, 11, 5), end: DateTime(2022, 12, 24));
   final titleController = TextEditingController();
   final descController = TextEditingController();
-  final DateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +65,6 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                 fontWeight: FontWeight.bold),
           ),
         ),
-
         Expanded(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -87,17 +80,6 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      height: 15,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: kZambeziColor,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.w),
-                          topRight: Radius.circular(20.w),
-                        ),
-                      ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
@@ -133,7 +115,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                             cursorColor: kZambeziColor,
                             keyboardType: TextInputType.name,
                             autovalidateMode:
-                            AutovalidateMode.onUserInteraction,
+                                AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               RegExp regex = RegExp(r'^.{5,}$');
                               if (value!.isEmpty) {
@@ -150,7 +132,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                               contentPadding:
-                              const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                  const EdgeInsets.fromLTRB(20, 15, 20, 15),
                               labelText: 'Cth : Apakah Hukum BitCoin..',
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)),
@@ -188,7 +170,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                             cursorColor: Colors.white,
                             keyboardType: TextInputType.name,
                             autovalidateMode:
-                            AutovalidateMode.onUserInteraction,
+                                AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               RegExp regex = RegExp(r'^.{5,}$');
                               if (value!.isEmpty) {
@@ -205,8 +187,9 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
                               contentPadding:
-                              const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                              labelText: 'Cth : Cryptocurrency ibarat cendawan tumbuh selepas hujan..',
+                                  const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                              labelText:
+                                  'Cth : Cryptocurrency ibarat cendawan tumbuh selepas hujan..',
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)),
                             ),
@@ -215,106 +198,23 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
 
                           const SizedBox(height: 5),
 
-                          // //TextField Tarikh
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     Expanded(
-                          //       child: TextFormField(
-                          //         enabled: false,
-                          //         controller: startDateController,
-                          //         autofocus: false,
-                          //         cursorColor: Colors.white,
-                          //         keyboardType: TextInputType.name,
-                          //         autovalidateMode:
-                          //         AutovalidateMode.onUserInteraction,
-                          //         onSaved: (value) {
-                          //           startDateController.text = value!;
-                          //         },
-                          //         textInputAction: TextInputAction.next,
-                          //         decoration: InputDecoration(
-                          //           contentPadding: const EdgeInsets.fromLTRB(
-                          //               20, 15, 20, 15),
-                          //           labelText:
-                          //           '${start.year}/${start.month}/${start.day}',
-                          //           border: OutlineInputBorder(
-                          //               borderRadius:
-                          //               BorderRadius.circular(10)),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     const SizedBox(
-                          //       width: 12,
-                          //     ),
-                          //     Expanded(
-                          //       child: TextFormField(
-                          //         enabled: false,
-                          //         controller: lastDateController,
-                          //         autofocus: false,
-                          //         cursorColor: Colors.white,
-                          //         keyboardType: TextInputType.name,
-                          //         autovalidateMode:
-                          //         AutovalidateMode.onUserInteraction,
-                          //         onSaved: (value) {
-                          //           lastDateController.text = value!;
-                          //         },
-                          //         textInputAction: TextInputAction.next,
-                          //         decoration: InputDecoration(
-                          //           contentPadding: const EdgeInsets.fromLTRB(
-                          //               20, 15, 20, 15),
-                          //           labelText:
-                          //           '${end.year}/${end.month}/${end.day}',
-                          //           border: OutlineInputBorder(
-                          //               borderRadius:
-                          //               BorderRadius.circular(10)),
-                          //         ),
-                          //       ),
-                          //     )
-                          //   ],
-                          // ),
-                          // const SizedBox(
-                          //   height: 10,
-                          // ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     Expanded(
-                          //         child: ElevatedButton(
-                          //           child: Text('Pilih Tarikh', style: TextStyle(color: Colors.black),),
-                          //           onPressed: (){},
-                          //           style: ElevatedButton.styleFrom(
-                          //               primary: Colors.white70),
-                          //         )),
-                          //
-                          //   ],
-                          // ),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kZambeziColor),
+                                      primary: kPrimaryColor),
                                   onPressed: () {
                                     addTanyaImam();
-
                                   },
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const Icon(
                                         Icons.add,
                                         color: Colors.green,
                                       ),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text(
-                                        "Tanya",
-                                        style: TextStyle(fontSize: 16.sp),
-                                      ),
-
                                     ],
                                   ),
                                 ),
@@ -325,7 +225,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kZambeziColor),
+                                      primary: kPrimaryColor),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -336,18 +236,10 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                                         Icons.cancel,
                                         color: Colors.red,
                                       ),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text(
-                                        "Batal",
-                                        style: TextStyle(fontSize: 16.sp),
-                                      ),
                                     ],
                                   ),
                                 ),
                               ),
-
                             ],
                           )
                         ],
@@ -363,11 +255,12 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
       bottomNavigationBar: CustomNavBar(),
     );
   }
+
   void addTanyaImam() async {
     EasyLoading.show(status: 'sedang diproses...');
 
-    await fireStoreService.uploadTanyaData(titleController.text,
-        descController.text);
+    await fireStoreService.uploadTanyaData(
+        titleController.text, descController.text);
 
     EasyLoading.showSuccess('Pertanyaan berjaya ditambah');
     Navigator.of(context).popAndPushNamed('/semak');

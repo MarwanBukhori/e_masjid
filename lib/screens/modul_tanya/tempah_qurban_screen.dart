@@ -24,33 +24,8 @@ class TempahQurbanScreen extends StatefulWidget {
 class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
   FireStoreService fireStoreService = FireStoreService();
 
-  // DateTime date = DateTime.now();
-  // TimeOfDay time = TimeOfDay.now();
-  // String timeString = '';
-  //
-  // bool pickedDate = false;
-  // bool pickedTime = false;
-
   final pemohonController = TextEditingController();
   final bahagianController = TextEditingController();
-
-  // String getTarikh() {
-  //   if (pickedDate != true) {
-  //     return 'Pilih Tarikh';
-  //   } else {
-  //     return '${date.month}/${date.day}/${date.year}';
-  //   }
-  // }
-  //
-  // String getMasa() {
-  //   if (pickedTime != true) {
-  //     return 'Pilih Masa';
-  //   } else {
-  //     final hours = time.hour.toString().padLeft(2, '0');
-  //     final minutes = time.minute.toString().padLeft(2, '0');
-  //     return '$hours:$minutes';
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -105,17 +80,6 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      height: 15,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: kZambeziColor,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.w),
-                          topRight: Radius.circular(20.w),
-                        ),
-                      ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
@@ -128,11 +92,11 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                             child: Row(
                               children: [
                                 const Icon(
-                                  Icons.verified_user,
-                                  color: Colors.yellow,
+                                  Icons.person,
+                                  color: Colors.lightBlue,
                                 ),
                                 SizedBox(
-                                  width: 7.w,
+                                  width: 9.w,
                                 ),
                                 Text(
                                   'Pemohon',
@@ -172,17 +136,17 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                                   borderRadius: BorderRadius.circular(10)),
                             ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 20),
 
                           // Bahagian
                           Row(
                             children: [
                               const Icon(
-                                Icons.format_list_numbered_sharp,
+                                Icons.shopping_cart,
                                 color: Colors.black54,
                               ),
                               SizedBox(
-                                width: 5.w,
+                                width: 9.w,
                               ),
                               Text(
                                 'Bahagian',
@@ -191,12 +155,10 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black54),
                               ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
+
                             ],
                           ),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 10),
                           // button Bahagian
                           TextFormField(
                             controller: bahagianController,
@@ -236,22 +198,16 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kZambeziColor),
+                                      primary: kPrimaryColor),
                                   onPressed: () {
                                     addTempahQurban();
                                   },
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const Icon(
                                         Icons.add,
                                         color: Colors.green,
-                                      ),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text(
-                                        "Tempah",
-                                        style: TextStyle(fontSize: 16.sp),
                                       ),
                                     ],
                                   ),
@@ -263,7 +219,7 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kZambeziColor),
+                                      primary: kPrimaryColor),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -273,13 +229,6 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                                       const Icon(
                                         Icons.cancel,
                                         color: Colors.red,
-                                      ),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text(
-                                        "Batal",
-                                        style: TextStyle(fontSize: 16.sp),
                                       ),
                                     ],
                                   ),
@@ -312,5 +261,4 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
 
     setState(() {});
   }
-
 }

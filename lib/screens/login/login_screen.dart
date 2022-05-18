@@ -20,46 +20,48 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 50,
+                height: 70,
               ),
-              Center(child: Image.asset('assets/emasjid.png')),
+              Center(child: Image.asset('assets/images/e_masjid1.jpg')),
               SizedBox(
                 height: 5,
               ),
-              Row(
-                children: [
-                  Text(
-                    'Selamat Datang! ',
-                    style: subTitle,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SignUpScreen(),
-                        ),
-                      );
-                    },
+              Center(
+                child: Text(
+                  'Selamat Datang.',
+                  style: subTitle,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignUpScreen(),
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Center(
                     child: Text(
-                      'Daftar akaun.',
+                      'Daftar akaun!',
                       style: textButton.copyWith(
-                        decoration: TextDecoration.underline,
-                        decorationThickness: 1,
+                        fontSize: 15,
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
+
               SizedBox(
-                height: 10,
+                height: 7,
               ),
               LogInForm(),
+
+
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               GestureDetector(
                 onTap: () {
@@ -68,19 +70,22 @@ class LoginScreen extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => ForgotPassword()));
                 },
-                child: Text(
-                  'Terlupa kata laluan?',
-                  style: TextStyle(
-                    color: kZambeziColor,
-                    fontSize: 14,
-                    decoration: TextDecoration.underline,
-                    decorationThickness: 1,
+                child: Center(
+                  child: Text(
+                    'Terlupa kata laluan?',
+                    style: TextStyle(
+                      color: kZambeziColor,
+                      fontSize: 14,
+                      decorationThickness: 1,
+                    ),
                   ),
+
                 ),
               ),
               SizedBox(
                 height: 20,
               ),
+
 
               GestureDetector(
                 onTap: () async {
@@ -119,14 +124,7 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              // Text(
-              //   'Or log in with:',
-              //   style: subTitle.copyWith(color: kBlackColor),
-              // ),
-              // SizedBox(
-              //   height: 20,
-              // ),
-              // LoginOption(),
+
             ],
           ),
         ),

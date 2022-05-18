@@ -2,6 +2,7 @@ import 'package:e_masjid/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import '../../config/constants.dart';
 import '../../providers/user.provider.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -41,8 +42,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/emasjid.png",
-                  height: 300,
+                  "assets/images/e_masjid1.jpg",
+
                 ),
                 Text(
                   'Terima emel untuk menetapkan semula kata laluan anda',
@@ -77,13 +78,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     style: ElevatedButton.styleFrom(
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(25.0)),
-                      primary: Color(0xffFE8C4A),
+                      primary: kPrimaryColor,
                       minimumSize: Size.fromHeight(50),
                     ),
                     icon: Icon(Icons.email),
                     label: Text(
                       'Tetap semula kata laluan',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 17),
                     ),
                     onPressed: () {
                       if (emailController.text == "") {
@@ -95,7 +96,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     }),
                 SizedBox(height: 30),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text("Kembali ke"),
+                  Text("Kembali ke", style: TextStyle(
+                    fontSize: 14,
+
+                  ),),
                   TextButton(
                       onPressed: () {
                         //button to new screen
@@ -107,7 +111,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       },
                       child: Text(
                         "Log masuk ",
-                        style: TextStyle(color: Color(0xff375DBF)),
+                        style: TextStyle(color: kPrimaryColor),
                       ))
                 ]),
               ],

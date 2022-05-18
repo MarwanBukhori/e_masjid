@@ -103,17 +103,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      height: 15,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: kZambeziColor,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20.w),
-                          topRight: Radius.circular(20.w),
-                        ),
-                      ),
-                    ),
+
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
@@ -126,11 +116,11 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                             child: Row(
                               children: [
                                 const Icon(
-                                  Icons.verified_user,
-                                  color: Colors.yellow,
+                                  Icons.person,
+                                  color: Colors.lightBlue,
                                 ),
                                 SizedBox(
-                                  width: 7.w,
+                                  width: 9.w,
                                 ),
                                 Text(
                                   'Pemohon',
@@ -172,18 +162,19 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                                   borderRadius: BorderRadius.circular(10)),
                             ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 20),
 
                           // Description
                           Row(
                             children: [
                               const Icon(
-                                Icons.edit_note_outlined,
-                                color: Colors.teal,
+                                Icons.favorite,
+                                color: Colors.red,
                               ),
                               SizedBox(
-                                width: 7.w,
+                                width: 9.w,
                               ),
+
                               Text(
                                 'Pasangan',
                                 style: TextStyle(
@@ -191,12 +182,10 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black54),
                               ),
-                              SizedBox(
-                                width: 5.w,
-                              ),
+
                             ],
                           ),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 10),
 
                           TextFormField(
                             controller: pasanganController,
@@ -227,17 +216,17 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                                   borderRadius: BorderRadius.circular(10)),
                             ),
                           ),
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 20),
 
                           // Tarikh
                           Row(
                             children: [
                               const Icon(
                                 Icons.calendar_month,
-                                color: Colors.black54,
+                                color: Colors.teal,
                               ),
                               SizedBox(
-                                width: 5.w,
+                                width: 9.w,
                               ),
                               Text(
                                 'Tarikh',
@@ -252,7 +241,8 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                             ],
                           ),
                           const SizedBox(height: 5),
-//button Tarikh
+
+                          //button Tarikh
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -271,16 +261,16 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 5),
+                          const SizedBox(height: 15),
                           // Masa
                           Row(
                             children: [
                               const Icon(
                                 Icons.punch_clock,
-                                color: Colors.black54,
+                                color: Colors.orange,
                               ),
                               SizedBox(
-                                width: 5.w,
+                                width: 9.w,
                               ),
                               Text(
                                 'Masa',
@@ -314,28 +304,25 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                               ),
                             ],
                           ),
+                          const SizedBox(
+                            height: 20,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kZambeziColor),
+                                      primary: kPrimaryColor),
                                   onPressed: () {
                                     addMohonNikah();
                                   },
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const Icon(
                                         Icons.add,
                                         color: Colors.green,
-                                      ),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text(
-                                        "Mohon",
-                                        style: TextStyle(fontSize: 16.sp),
                                       ),
                                     ],
                                   ),
@@ -347,7 +334,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kZambeziColor),
+                                      primary: kPrimaryColor),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
@@ -355,16 +342,10 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const Icon(
-                                        Icons.cancel,
+                                        Icons.cancel_sharp,
                                         color: Colors.red,
                                       ),
-                                      SizedBox(
-                                        width: 10.w,
-                                      ),
-                                      Text(
-                                        "Batal",
-                                        style: TextStyle(fontSize: 16.sp),
-                                      ),
+
                                     ],
                                   ),
                                 ),

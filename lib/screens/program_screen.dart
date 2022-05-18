@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+
 // import 'package:e_masjid/screens/petugas/add_program_screen.dart';
 import '../config/constants.dart';
 import 'package:e_masjid/screens/petugas/add_program_screen.dart';
@@ -54,192 +55,185 @@ class _ProgramScreenState extends State<ProgramScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Floating action button sunting
-      floatingActionButton: Visibility(
-        visible: visible,
-        child: FloatingActionButton.extended(
-          heroTag: 'servis_hero',
-          onPressed: () async {
-            await Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddProgramScreen()));
-          },
-          label: const Text(" Program"),
-          icon: const Icon(Icons.add),
-          backgroundColor: kZambeziColor,
-        ),
-      ),
-
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black87,
+        // Floating action button sunting
+        floatingActionButton: Visibility(
+          visible: visible,
+          child: FloatingActionButton.extended(
+            heroTag: 'servis_hero',
+            onPressed: () async {
+              await Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AddProgramScreen()));
+            },
+            label: const Text(" Program"),
+            icon: const Icon(Icons.add),
+            backgroundColor: kZambeziColor,
           ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
         ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      'Jadual',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 25.0,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black87,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Text(
+                        'Jadual',
+                        style: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 25.0,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: Text(
-                      'Program',
-                      style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 35.0,
-                          fontWeight: FontWeight.bold),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: Text(
+                        'Program',
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 35.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 40.0, top: 20, right: 20, bottom: 10),
+                    child: DropdownButtonFormField<String>(
+                      hint: Text(_selectedView!),
+                      items: _type.map((view) {
+                        return DropdownMenuItem<String>(
+                          value: view,
+                          child: Text(view),
+                        );
+                      }).toList(),
+                      onChanged: (newValue) {
+                        if (newValue == "Harian") {
+                          setState(() {
+                            _selectedView = newValue;
+                            programs.clear();
+                            programs.addAll(dailyList);
+                          });
+                        } else if (newValue == "Mingguan") {
+                          setState(() {
+                            _selectedView = newValue;
+                            // mainList.addAll(qurbanList);
+                          });
+                        } else if (newValue == "Semua") {
+                          programs.clear();
+                          setState(() {
+                            _selectedView = newValue;
+                            getData();
+                          });
+                        } else {
+                          setState(() {
+                            _selectedView = newValue;
+                            // mainList.addAll(pertanyaanList);
+                          });
+                        }
+                      },
                     ),
                   ),
-                ],
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 40.0, top: 20, right: 20, bottom: 10),
-                  child: DropdownButtonFormField<String>(
-                    hint: Text(_selectedView!),
-                    items: _type.map((view) {
-                      return DropdownMenuItem<String>(
-                        value: view,
-                        child: Text(view),
-                      );
-                    }).toList(),
-                    onChanged: (newValue) {
-                      if (newValue == "Harian"){
-                        setState(() {
-                          _selectedView = newValue;
-                          programs.clear();
-                          programs.addAll(dailyList);
-
-                        });
-
-                      } else if (newValue == "Mingguan"){
-                        setState(() {
-                          _selectedView = newValue;
-                          // mainList.addAll(qurbanList);
-
-                        });
-
-                      }
-                      else if (newValue == "Semua"){
-                        programs.clear();
-                        setState(() {
-                          _selectedView = newValue;
-                          getData();
-
-                        });
-
-                      }else {
-                        setState(() {
-                          _selectedView = newValue;
-                          // mainList.addAll(pertanyaanList);
-
-                        });
-                      }
-
-                    },
-                  ),
-                ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 20.h,
-          ),
-          Expanded(
-            child: loading
-                ? const SizedBox(
-                    width: double.infinity,
-                    child: Center(child: CircularProgressIndicator()))
-                : ListView.builder(
-                    key: UniqueKey(),
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: programs.length,
-                    itemBuilder: ((context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (c) => ProgramDetail(
-                                        data: programs[index],
-                                      )));
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.fromLTRB(20, 5, 20, 10),
-                          height: 110,
-                          decoration: const BoxDecoration(
-                              color: kDarkGreyColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 35.w,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    programs[index]["title"],
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    height: 15.h,
-                                  ),
-                                  Row(children: [
-                                    // const Icon(Icons.calendar_month_rounded),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            Expanded(
+              child: loading
+                  ? const SizedBox(
+                      width: double.infinity,
+                      child: Center(child: CircularProgressIndicator()))
+                  : ListView.builder(
+                      key: UniqueKey(),
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: programs.length,
+                      itemBuilder: ((context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (c) => ProgramDetail(
+                                          data: programs[index],
+                                        )));
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                            height: 110,
+                            decoration: const BoxDecoration(
+                                color: kDarkGreyColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 35.w,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
                                     Text(
-                                      programs[index]["description"],
+                                      programs[index]["title"],
                                       style: const TextStyle(
-                                        fontSize: 15,
-                                      ),
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  ]),
-                                  SizedBox(
-                                    height: 15.h,
-                                  ),
-                                  Row(children: [getDate(index)]),
-                                  SizedBox(
-                                    height: 10.h,
-                                  ),
-                                  Row(children: [getTime(index)]),
-                                ],
-                              ),
-                            ],
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    Row(children: [
+                                      // const Icon(Icons.calendar_month_rounded),
+                                      Text(
+                                        programs[index]["description"],
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ]),
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    Row(children: [getDate(index)]),
+                                    SizedBox(
+                                      height: 10.h,
+                                    ),
+                                    Row(children: [getTime(index)]),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    }),
-                  ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: CustomNavBar(),
-    );
+                        );
+                      }),
+                    ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: showBottomBar()
+
+        // CustomNavBar(),
+        );
   }
 
   //get data into list
@@ -250,7 +244,7 @@ class _ProgramScreenState extends State<ProgramScreen> {
         data.addAll({'id': element.id});
         programs.add(data);
       }
-      programs.sort((a,b){
+      programs.sort((a, b) {
         var adate = a['firstDate'];
         var bdate = b['firstDate'];
         return adate.compareTo(bdate);
@@ -279,6 +273,13 @@ class _ProgramScreenState extends State<ProgramScreen> {
     });
   }
 
+  showBottomBar() {
+    if (visible = true) {
+    } else {
+      return CustomNavBar();
+    }
+  }
+
   Widget getDate(int index) {
     // getData();
     date = programs[index]['firstDate'].toDate().toString();
@@ -292,29 +293,32 @@ class _ProgramScreenState extends State<ProgramScreen> {
     return Text("Tarikh : ${formatDate}  -  ${formatDate2}");
   }
 
-  Widget getTime(int index){
+  Widget getTime(int index) {
     masaMula = programs[index]['masa'];
     masaTamat = programs[index]['masaTamat'];
     return Text("Masa : ${masaMula}  -  ${masaTamat}");
   }
 
-   calculateDaily() {
-     DateTime now = DateTime.now();
-     final day = DateTime.now().day;
-     final today = DateTime(now.year, now.month, now.day,);
+  calculateDaily() {
+    DateTime now = DateTime.now();
+    final day = DateTime.now().day;
+    final today = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    );
 
-     for (var day in programs) {
+    for (var day in programs) {
+      if (day == today) {
+        dailyList.add(day);
+      }
+    }
 
-       if(day == today){
-         dailyList.add(day);
-       }
-     }
-
-     if (mounted) {
-       loading = false;
-       setState(() {});
-     }
-   }
+    if (mounted) {
+      loading = false;
+      setState(() {});
+    }
+  }
 
   calculateWeekly() {
     final month = DateTime.now().month;
@@ -333,6 +337,4 @@ class _ProgramScreenState extends State<ProgramScreen> {
     DateTime now = DateTime.now();
     DateTime date = DateTime(now.year, now.month, now.day);
   }
-
 }
-
