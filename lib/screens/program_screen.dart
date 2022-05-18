@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_masjid/screens/petugas/program_detail_screen.dart';
 import 'package:e_masjid/widgets/custom_appbar.dart';
@@ -134,6 +136,10 @@ class _ProgramScreenState extends State<ProgramScreen> {
                       if (newValue == "Harian") {
                         setState(() {
                           _selectedView = newValue;
+
+                          programs.clear();
+                          dailyList.clear();
+                          getDataDaily();
                         });
 
                         //weekly view
@@ -145,8 +151,6 @@ class _ProgramScreenState extends State<ProgramScreen> {
                           //get all data from db into programsList
                           //the output is programs[] (list full of programs item)
                           getDataWeekly();
-
-
                         });
 
                         //all view
@@ -283,8 +287,8 @@ class _ProgramScreenState extends State<ProgramScreen> {
       }
 
       DateTime now = DateTime.now();
+      print(now);
       final dateWeek = DateTime(now.year, now.month, now.day + 7);
-
 
       //we have a full programs[list] here
 
@@ -294,7 +298,6 @@ class _ProgramScreenState extends State<ProgramScreen> {
 
         if (now.isBefore(dateWeekly2) && dateWeek.isAfter(dateWeekly2)) {
           weeklyList.add(program);
-
         }
         // if(now==dateWeekly2){
         //   weeklyList.add(program);
@@ -302,6 +305,45 @@ class _ProgramScreenState extends State<ProgramScreen> {
       }
       programs.clear();
       programs.addAll(weeklyList);
+
+      programs.sort((a, b) {
+        var adate = a['firstDate'];
+        var bdate = b['lastDate'];
+        return adate.compareTo(bdate);
+      });
+
+      if (mounted) {
+        loading = false;
+        setState(() {});
+      }
+    });
+  }
+
+  //get all data into list (DAILY)
+  Future getDataDaily() async {
+    await FirebaseFirestore.instance.collection("program").get().then((value) {
+      for (var element in value.docs) {
+        Map<String, dynamic> data = element.data();
+        data.addAll({'id': element.id});
+        programs.add(data);
+      }
+
+      DateTime now = DateTime.now();
+
+      //we have a full programs[list] here
+      for (final program in programs) {
+        Timestamp dateWeekly = program['firstDate'];
+        DateTime dateWeekly2 = dateWeekly.toDate();
+
+        print(dateWeekly2);
+        print(now);
+
+        if (now.compareTo(dateWeekly2)>0) {
+          dailyList.add(program);
+        }
+      }
+      programs.clear();
+      programs.addAll(dailyList);
 
       programs.sort((a, b) {
         var adate = a['firstDate'];
