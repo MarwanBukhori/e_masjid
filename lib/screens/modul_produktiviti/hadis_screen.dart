@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../config/constants.dart';
+
 class HadisScreen extends StatefulWidget {
   static const String routeName = '/hadis';
 
@@ -23,7 +25,7 @@ class _HadisScreenState extends State<HadisScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: kPrimaryColor,
         title: Center(child: Text('Hadis 40 Pilihan')),
       ),
       body: WebView(

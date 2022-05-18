@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +7,7 @@ class FireStoreService {
   FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   String error = "";
   String formatDate = "";
+
   Future<void> createUserData(
       String name, String userid, String email, String role) async {
     try {
@@ -59,7 +59,6 @@ class FireStoreService {
   // use in add Program screen
   Future<void> uploadProgramData(String title, String desc, DateTime firstDate,
       DateTime lastDate, String time) async {
-
     await _firebaseFirestore.collection("program").doc().set({
       "title": title,
       "description": desc,
@@ -80,7 +79,6 @@ class FireStoreService {
       "JenisTemuJanji": "Pertanyaan",
       "balasan": "tiada",
       "isApproved": false,
-
     });
   }
 
@@ -89,8 +87,6 @@ class FireStoreService {
       String pemohon, String pasangan, DateTime date, String time) async {
     String b = convertTimestampToString(date);
     await _firebaseFirestore.collection("nikah").doc().set({
-
-
       "pemohon": pemohon,
       "pasangan": pasangan,
       "tarikh": date,
@@ -98,84 +94,83 @@ class FireStoreService {
       "JenisTemuJanji": "Nikah",
       "isApproved": false,
       "title": "${pemohon} & ${pasangan}",
-      "description": "Permohonan Nikah ${pemohon} & ${pasangan} pada tarikh : ${formatDate}, jam : ${time}",
+      "description":
+          "Permohonan Nikah ${pemohon} & ${pasangan} pada tarikh : ${formatDate}, jam : ${time}",
       "balasan": "tiada [ nikah ]"
     });
   }
 
   // use in to add tempahan qurban
   Future<void> uploadTempahQurban(String pemohon, int bilangan) async {
-
     await _firebaseFirestore.collection("qurban").doc().set({
       "pemohon": pemohon,
       "bilangan": bilangan,
       "JenisTemuJanji": "Qurban",
       "isApproved": false,
       "title": "${pemohon} (Tempah Qurban)",
-      "description": "Tempahan Qurban oleh ${pemohon} iaitu sebanyak bilangan : ${bilangan}",
+      "description":
+          "Tempahan Qurban oleh ${pemohon} iaitu sebanyak bilangan : ${bilangan}",
       "balasan": "Tempahan Qurban"
     });
   }
 
   //used in semak_balas_screen.dart
   Future<void> updateBalasan(
-      String title,
-      String desc,
-      String balas,
-      String id,
-      ) async {
+    String title,
+    String desc,
+    String balas,
+    String id,
+  ) async {
     await _firebaseFirestore.collection("tanya").doc(id).update({
       "title": title,
       "description": desc,
       "balasan": balas,
-      "isApproved":true
+      "isApproved": true
     });
   }
 
   //used in semak_balas_screen.dart
-  Future<DocumentSnapshot<Map<String, dynamic>>> getdataTanya(
-      String id) async {
+  Future<DocumentSnapshot<Map<String, dynamic>>> getdataTanya(String id) async {
     var data = await _firebaseFirestore.collection("tanya").doc(id).get();
     return data;
   }
 
   //used in semak_balas_screen.dart
   Future<void> updateApprovalNikah(
-      String id,
-      ) async {
-    await _firebaseFirestore.collection("nikah").doc(id).update({
-      "isApproved":true
-    });
+    String id,
+  ) async {
+    await _firebaseFirestore
+        .collection("nikah")
+        .doc(id)
+        .update({"isApproved": true});
   }
 
   Future<void> updateApprovalQurban(
-      String id,
-      ) async {
-    await _firebaseFirestore.collection("qurban").doc(id).update({
-      "isApproved":true
-    });
+    String id,
+  ) async {
+    await _firebaseFirestore
+        .collection("qurban")
+        .doc(id)
+        .update({"isApproved": true});
   }
 
   Future<void> updateApprovalPertanyaan(
-      String id,
-      ) async {
-    await _firebaseFirestore.collection("tanya").doc(id).update({
-      "isApproved":true
-    });
+    String id,
+  ) async {
+    await _firebaseFirestore
+        .collection("tanya")
+        .doc(id)
+        .update({"isApproved": true});
   }
 
   convertTimestampToString(DateTime a) {
     //first date
     try {
-
       String b = a.toString();
       DateTime parsedDateTime = DateTime.parse(b);
       formatDate = DateFormat("dd-MM-yyyy").format(parsedDateTime);
-
-
     } catch (e) {
       print(e);
     }
-
   }
 }

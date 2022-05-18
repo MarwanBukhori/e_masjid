@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/constants.dart';
+import '../widgets/custom_navbar.dart';
 
 class SemakStatusScreen extends StatefulWidget {
   static const String routeName = '/semak';
@@ -24,6 +25,7 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
   bool visible = false;
   bool isTanya = true;
   bool isNikah = false;
+  bool notvisible = false;
   String date = '';
   String? _selectedView = "Tanya Imam";
   List<String> _type = ['Tanya Imam', 'Nikah', 'Qurban'];
@@ -190,8 +192,6 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
                                                   color: Colors.red,
                                                 ),
                                             )
-
-
                                       ],
                                     ),
                                     SizedBox(
@@ -224,6 +224,9 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: Visibility(
+          visible: notvisible,
+          child: CustomNavBar()),
     );
   }
 
@@ -290,6 +293,7 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
         visible = true;
       } else {
         visible = false;
+        notvisible = true;
       }
       setState(() {});
     });

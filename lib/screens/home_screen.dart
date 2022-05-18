@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontWeight: FontWeight.bold),
                           children: [
                             TextSpan(
-                                text: "\nE-Masjid Halim Shah",
+                                text: "\ne-Masjid Halim Shah",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.normal,

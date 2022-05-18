@@ -1,3 +1,4 @@
+import 'package:e_masjid/config/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -23,7 +24,7 @@ class _DoaScreenState extends State<DoaScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: kPrimaryColor,
         title: Center(child: Text('Doa-Doa Harian')),
       ),
       body: WebView(

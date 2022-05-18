@@ -36,6 +36,7 @@ class SemakDetail extends StatefulWidget {
 class _SemakDetailState extends State<SemakDetail> {
   bool visible = false;
   bool diSahkan = false;
+
   String category = "";
   String formatDate = "";
   String formatDate2 = "";
@@ -65,7 +66,7 @@ class _SemakDetailState extends State<SemakDetail> {
           },
           label: const Text("Balas"),
           icon: const Icon(Icons.edit),
-          backgroundColor: kZambeziColor,
+          backgroundColor: kPrimaryColor,
         ),
       ),
       appBar: AppBar(
@@ -228,64 +229,67 @@ class _SemakDetailState extends State<SemakDetail> {
                     fontSize: 15,
                   ),
                 )),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 25, right: 25, bottom: 25, top: 0),
-              child: Center(
-                child: ElevatedButton(
+            Visibility(
+              visible: visible,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 25, right: 25, bottom: 25, top: 0),
+                child: Center(
+                  child: ElevatedButton(
 
-                    onPressed: () {
-                      setState(() {
-                        // set up the buttons
-                        Widget cancelButton = TextButton(
-                          child: const Text("Tidak"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        );
-                        Widget continueButton = TextButton(
-                          child: const Text("Ya"),
-                          onPressed: () {
-                            if (category == "Qurban"){
-                              sahkanPermohonanQurban();
-                            }
+                      onPressed: () {
+                        setState(() {
+                          // set up the buttons
+                          Widget cancelButton = TextButton(
+                            child: const Text("Tidak"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          );
+                          Widget continueButton = TextButton(
+                            child: const Text("Ya"),
+                            onPressed: () {
+                              if (category == "Qurban"){
+                                sahkanPermohonanQurban();
+                              }
 
-                            else if (category == "Nikah"){
-                              sahkanPermohonanNikah();
-                            }
-                            else{
-                              sahkanPertanyaan();
-                            }
+                              else if (category == "Nikah"){
+                                sahkanPermohonanNikah();
+                              }
+                              else{
+                                sahkanPertanyaan();
+                              }
 
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
-                            // Navigator.of(context).pop();
-                            Navigator.of(context).popAndPushNamed('/semak');
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                              // Navigator.of(context).pop();
+                              Navigator.of(context).popAndPushNamed('/semak');
 
-                            // Navigator.pushNamed(context, "/semak");
-                          },
-                        );
-                        // set up the AlertDialog
-                        AlertDialog alert = AlertDialog(
-                          title: const Text("Sahkan Permohonan"),
-                          content: const Text(
-                              "Anda pasti mahu mengesahkan permohonan?"),
-                          actions: [
-                            continueButton,
-                            cancelButton,
-                          ],
-                        );
+                              // Navigator.pushNamed(context, "/semak");
+                            },
+                          );
+                          // set up the AlertDialog
+                          AlertDialog alert = AlertDialog(
+                            title: const Text("Sahkan Permohonan"),
+                            content: const Text(
+                                "Anda pasti mahu mengesahkan permohonan?"),
+                            actions: [
+                              continueButton,
+                              cancelButton,
+                            ],
+                          );
 
-                        // show the dialog
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return alert;
-                          },
-                        );
-                      });
-                    },
-                    child: Text('Sahkan')),
+                          // show the dialog
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return alert;
+                            },
+                          );
+                        });
+                      },
+                      child: Text('Sahkan')),
+                ),
               ),
             ),
           ],
@@ -304,6 +308,7 @@ class _SemakDetailState extends State<SemakDetail> {
         visible = true;
       } else {
         visible = false;
+
       }
 
       setState(() {});
