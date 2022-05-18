@@ -165,6 +165,9 @@ class _ProgramScreenState extends State<ProgramScreen> {
                       } else {
                         setState(() {
                           _selectedView = newValue;
+                          programs.clear();
+                          monthlyList.clear();
+                          getDataMonthly();
                         });
                       }
                     },
@@ -344,6 +347,47 @@ class _ProgramScreenState extends State<ProgramScreen> {
       }
       programs.clear();
       programs.addAll(dailyList);
+
+      programs.sort((a, b) {
+        var adate = a['firstDate'];
+        var bdate = b['lastDate'];
+        return adate.compareTo(bdate);
+      });
+
+
+      if (mounted) {
+        loading = false;
+        setState(() {});
+      }
+    });
+  }
+
+  //get all data into list (MONTHLY)
+  Future getDataMonthly() async {
+    await FirebaseFirestore.instance.collection("program").get().then((value) {
+      for (var element in value.docs) {
+        Map<String, dynamic> data = element.data();
+        data.addAll({'id': element.id});
+        programs.add(data);
+      }
+
+      DateTime now = DateTime.now();
+
+      DateTime lastDayOfMonth = new DateTime(now.year, now.month + 1, 0);
+      DateTime firstDayOfMonth = new DateTime(now.year, now.month , 1);
+
+
+      //we have a full programs[list] here
+      for (final program in programs) {
+        Timestamp dateWeekly = program['firstDate'];
+        DateTime dateWeekly2 = dateWeekly.toDate();
+
+        if (firstDayOfMonth.isBefore(dateWeekly2) && lastDayOfMonth.isAfter(dateWeekly2)) {
+          monthlyList.add(program);
+        }
+      }
+      programs.clear();
+      programs.addAll(monthlyList);
 
       programs.sort((a, b) {
         var adate = a['firstDate'];
