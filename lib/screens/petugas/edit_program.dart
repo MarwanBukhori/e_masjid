@@ -21,17 +21,19 @@ class EditProgram extends StatefulWidget {
 }
 
 class _EditProgramState extends State<EditProgram> {
-
   DateTime date = DateTime.now();
   TimeOfDay time = TimeOfDay.now();
+  TimeOfDay time2 = TimeOfDay.now();
   String timeString = '';
+  String timeString2 = '';
 
   bool pickedDate = false;
   bool pickedTime = false;
+  bool pickedTime2= false;
 
   FireStoreService fireStoreService = FireStoreService();
   DateTimeRange dateRange =
-      DateTimeRange(start: DateTime(2022, 11, 5), end: DateTime(2022, 12, 24));
+      DateTimeRange(start: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day), end: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
   String formatDate = '';
   String formatDate2 = '';
   bool loading = true;
@@ -81,7 +83,7 @@ class _EditProgramState extends State<EditProgram> {
 
   String getMasa() {
     if (pickedTime != true) {
-      return 'Pilih Masa';
+      return 'Pilih Masa Mula';
     } else {
       final hours = time.hour.toString().padLeft(2, '0');
       final minutes = time.minute.toString().padLeft(2, '0');
@@ -89,6 +91,15 @@ class _EditProgramState extends State<EditProgram> {
     }
   }
 
+  String getMasaTamat() {
+    if (pickedTime2 != true) {
+      return 'Pilih Masa Tamat';
+    } else {
+      final hours2 = time2.hour.toString().padLeft(2, '0');
+      final minutes2 = time2.minute.toString().padLeft(2, '0');
+      return '$hours2:$minutes2';
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final start = dateRange.start;
@@ -147,25 +158,15 @@ class _EditProgramState extends State<EditProgram> {
                           EdgeInsets.only(left: 20.w, right: 20.w, top: 20.w),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        border: Border.all(color: kZambeziColor, width: 1),
+                        border: Border.all(color: kPrimaryColor, width: 1),
                         borderRadius: BorderRadius.circular(20.w),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            height: 15,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: kZambeziColor,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20.w),
-                                topRight: Radius.circular(20.w),
-                              ),
-                            ),
-                          ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 20.0, right: 20, top: 20, bottom: 25),
+                            padding: const EdgeInsets.only(
+                                left: 20.0, right: 20, top: 20, bottom: 25),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -177,7 +178,7 @@ class _EditProgramState extends State<EditProgram> {
                                       color: Colors.yellow,
                                     ),
                                     SizedBox(
-                                      width: 7.w,
+                                      width: 10.w,
                                     ),
                                     Text(
                                       'Tajuk',
@@ -219,6 +220,7 @@ class _EditProgramState extends State<EditProgram> {
                                             BorderRadius.circular(10)),
                                   ),
                                 ),
+
                                 const SizedBox(height: 15),
 
                                 //description
@@ -243,7 +245,7 @@ class _EditProgramState extends State<EditProgram> {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 3),
+                                const SizedBox(height: 10),
                                 TextFormField(
                                   controller: descController,
                                   autofocus: false,
@@ -281,7 +283,7 @@ class _EditProgramState extends State<EditProgram> {
                                   children: [
                                     const Icon(
                                       Icons.calendar_month,
-                                      color: Colors.black54,
+                                      color: Colors.orange,
                                     ),
                                     SizedBox(
                                       width: 5.w,
@@ -298,7 +300,7 @@ class _EditProgramState extends State<EditProgram> {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 5),
+                                const SizedBox(height: 10),
 
                                 //TextField Tarikh
                                 Row(
@@ -381,28 +383,28 @@ class _EditProgramState extends State<EditProgram> {
                                 const SizedBox(
                                   height: 15,
                                 ),
-                                // Masa
+
+                                // Masa Mula
                                 Row(
                                   children: [
                                     const Icon(
-                                      Icons.punch_clock,
-                                      color: Colors.black54,
+                                      Icons.query_builder_rounded,
+                                      color: Colors.pink,
                                     ),
                                     SizedBox(
-                                      width: 5.w,
+                                      width: 10.w,
                                     ),
                                     Text(
-                                      'Masa',
+                                      'Masa Mula',
                                       style: TextStyle(
                                           fontSize: 18.sp,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black54),
                                     ),
-
                                   ],
                                 ),
 
-                                //button masa
+                                //button masa mula
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -421,12 +423,55 @@ class _EditProgramState extends State<EditProgram> {
                                     ),
                                   ],
                                 ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.query_builder_rounded,
+                                      color: Colors.blueAccent,
+                                    ),
+                                    SizedBox(
+                                      width: 10.w,
+                                    ),
+                                    Text(
+                                      'Masa Tamat',
+                                      style: TextStyle(
+                                          fontSize: 18.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black54),
+                                    ),
+                                  ],
+                                ),
+
+
+                                //button masa Tamat
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        child: Text(
+                                          getMasaTamat(),
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        onPressed: () {
+                                          pickTimeEnd(context);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            primary: Colors.white70),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 //button
                               ],
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10.0, right: 10, bottom: 18),
+                            padding: const EdgeInsets.only(
+                                left: 10.0, right: 10, bottom: 18),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
@@ -436,17 +481,18 @@ class _EditProgramState extends State<EditProgram> {
                                 Expanded(
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: kZambeziColor,
+                                      primary: kPrimaryColor,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(25),
                                       ),
                                       minimumSize: Size(100, 40),
                                     ),
                                     onPressed: () {
-                                      print(timeString);
+
                                       EasyLoading.show(
                                           status: 'Sedang diproses');
-
+                                      print(timeString);
+                                      print(timeString2);
                                       fireStoreService
                                           .updateServiceData(
                                         titleController.text,
@@ -454,9 +500,10 @@ class _EditProgramState extends State<EditProgram> {
                                         dateRange.start,
                                         dateRange.end,
                                         timeString,
+                                        timeString2,
                                         widget.id,
                                       )
-                                      // imageNetworkList)
+                                          // imageNetworkList)
                                           .then((value) {
                                         EasyLoading.showSuccess(
                                             "Kemaskini Info Program Berjaya");
@@ -466,15 +513,16 @@ class _EditProgramState extends State<EditProgram> {
                                         //         (value) => imageNetworkList);
 
                                         a.update('title',
-                                                (value) => titleController.text);
+                                            (value) => titleController.text);
                                         a.update('description',
-                                                (value) => descController.text);
+                                            (value) => descController.text);
 
                                         a.update('firstDate',
-                                                (value) => dateRange.start);
+                                            (value) => dateRange.start);
                                         a.update('lastDate',
-                                                (value) => dateRange.end);
-                                        a.update('masa', (value) => timeString);
+                                            (value) => dateRange.end);
+                                        a.update('masaMula', (value) => timeString);
+                                        a.update('masaTamat', (value) => timeString2);
 
                                         Navigator.pop(context);
                                         // Navigator.pushNamed(
@@ -488,18 +536,11 @@ class _EditProgramState extends State<EditProgram> {
                                     },
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Icon(
                                           Icons.save,
                                           color: Colors.lightGreenAccent,
-                                        ),
-                                        SizedBox(
-                                          width: 7.w,
-                                        ),
-                                        Text(
-                                          "Simpan",
-                                          style: TextStyle(fontSize: 16.sp),
                                         ),
 
                                       ],
@@ -509,16 +550,14 @@ class _EditProgramState extends State<EditProgram> {
                                 SizedBox(
                                   width: 10.w,
                                 ),
-
                                 Expanded(
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: kZambeziColor,
+                                      primary: kPrimaryColor,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(25),
                                       ),
                                       minimumSize: Size(100, 40),
-
                                     ),
                                     onPressed: () {
                                       Navigator.of(context).pop();
@@ -531,19 +570,11 @@ class _EditProgramState extends State<EditProgram> {
                                           Icons.cancel,
                                           color: Colors.red,
                                         ),
-                                        SizedBox(
-                                          width: 7.w,
-                                        ),
-                                        Text(
-                                          "Batal",
-                                          style: TextStyle(fontSize: 16.sp),
-                                        ),
 
                                       ],
                                     ),
                                   ),
                                 ),
-
                                 IconButton(
                                   onPressed: () {
                                     // set up the buttons
@@ -630,7 +661,6 @@ class _EditProgramState extends State<EditProgram> {
       DateTime parsedDateTime2 = DateTime.parse(b);
       formatDate2 = DateFormat("dd-MM-yyyy").format(parsedDateTime2);
       lastDateController.text = formatDate2;
-
     });
   }
 
@@ -644,6 +674,20 @@ class _EditProgramState extends State<EditProgram> {
     pickedTime = true;
 
     setState(() => time = newTime);
-    timeString = time.toString();
+
+    timeString = time.format(context).toString();
+  }
+
+  Future pickTimeEnd(BuildContext context) async {
+    final initialTime = TimeOfDay(hour: 9, minute: 0);
+    final newTime = await showTimePicker(
+        context: context, initialTime: time2 ?? initialTime);
+
+    if (newTime == null) return;
+
+    pickedTime2 = true;
+
+    setState(() => time2 = newTime);
+    timeString2 = time2.format(context).toString();
   }
 }

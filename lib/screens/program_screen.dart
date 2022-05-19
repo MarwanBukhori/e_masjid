@@ -341,7 +341,7 @@ class _ProgramScreenState extends State<ProgramScreen> {
         print(dateWeekly2);
         print(now);
 
-        if (now.compareTo(dateWeekly2)>0) {
+        if (now.compareTo(dateWeekly2) > 0) {
           dailyList.add(program);
         }
       }
@@ -353,7 +353,6 @@ class _ProgramScreenState extends State<ProgramScreen> {
         var bdate = b['lastDate'];
         return adate.compareTo(bdate);
       });
-
 
       if (mounted) {
         loading = false;
@@ -374,15 +373,15 @@ class _ProgramScreenState extends State<ProgramScreen> {
       DateTime now = DateTime.now();
 
       DateTime lastDayOfMonth = new DateTime(now.year, now.month + 1, 0);
-      DateTime firstDayOfMonth = new DateTime(now.year, now.month , 1);
-
+      DateTime firstDayOfMonth = new DateTime(now.year, now.month, 1);
 
       //we have a full programs[list] here
       for (final program in programs) {
         Timestamp dateWeekly = program['firstDate'];
         DateTime dateWeekly2 = dateWeekly.toDate();
 
-        if (firstDayOfMonth.isBefore(dateWeekly2) && lastDayOfMonth.isAfter(dateWeekly2)) {
+        if (firstDayOfMonth.isBefore(dateWeekly2) &&
+            lastDayOfMonth.isAfter(dateWeekly2)) {
           monthlyList.add(program);
         }
       }
@@ -394,7 +393,6 @@ class _ProgramScreenState extends State<ProgramScreen> {
         var bdate = b['lastDate'];
         return adate.compareTo(bdate);
       });
-
 
       if (mounted) {
         loading = false;
@@ -450,10 +448,11 @@ class _ProgramScreenState extends State<ProgramScreen> {
   }
 
   Widget getTime(int index) {
-    masaMula = programs[index]['masa'];
+    masaMula = programs[index]['masaMula'];
     masaTamat = programs[index]['masaTamat'];
     return Text("Masa : ${masaMula}  -  ${masaTamat}");
   }
+
 
   calculateDaily() {
     DateTime now = DateTime.now();

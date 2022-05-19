@@ -58,7 +58,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
           },
           label: const Text("Sunting"),
           icon: const Icon(Icons.edit),
-          backgroundColor: kZambeziColor,
+          backgroundColor: kPrimaryColor,
         ),
       ),
       appBar: AppBar(
@@ -110,7 +110,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
                 Text(
                   'Tentatif Program',
                   style:
-                  TextStyle(fontSize: 18.sp),
+                  TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                 )
               ]),
             ),
@@ -171,7 +171,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
                             ),
                           ),
                           Text(
-                            widget.data["masa"],
+                            widget.data["masaMula"],
                             style: const TextStyle(
                                 fontSize: 15),
                           ),
@@ -180,7 +180,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
                             style: const TextStyle(fontSize: 13),
                           ),
                           Text(
-                            widget.data["masa"],
+                            widget.data["masaTamat"],
                             style: const TextStyle(
                                 fontSize: 15),
                           ),
@@ -198,7 +198,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
                 Text(
                   'Huraian Program',
                   style:
-                  TextStyle(fontSize: 18.sp),
+                  TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                 )
               ]),
             ),

@@ -44,7 +44,7 @@ class FireStoreService {
     String desc,
     DateTime firstDate,
     DateTime lastDate,
-    String time,
+    String time, String time2,
     String id,
   ) async {
     await _firebaseFirestore.collection("program").doc(id).update({
@@ -52,19 +52,21 @@ class FireStoreService {
       "description": desc,
       "firstDate": firstDate,
       "lastDate": lastDate,
-      "masa": time,
+      "masaMula": time,
+      "masaTamat": time2,
     });
   }
 
   // use in add Program screen
   Future<void> uploadProgramData(String title, String desc, DateTime firstDate,
-      DateTime lastDate, String time) async {
+      DateTime lastDate, String time, String time2) async {
     await _firebaseFirestore.collection("program").doc().set({
       "title": title,
       "description": desc,
       "firstDate": firstDate,
       "lastDate": lastDate,
-      "masa": time,
+      "masaMula": time,
+      "masaTamat": time2,
     });
   }
 
