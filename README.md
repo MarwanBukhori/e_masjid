@@ -36,6 +36,7 @@ Using mobile app to digitalize Masjid operations. Clear objectives to elevate us
 
 <br>
 ## Screens
+<br>
 <table>
   <tr>
     <td>Login</td>
