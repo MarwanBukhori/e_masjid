@@ -16,7 +16,7 @@ Using mobile app to digitalize Masjid operations. Clear objectives to elevate us
 
 ##  Features
 
-####User (Ahli Kariah)
+#### User (Ahli Kariah)
 - Login/ Register/ Logout
 - Tanya Imam
 - Mohon Nikah
@@ -28,7 +28,7 @@ Using mobile app to digitalize Masjid operations. Clear objectives to elevate us
 - Hadis 40 
 - Doa-doa Harian
      
-####Admin (Petugas Masjid)
+#### Admin (Petugas Masjid)
 
 * Login / Logout
 * Sah Permohonan / Balas
