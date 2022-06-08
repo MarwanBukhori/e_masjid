@@ -1,6 +1,8 @@
 import 'package:e_masjid/models/quran/ayat/ayat.dart';
 import 'package:e_masjid/providers/user.provider.dart';
 import 'package:e_masjid/screens/landing-page.screen.dart';
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
