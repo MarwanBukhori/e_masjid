@@ -87,7 +87,8 @@ class FireStoreService {
   // use in to add permohonan nikah
   Future<void> uploadMohonNikah(
       String pemohon, String pasangan, DateTime date, String time) async {
-    String b = convertTimestampToString(date);
+    // String b = convertTimestampToString(time);
+
     await _firebaseFirestore.collection("nikah").doc().set({
       "pemohon": pemohon,
       "pasangan": pasangan,

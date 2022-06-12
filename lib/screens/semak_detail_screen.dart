@@ -35,7 +35,7 @@ class SemakDetail extends StatefulWidget {
 
 class _SemakDetailState extends State<SemakDetail> {
   bool floating_visible = false;
-  bool sahkan_visible = true;
+  bool sahkan_visible = false;
   bool diSahkan = false;
 
   String category = "";
@@ -306,6 +306,7 @@ class _SemakDetailState extends State<SemakDetail> {
         .get()
         .then((value) {
       if (value.data()!["role"].toString() == "petugas") {
+        sahkan_visible = true;
         if(category=="Pertanyaan"){
           floating_visible = true;
         }

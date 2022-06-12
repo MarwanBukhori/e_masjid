@@ -103,7 +103,6 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
@@ -174,7 +173,6 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                               SizedBox(
                                 width: 9.w,
                               ),
-
                               Text(
                                 'Pasangan',
                                 style: TextStyle(
@@ -182,7 +180,6 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black54),
                               ),
-
                             ],
                           ),
                           const SizedBox(height: 10),
@@ -345,7 +342,6 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                                         Icons.cancel_sharp,
                                         color: Colors.red,
                                       ),
-
                                     ],
                                   ),
                                 ),
@@ -367,37 +363,46 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
   }
 
   void addMohonNikah() async {
-    EasyLoading.show(status: 'sedang diproses...');
+    try {
+      EasyLoading.show(status: 'sedang diproses...');
 
-    await fireStoreService.uploadMohonNikah(
-        pemohonController.text, pasanganController.text, date, timeString);
-
-    EasyLoading.showSuccess('Permohonan berjaya ditambah');
-    Navigator.of(context).popAndPushNamed('/semak');
-
-    setState(() {});
+      await fireStoreService.uploadMohonNikah(
+          pemohonController.text, pasanganController.text, date, timeString);
+      EasyLoading.showSuccess('Permohonan berjaya ditambah');
+      Navigator.of(context).popAndPushNamed('/semak');
+      setState(() {});
+    } catch (e) {
+      EasyLoading.showError(e.toString());
+    }
   }
 
   Future pickDate(BuildContext context) async {
-    final initialDate = DateTime.now();
+    // final initialDate = DateTime.now();
     final newDate = await showDatePicker(
         context: context,
-        initialDate: date ?? initialDate,
+        initialDate: date ,
         firstDate: DateTime(DateTime.now().year - 5),
         lastDate: DateTime(DateTime.now().year + 5));
-    if (newDate == null) return;
-    pickedDate = true;
+
+    if (newDate == null) {
+      return;
+    } else {
+      pickedDate = true;
+    }
+
     setState(() => date = newDate);
   }
 
   Future pickTime(BuildContext context) async {
-    final initialTime = TimeOfDay(hour: 9, minute: 0);
+    // final initialTime = TimeOfDay(hour: 9, minute: 0);
     final newTime = await showTimePicker(
-        context: context, initialTime: time ?? initialTime);
+        context: context, initialTime: time );
 
-    if (newTime == null) return;
-
-    pickedTime = true;
+    if (newTime == null) {
+      return;
+    } else {
+      pickedTime = true;
+    }
 
     setState(() => time = newTime);
     timeString = time.format(context);
