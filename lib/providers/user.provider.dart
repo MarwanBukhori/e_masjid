@@ -1,13 +1,9 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-
 class AppUser extends ChangeNotifier {
-
   update() {
     notifyListeners();
   }
@@ -24,11 +20,10 @@ class AppUser extends ChangeNotifier {
 
   static AppUser get instance => AppUser();
 
-
   final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
 
 //sign in
-  Future<void> signIn( {required String email, required String password}) async {
+  Future<void> signIn({required String email, required String password}) async {
     print('Email: $email');
     print('Password: $password');
 
@@ -37,9 +32,9 @@ class AppUser extends ChangeNotifier {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       EasyLoading.showSuccess('Log Masuk berjaya.');
-
     } on FirebaseAuthException catch (e) {
-
+      EasyLoading.dismiss();
+      if (e.code == 'user-not-found') {}
       if (e.code == 'user-not-found') {
         EasyLoading.showToast('No user found for that email.');
         throw ('No user found for that email.');
@@ -71,8 +66,6 @@ class AppUser extends ChangeNotifier {
       throw (e);
     }
   }
-
-
 }
 
 getUser() {

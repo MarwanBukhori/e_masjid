@@ -197,7 +197,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                                 return ("Sila isi nama pasangan");
                               }
                               if (!regex.hasMatch(value)) {
-                                return ("masukkan minimum 5 huruf");
+                                return ("masukkan minimum 2 huruf");
                               }
                               return null;
                             },
@@ -365,12 +365,16 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
   void addMohonNikah() async {
     try {
       EasyLoading.show(status: 'sedang diproses...');
+      if (pemohonController.text.isNotEmpty && pasanganController.text.isNotEmpty) {
+        await fireStoreService.uploadMohonNikah(
+            pemohonController.text, pasanganController.text, date, timeString);
+        EasyLoading.showSuccess('Permohonan berjaya ditambah');
+        Navigator.of(context).popAndPushNamed('/semak');
+        setState(() {});
+      }else{
+        EasyLoading.showInfo("Sila isi maklumat nikah");
+      }
 
-      await fireStoreService.uploadMohonNikah(
-          pemohonController.text, pasanganController.text, date, timeString);
-      EasyLoading.showSuccess('Permohonan berjaya ditambah');
-      Navigator.of(context).popAndPushNamed('/semak');
-      setState(() {});
     } catch (e) {
       EasyLoading.showError(e.toString());
     }

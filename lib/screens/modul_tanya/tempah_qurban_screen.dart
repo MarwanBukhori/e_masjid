@@ -155,7 +155,6 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black54),
                               ),
-
                             ],
                           ),
                           const SizedBox(height: 10),
@@ -251,14 +250,22 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
   }
 
   void addTempahQurban() async {
-    EasyLoading.show(status: 'sedang diproses...');
+    try {
+      EasyLoading.show(status: 'sedang diproses...');
 
-    int a = int.parse(bahagianController.text);
-    await fireStoreService.uploadTempahQurban(pemohonController.text, a);
+      if (bahagianController.text.isNotEmpty) {
+        int a = int.parse(bahagianController.text);
+        await fireStoreService.uploadTempahQurban(pemohonController.text, a);
 
-    EasyLoading.showSuccess('Tempahan berjaya ditambah');
-    Navigator.of(context).popAndPushNamed('/semak');
+        EasyLoading.showSuccess('Tempahan berjaya ditambah');
+        Navigator.of(context).popAndPushNamed('/semak');
 
-    setState(() {});
+        setState(() {});
+      } else {
+        EasyLoading.showInfo("Sila isi maklumat tempahan qurban");
+      }
+    } catch (e) {
+      EasyLoading.dismiss();
+    }
   }
 }

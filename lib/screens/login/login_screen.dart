@@ -4,7 +4,6 @@ import 'package:e_masjid/screens/screens.dart';
 import 'package:e_masjid/config/constants.dart';
 import 'package:e_masjid/widgets/login_form.dart';
 import 'package:e_masjid/providers/user.provider.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../providers/user.provider.dart';
 
 

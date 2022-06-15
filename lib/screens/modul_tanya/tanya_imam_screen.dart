@@ -257,14 +257,22 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
   }
 
   void addTanyaImam() async {
-    EasyLoading.show(status: 'sedang diproses...');
+    try {
+      EasyLoading.show(status: 'sedang diproses...');
+      if (titleController.text.isNotEmpty && descController.text.isNotEmpty) {
+        await fireStoreService.uploadTanyaData(
+            titleController.text, descController.text);
+        EasyLoading.showSuccess('Pertanyaan berjaya ditambah');
 
-    await fireStoreService.uploadTanyaData(
-        titleController.text, descController.text);
+        Navigator.of(context).popAndPushNamed('/semak');
 
-    EasyLoading.showSuccess('Pertanyaan berjaya ditambah');
-    Navigator.of(context).popAndPushNamed('/semak');
+        setState(() {});
+      }else{
+        EasyLoading.showInfo("Sila isi maklumat pertanyaan");
+      }
 
-    setState(() {});
+    } catch (e) {
+      EasyLoading.dismiss();
+    }
   }
 }
