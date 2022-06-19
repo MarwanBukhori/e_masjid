@@ -71,7 +71,7 @@ class FireStoreService {
   }
 
   // use in to add pertanyaan imam
-  Future<void> uploadTanyaData(String title, String desc) async {
+  Future<void> uploadTanyaData(String title, String desc, String authorId) async {
     DateTime date = DateTime.now();
 
     await _firebaseFirestore.collection("tanya").doc().set({
@@ -81,13 +81,14 @@ class FireStoreService {
       "JenisTemuJanji": "Pertanyaan",
       "balasan": "tiada",
       "isApproved": false,
+      "authorId" : authorId
     });
   }
 
   // use in to add permohonan nikah
   Future<void> uploadMohonNikah(
-      String pemohon, String pasangan, DateTime date, String time) async {
-    // String b = convertTimestampToString(time);
+      String pemohon, String pasangan, DateTime date, String time, String authorId) async {
+
 
     await _firebaseFirestore.collection("nikah").doc().set({
       "pemohon": pemohon,
@@ -98,13 +99,14 @@ class FireStoreService {
       "isApproved": false,
       "title": "${pemohon} & ${pasangan}",
       "description":
-          "Permohonan Nikah ${pemohon} & ${pasangan} pada tarikh : ${formatDate}, jam : ${time}",
-      "balasan": "tiada [ nikah ]"
+          "Permohonan Nikah ${pemohon} & ${pasangan} pada tarikh : ${date.month}/${date.day}/${date.year}, jam : ${time}",
+      "balasan": "Tidak perlu balasan",
+      "authorId" : authorId
     });
   }
 
   // use in to add tempahan qurban
-  Future<void> uploadTempahQurban(String pemohon, int bilangan) async {
+  Future<void> uploadTempahQurban(String pemohon, int bilangan, String authorId) async {
     await _firebaseFirestore.collection("qurban").doc().set({
       "pemohon": pemohon,
       "bilangan": bilangan,
@@ -113,7 +115,8 @@ class FireStoreService {
       "title": "${pemohon} (Tempah Qurban)",
       "description":
           "Tempahan Qurban oleh ${pemohon} iaitu sebanyak bilangan : ${bilangan}",
-      "balasan": "Tempahan Qurban"
+      "balasan": "Tempahan Qurban",
+      "authorId" : authorId
     });
   }
 

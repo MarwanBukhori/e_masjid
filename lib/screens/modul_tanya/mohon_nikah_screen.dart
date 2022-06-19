@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../providers/user.provider.dart';
 import '../../services/firestore_service.dart';
 
 class MohonNikahScreen extends StatefulWidget {
@@ -140,12 +141,12 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
-                              RegExp regex = RegExp(r'^.{5,}$');
+                              RegExp regex = RegExp(r'^.{2,}$');
                               if (value!.isEmpty) {
                                 return ("Sila isi nama pemohon");
                               }
                               if (!regex.hasMatch(value)) {
-                                return ("masukkan minimum 5 aksara");
+                                return ("masukkan minimum 2 aksara");
                               }
                               return null;
                             },
@@ -192,12 +193,12 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
-                              RegExp regex = RegExp(r'^.{5,}$');
+                              RegExp regex = RegExp(r'^.{2,}$');
                               if (value!.isEmpty) {
                                 return ("Sila isi nama pasangan");
                               }
                               if (!regex.hasMatch(value)) {
-                                return ("masukkan minimum 2 huruf");
+                                return ("masukkan minimum 2 Aksara");
                               }
                               return null;
                             },
@@ -367,7 +368,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
       EasyLoading.show(status: 'sedang diproses...');
       if (pemohonController.text.isNotEmpty && pasanganController.text.isNotEmpty) {
         await fireStoreService.uploadMohonNikah(
-            pemohonController.text, pasanganController.text, date, timeString);
+            pemohonController.text, pasanganController.text, date, timeString, AppUser().user!.uid,);
         EasyLoading.showSuccess('Permohonan berjaya ditambah');
         Navigator.of(context).popAndPushNamed('/semak');
         setState(() {});

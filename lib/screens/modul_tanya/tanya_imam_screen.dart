@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../providers/user.provider.dart';
 import '../../services/firestore_service.dart';
 
 class TanyaImamScreen extends StatefulWidget {
@@ -261,7 +262,7 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
       EasyLoading.show(status: 'sedang diproses...');
       if (titleController.text.isNotEmpty && descController.text.isNotEmpty) {
         await fireStoreService.uploadTanyaData(
-            titleController.text, descController.text);
+            titleController.text, descController.text,AppUser().user!.uid);
         EasyLoading.showSuccess('Pertanyaan berjaya ditambah');
 
         Navigator.of(context).popAndPushNamed('/semak');

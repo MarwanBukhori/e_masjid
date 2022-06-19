@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
-import 'package:e_masjid/providers/user.provider.dart';
-import 'package:provider/provider.dart';
+
 
 import '../services/firestore_service.dart';
 
@@ -31,8 +30,14 @@ class LandingScreen extends StatelessWidget {
                 if (snapshot.hasData && snapshot.data != null) {
                   final userDoc = snapshot.data;
                   final user = userDoc?.data();
-                  if((user as Map<String, dynamic>)['role'] == 'petugas') {
-                    return PetugasHomeScreen(maxSlide: MediaQuery.of(context).size.width * 0.835);
+                  print(user);
+
+                  //check role
+                  if ((user as Map<String, dynamic>)['role'] == 'petugas') {
+                    return PetugasHomeScreen(maxSlide: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.835);
                   } else {
                     return HomeScreen();
                   }
@@ -45,8 +50,8 @@ class LandingScreen extends StatelessWidget {
                 }
               },
             );
+          } else {
+            return LoginScreen();
           }
-          return LoginScreen();
         });
-  }
-}
+  }}

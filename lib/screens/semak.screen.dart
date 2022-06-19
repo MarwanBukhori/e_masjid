@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../config/constants.dart';
+import '../providers/user.provider.dart';
 import '../widgets/custom_navbar.dart';
 
 class SemakStatusScreen extends StatefulWidget {
@@ -232,7 +233,7 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
 
   //get data into list
   Future getTanyaData() async {
-    await FirebaseFirestore.instance.collection("tanya").get().then((value) {
+    await FirebaseFirestore.instance.collection("tanya").where("authorId", isEqualTo: AppUser().user!.uid ).get().then((value) {
       for (var element in value.docs) {
         Map<String, dynamic> data = element.data();
         data.addAll({'id': element.id});
@@ -250,7 +251,7 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
 
   //get data into list
   Future getNikahData() async {
-    await FirebaseFirestore.instance.collection("nikah").get().then((value) {
+    await FirebaseFirestore.instance.collection("nikah").where("authorId", isEqualTo: AppUser().user!.uid ).get().then((value) {
       for (var element in value.docs) {
         Map<String, dynamic> data = element.data();
         data.addAll({'id': element.id});
@@ -267,7 +268,7 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
 
   //get qurban data into list
   Future getQurbanData() async {
-    await FirebaseFirestore.instance.collection("qurban").get().then((value) {
+    await FirebaseFirestore.instance.collection("qurban").where("authorId", isEqualTo: AppUser().user!.uid ).get().then((value) {
       for (var element in value.docs) {
         Map<String, dynamic> data = element.data();
         data.addAll({'id': element.id});

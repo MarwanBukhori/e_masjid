@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:e_masjid/screens/screens.dart';
 import 'package:e_masjid/providers/user.provider.dart';
 import 'package:e_masjid/widgets/checkbox.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:e_masjid/widgets/signup_form.dart';
 import 'package:e_masjid/services/firestore_service.dart';
@@ -87,27 +88,28 @@ class SignUpScreen extends StatelessWidget {
               child: GestureDetector(
                 onTap: () async {
                   try {
-                    LoadingIndicator.showLoadingDialog(context);
+                    if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
+                      LoadingIndicator.showLoadingDialog(context);
 
-                    await AppUser.instance.signUp(
-                      email: emailController.text,
-                      password: passwordController.text,
-                    );
-                    fireStoreService
-                        .createUserData(nameController.text,
-                        appUser.user!.uid, emailController.text,role);
+                      await AppUser.instance.signUp(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                      fireStoreService
+                          .createUserData(nameController.text,
+                          appUser.user!.uid, emailController.text,role);
 
-                    Navigator.pop(context);
-                    Navigator.pop(context);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                      EasyLoading.showSuccess('Pengguna berjaya dicipta');
+                    } else{
+                      EasyLoading.showInfo("Sila isi maklumat pendaftaran pengguna");
+                    }
+
                   } catch (e) {
                     Navigator.pop(context);
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text(e.toString()),
-                          );
-                        });
+
+
                   }
                 },
                 child: Container(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:e_masjid/widgets/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../providers/user.provider.dart';
 import '../../services/firestore_service.dart';
 
 class TempahQurbanScreen extends StatefulWidget {
@@ -255,7 +256,7 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
 
       if (bahagianController.text.isNotEmpty) {
         int a = int.parse(bahagianController.text);
-        await fireStoreService.uploadTempahQurban(pemohonController.text, a);
+        await fireStoreService.uploadTempahQurban(pemohonController.text, a,AppUser().user!.uid);
 
         EasyLoading.showSuccess('Tempahan berjaya ditambah');
         Navigator.of(context).popAndPushNamed('/semak');
