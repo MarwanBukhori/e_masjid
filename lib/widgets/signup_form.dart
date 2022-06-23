@@ -48,7 +48,7 @@ class _SignUpFormState extends State<SignUpForm> {
               controller: passwordController,
               obscureText: pass ? _isObscure : false,
               decoration: InputDecoration(
-                hintText: "Password",
+                hintText: "Kata Laluan",
                 hintStyle: TextStyle(color: kTextFieldColor),
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: kPrimaryColor)),

@@ -33,6 +33,14 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(right: 50.0, top: 15),
+          child: Center(
+              child: Image.asset(
+                'assets/images/e_masjid.png',
+                height: 50,
+              )),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -47,23 +55,16 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Text(
-            'Tempah',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 25.0,
+          padding: const EdgeInsets.only(top: 25.0),
+          child: Center(
+            child: Text(
+              'Tempah Qurban',
+              style: TextStyle(
+                color: kPrimaryColor,
+                fontWeight: FontWeight.bold ,
+                fontSize: 20.0,
+              ),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Text(
-            'Qurban',
-            style: TextStyle(
-                color: Colors.black87,
-                fontSize: 35.0,
-                fontWeight: FontWeight.bold),
           ),
         ),
         Expanded(
@@ -75,7 +76,7 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                 margin: EdgeInsets.all(20.w),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  border: Border.all(color: kZambeziColor, width: 1),
+                  border: Border.all(color: kPrimaryColor, width: 10),
                   borderRadius: BorderRadius.circular(20.w),
                 ),
                 child: Column(
@@ -143,8 +144,8 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                           Row(
                             children: [
                               const Icon(
-                                Icons.shopping_cart,
-                                color: Colors.black54,
+                                Icons.onetwothree,
+                                color: Colors.red,size: 30,
                               ),
                               SizedBox(
                                 width: 9.w,
@@ -198,17 +199,17 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kPrimaryColor),
+                                      primary: Color(0xFF43afce)),
                                   onPressed: () {
                                     addTempahQurban();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Icon(
-                                        Icons.add,
-                                        color: Colors.green,
-                                      ),
+                                      const Text(
+                                        "Tempah",
+                                        style: TextStyle(color: Colors.white),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -219,17 +220,17 @@ class _TempahQurbanScreenState extends State<TempahQurbanScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kPrimaryColor),
+                                      primary: Color(0xFF43afce)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Icon(
-                                        Icons.cancel,
-                                        color: Colors.red,
-                                      ),
+                                      const Text(
+                                        "Batal",
+                                        style: TextStyle(color: Colors.white),
+                                      )
                                     ],
                                   ),
                                 ),

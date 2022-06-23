@@ -63,6 +63,14 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(right: 50.0, top: 15),
+          child: Center(
+              child: Image.asset(
+                'assets/images/e_masjid.png',
+                height: 50,
+              )),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -77,38 +85,28 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Text(
-            'Tambah',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 25.0,
+          padding: const EdgeInsets.only(top: 25.0),
+          child: Center(
+            child: Text(
+              'Tambah Program',
+              style: TextStyle(
+                color: kPrimaryColor,
+                fontWeight: FontWeight.bold ,
+                fontSize: 20.0,
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Text(
-            'Program',
-            style: TextStyle(
-                color: Colors.black87,
-                fontSize: 35.0,
-                fontWeight: FontWeight.bold),
-          ),
-        ),
-        SizedBox(
-          height: 10.h,
         ),
         Expanded(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(right:10.0 , left: 10.0, bottom: 10.0),
               child: Container(
                 margin: EdgeInsets.all(20.w),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  border: Border.all(color: kPrimaryColor, width: 1),
+                  border: Border.all(color: kPrimaryColor, width: 10),
                   borderRadius: BorderRadius.circular(20.w),
                 ),
                 child: Column(
@@ -123,7 +121,7 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                           // Title
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 0, top: 5, right: 8, bottom: 5),
+                                left: 0, top: 0, right: 8, bottom: 5),
                             child: Row(
                               children: [
                                 const Icon(
@@ -317,10 +315,10 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                             children: [
                               Expanded(
                                   child: ElevatedButton(
-                                    child: Text('Pilih Tarikh', style: TextStyle(color: Colors.black),),
+                                    child: Text('Pilih Tarikh', style: TextStyle(color: Colors.white),),
                                     onPressed: pickDateRange,
                                     style: ElevatedButton.styleFrom(
-                                        primary: Colors.white70),
+                                        primary: kPrimaryColor),
                                   )),
 
                             ],
@@ -328,7 +326,6 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                           SizedBox(
                             height: 15,
                           ),
-
 
                           // Masa mula
                           Row(
@@ -365,13 +362,13 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                                 child: ElevatedButton(
                                   child: Text(
                                     getMasaMula(),
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                   onPressed: () {
                                     pickTimeMula(context);
                                   },
                                   style: ElevatedButton.styleFrom(
-                                      primary: Colors.white70),
+                                      primary: kPrimaryColor),
                                 ),
                               ),
                             ],
@@ -415,13 +412,13 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                                 child: ElevatedButton(
                                   child: Text(
                                     getMasaTamat(),
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                   onPressed: () {
                                     pickTimeTamat(context);
                                   },
                                   style: ElevatedButton.styleFrom(
-                                      primary: Colors.white70),
+                                      primary: kPrimaryColor),
                                 ),
                               ),
                             ],
@@ -437,17 +434,17 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kPrimaryColor),
+                                      primary: Color(0xFF43afce)),
                                   onPressed: () {
                                     AddProgram();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Icon(
-                                        Icons.add,
-                                        color: Colors.green,
-                                      ),
+                                      const Text(
+                                        "Tambah",
+                                        style: TextStyle(color: Colors.white),
+                                      )
 
                                     ],
                                   ),
@@ -459,17 +456,17 @@ class _AddProgramScreenState extends State<AddProgramScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kPrimaryColor),
+                                      primary: Color(0xFF43afce)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Icon(
-                                        Icons.cancel,
-                                        color: Colors.red,
-                                      ),
+                                      const Text(
+                                        "Batal",
+                                        style: TextStyle(color: Colors.white),
+                                      )
 
 
 

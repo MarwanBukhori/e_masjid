@@ -77,6 +77,14 @@ class _ProgramScreenState extends State<ProgramScreen> {
         ),
       ),
       appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(right: 50.0, top: 15),
+          child: Center(
+              child: Image.asset(
+                'assets/images/e_masjid.png',
+                height: 50,
+              )),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -98,7 +106,7 @@ class _ProgramScreenState extends State<ProgramScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
+                    padding: const EdgeInsets.only(left: 20.0, top: 10),
                     child: Text(
                       'Jadual',
                       style: TextStyle(
@@ -150,6 +158,7 @@ class _ProgramScreenState extends State<ProgramScreen> {
                           weeklyList.clear();
                           //get all data from db into programsList
                           //the output is programs[] (list full of programs item)
+
                           getDataWeekly();
                         });
 
@@ -200,9 +209,9 @@ class _ProgramScreenState extends State<ProgramScreen> {
                         },
                         child: Container(
                           margin: const EdgeInsets.fromLTRB(20, 5, 20, 10),
-                          height: 110,
+                          height: 130,
                           decoration: const BoxDecoration(
-                              color: kDarkGreyColor,
+                              color: Color(0xFFA6E9FC),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20))),
                           child: Row(
@@ -435,7 +444,7 @@ class _ProgramScreenState extends State<ProgramScreen> {
     DateTime parsedDateTime2 = DateTime.parse(date2);
     formatDate2 = DateFormat("dd-MM-yyyy").format(parsedDateTime2);
 
-    return Text("Tarikh : ${formatDate}  -  ${formatDate2}");
+    return Text("Tarikh : ${formatDate}  -  ${formatDate2}", style: TextStyle(fontSize: 12),);
   }
 
   Widget getFirstDate(int index) {
@@ -450,7 +459,7 @@ class _ProgramScreenState extends State<ProgramScreen> {
   Widget getTime(int index) {
     masaMula = programs[index]['masaMula'];
     masaTamat = programs[index]['masaTamat'];
-    return Text("Masa : ${masaMula}  -  ${masaTamat}");
+    return Text("Masa : ${masaMula}  -  ${masaTamat}", style: TextStyle(fontSize: 12));
   }
 
 

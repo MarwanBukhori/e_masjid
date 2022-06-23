@@ -29,11 +29,14 @@ class _EditProgramState extends State<EditProgram> {
 
   bool pickedDate = false;
   bool pickedTime = false;
-  bool pickedTime2= false;
+  bool pickedTime2 = false;
 
   FireStoreService fireStoreService = FireStoreService();
-  DateTimeRange dateRange =
-      DateTimeRange(start: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day), end: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
+  DateTimeRange dateRange = DateTimeRange(
+      start: DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day),
+      end: DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day));
   String formatDate = '';
   String formatDate2 = '';
   bool loading = true;
@@ -100,6 +103,7 @@ class _EditProgramState extends State<EditProgram> {
       return '$hours2:$minutes2';
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final start = dateRange.start;
@@ -107,6 +111,14 @@ class _EditProgramState extends State<EditProgram> {
 
     return Scaffold(
       appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(right: 50.0, top: 15),
+          child: Center(
+              child: Image.asset(
+            'assets/images/e_masjid.png',
+            height: 50,
+          )),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -126,27 +138,17 @@ class _EditProgramState extends State<EditProgram> {
                   height: MediaQuery.of(context).size.width,
                   child: const CircularProgressIndicator()))
           : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              SizedBox(
-                height: 10.h,
-              ),
               Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Text(
-                  'Sunting',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 25.0,
+                padding: const EdgeInsets.only(top: 25.0),
+                child: Center(
+                  child: Text(
+                    'Sunting Program',
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Text(
-                  'Program',
-                  style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 35.0,
-                      fontWeight: FontWeight.bold),
                 ),
               ),
               Expanded(
@@ -158,7 +160,7 @@ class _EditProgramState extends State<EditProgram> {
                           EdgeInsets.only(left: 20.w, right: 20.w, top: 20.w),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        border: Border.all(color: kPrimaryColor, width: 1),
+                        border: Border.all(color: kPrimaryColor, width: 10),
                         borderRadius: BorderRadius.circular(20.w),
                       ),
                       child: Column(
@@ -371,11 +373,11 @@ class _EditProgramState extends State<EditProgram> {
                                         child: ElevatedButton(
                                       child: Text(
                                         'Pilih Tarikh',
-                                        style: TextStyle(color: Colors.black),
+                                        style: TextStyle(color: Colors.white),
                                       ),
                                       onPressed: pickDateRange,
                                       style: ElevatedButton.styleFrom(
-                                          primary: Colors.white70),
+                                          primary: kPrimaryColor),
                                     )),
                                   ],
                                 ),
@@ -412,13 +414,13 @@ class _EditProgramState extends State<EditProgram> {
                                       child: ElevatedButton(
                                         child: Text(
                                           getMasa(),
-                                          style: TextStyle(color: Colors.black),
+                                          style: TextStyle(color: Colors.white),
                                         ),
                                         onPressed: () {
                                           pickTime(context);
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: Colors.white70),
+                                            primary: kPrimaryColor),
                                       ),
                                     ),
                                   ],
@@ -445,7 +447,6 @@ class _EditProgramState extends State<EditProgram> {
                                   ],
                                 ),
 
-
                                 //button masa Tamat
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -454,13 +455,13 @@ class _EditProgramState extends State<EditProgram> {
                                       child: ElevatedButton(
                                         child: Text(
                                           getMasaTamat(),
-                                          style: TextStyle(color: Colors.black),
+                                          style: TextStyle(color: Colors.white),
                                         ),
                                         onPressed: () {
                                           pickTimeEnd(context);
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            primary: Colors.white70),
+                                            primary: kPrimaryColor),
                                       ),
                                     ),
                                   ],
@@ -481,14 +482,13 @@ class _EditProgramState extends State<EditProgram> {
                                 Expanded(
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: kPrimaryColor,
+                                      primary: Color(0xFF43afce),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(25),
                                       ),
                                       minimumSize: Size(100, 40),
                                     ),
                                     onPressed: () {
-
                                       EasyLoading.show(
                                           status: 'Sedang diproses');
                                       print(timeString);
@@ -521,8 +521,10 @@ class _EditProgramState extends State<EditProgram> {
                                             (value) => dateRange.start);
                                         a.update('lastDate',
                                             (value) => dateRange.end);
-                                        a.update('masaMula', (value) => timeString);
-                                        a.update('masaTamat', (value) => timeString2);
+                                        a.update(
+                                            'masaMula', (value) => timeString);
+                                        a.update('masaTamat',
+                                            (value) => timeString2);
 
                                         Navigator.pop(context);
                                         // Navigator.pushNamed(
@@ -538,11 +540,10 @@ class _EditProgramState extends State<EditProgram> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        const Icon(
-                                          Icons.save,
-                                          color: Colors.lightGreenAccent,
-                                        ),
-
+                                        const Text(
+                                          "Simpan",
+                                          style: TextStyle(color: Colors.white),
+                                        )
                                       ],
                                     ),
                                   ),
@@ -553,7 +554,7 @@ class _EditProgramState extends State<EditProgram> {
                                 Expanded(
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      primary: kPrimaryColor,
+                                      primary: Color(0xFF43afce),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(25),
                                       ),
@@ -566,11 +567,10 @@ class _EditProgramState extends State<EditProgram> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        const Icon(
-                                          Icons.cancel,
-                                          color: Colors.red,
-                                        ),
-
+                                        const Text(
+                                          "Batal",
+                                          style: TextStyle(color: Colors.white),
+                                        )
                                       ],
                                     ),
                                   ),

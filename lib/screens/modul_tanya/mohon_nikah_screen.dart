@@ -1,10 +1,11 @@
 import 'package:e_masjid/config/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:e_masjid/widgets/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../providers/user.provider.dart';
 import '../../services/firestore_service.dart';
+import 'package:e_masjid/widgets/widgets.dart';
 
 class MohonNikahScreen extends StatefulWidget {
   const MohonNikahScreen({Key? key}) : super(key: key);
@@ -56,6 +57,14 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(right: 50.0, top: 15),
+          child: Center(
+              child: Image.asset(
+            'assets/images/e_masjid.png',
+            height: 50,
+          )),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -70,35 +79,28 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Text(
-            'Mohon',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 25.0,
+          padding: const EdgeInsets.only(top: 25.0),
+          child: Center(
+            child: Text(
+              'Mohon Nikah',
+              style: TextStyle(
+                color: kPrimaryColor,
+                fontWeight: FontWeight.bold ,
+                fontSize: 20.0,
+              ),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Text(
-            'Nikah',
-            style: TextStyle(
-                color: Colors.black87,
-                fontSize: 35.0,
-                fontWeight: FontWeight.bold),
           ),
         ),
         Expanded(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(right:10.0 , left: 10.0, bottom: 10.0),
               child: Container(
                 margin: EdgeInsets.all(20.w),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  border: Border.all(color: kZambeziColor, width: 1),
+                  border: Border.all(color: kPrimaryColor, width: 10),
                   borderRadius: BorderRadius.circular(20.w),
                 ),
                 child: Column(
@@ -248,13 +250,13 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                                 child: ElevatedButton(
                                   child: Text(
                                     getTarikh(),
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                   onPressed: () {
                                     pickDate(context);
                                   },
                                   style: ElevatedButton.styleFrom(
-                                      primary: Colors.white70),
+                                      primary: kPrimaryColor),
                                 ),
                               ),
                             ],
@@ -264,8 +266,8 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                           Row(
                             children: [
                               const Icon(
-                                Icons.punch_clock,
-                                color: Colors.orange,
+                                Icons.timelapse,
+                                color: Colors.black,
                               ),
                               SizedBox(
                                 width: 9.w,
@@ -291,13 +293,13 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                                 child: ElevatedButton(
                                   child: Text(
                                     getMasa(),
-                                    style: TextStyle(color: Colors.black),
+                                    style: TextStyle(color: Colors.white),
                                   ),
                                   onPressed: () {
                                     pickTime(context);
                                   },
                                   style: ElevatedButton.styleFrom(
-                                      primary: Colors.white70),
+                                      primary: kPrimaryColor),
                                 ),
                               ),
                             ],
@@ -311,17 +313,17 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kPrimaryColor),
+                                      primary: Color(0xFF43afce)),
                                   onPressed: () {
                                     addMohonNikah();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Icon(
-                                        Icons.add,
-                                        color: Colors.green,
-                                      ),
+                                      const Text(
+                                        "Mohon",
+                                        style: TextStyle(color: Colors.white),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -332,17 +334,17 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kPrimaryColor),
+                                      primary: Color(0xFF43afce)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Icon(
-                                        Icons.cancel_sharp,
-                                        color: Colors.red,
-                                      ),
+                                      const Text(
+                                        "Batal",
+                                        style: TextStyle(color: Colors.white),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -366,16 +368,21 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
   void addMohonNikah() async {
     try {
       EasyLoading.show(status: 'sedang diproses...');
-      if (pemohonController.text.isNotEmpty && pasanganController.text.isNotEmpty) {
+      if (pemohonController.text.isNotEmpty &&
+          pasanganController.text.isNotEmpty) {
         await fireStoreService.uploadMohonNikah(
-            pemohonController.text, pasanganController.text, date, timeString, AppUser().user!.uid,);
+          pemohonController.text,
+          pasanganController.text,
+          date,
+          timeString,
+          AppUser().user!.uid,
+        );
         EasyLoading.showSuccess('Permohonan berjaya ditambah');
         Navigator.of(context).popAndPushNamed('/semak');
         setState(() {});
-      }else{
+      } else {
         EasyLoading.showInfo("Sila isi maklumat nikah");
       }
-
     } catch (e) {
       EasyLoading.showError(e.toString());
     }
@@ -385,7 +392,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
     // final initialDate = DateTime.now();
     final newDate = await showDatePicker(
         context: context,
-        initialDate: date ,
+        initialDate: date,
         firstDate: DateTime(DateTime.now().year - 5),
         lastDate: DateTime(DateTime.now().year + 5));
 
@@ -400,8 +407,7 @@ class _MohonNikahScreenState extends State<MohonNikahScreen> {
 
   Future pickTime(BuildContext context) async {
     // final initialTime = TimeOfDay(hour: 9, minute: 0);
-    final newTime = await showTimePicker(
-        context: context, initialTime: time );
+    final newTime = await showTimePicker(context: context, initialTime: time);
 
     if (newTime == null) {
       return;

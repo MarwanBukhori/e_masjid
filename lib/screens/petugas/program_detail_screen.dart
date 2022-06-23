@@ -62,6 +62,14 @@ class _ProgramDetailState extends State<ProgramDetail> {
         ),
       ),
       appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(right: 50.0, top: 15),
+          child: Center(
+              child: Image.asset(
+                'assets/images/e_masjid.png',
+                height: 50,
+              )),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -79,7 +87,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left:24.0, top: 12),
+              padding: const EdgeInsets.only(left:24.0, top: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -94,7 +102,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
                     child: Text(
                       widget.data["title"],
                       style:
-                          TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 21.sp, fontWeight: FontWeight.bold, color: kPrimaryColor),
                     ),
                   ),
                 ],
@@ -110,7 +118,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
                 Text(
                   'Tentatif Program',
                   style:
-                  TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                  TextStyle(fontSize: 20.sp,),
                 )
               ]),
             ),
@@ -121,7 +129,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
               child: Container(
                 height: 130.h,
                 decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Color(0xFFA6E9FC),
                     borderRadius: const BorderRadius.all(Radius.circular(15))),
                 child: Padding(
                   padding: const EdgeInsets.all(20),
@@ -198,7 +206,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
                 Text(
                   'Huraian Program',
                   style:
-                  TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                  TextStyle(fontSize: 20.sp, ),
                 )
               ]),
             ),
@@ -209,7 +217,7 @@ class _ProgramDetailState extends State<ProgramDetail> {
                 height: 200.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Color(0xFFA6E9FC),
                     borderRadius: const BorderRadius.all(Radius.circular(15))),
                 child: Padding(
                   padding: const EdgeInsets.all(20),

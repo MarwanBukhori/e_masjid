@@ -7,6 +7,7 @@ import 'package:e_masjid/services/firestore_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/constants.dart';
 import 'package:intl/intl.dart';
@@ -72,6 +73,14 @@ class _SemakDetailState extends State<SemakDetail> {
         ),
       ),
       appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(right: 50.0, top: 15),
+          child: Center(
+              child: Image.asset(
+                'assets/images/e_masjid.png',
+                height: 50,
+              )),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -90,7 +99,7 @@ class _SemakDetailState extends State<SemakDetail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 24.0, top: 12),
+              padding: const EdgeInsets.only(left: 24.0, top: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -104,7 +113,7 @@ class _SemakDetailState extends State<SemakDetail> {
                     child: Text(
                       widget.data["title"],
                       style: TextStyle(
-                          fontSize: 25.sp, fontWeight: FontWeight.bold),
+                          fontSize: 25.sp, fontWeight: FontWeight.bold, color: kPrimaryColor),
                     ),
                   ),
                 ],
@@ -125,7 +134,7 @@ class _SemakDetailState extends State<SemakDetail> {
               height: 15,
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(25, 15, 12,0),
+              padding: const EdgeInsets.fromLTRB(25, 15, 12, 0),
               child: Text(
                 widget.data["description"],
                 style: const TextStyle(
@@ -138,7 +147,8 @@ class _SemakDetailState extends State<SemakDetail> {
               child: Row(children: [
                 Text(
                   'Maklumat Temujanji',
-                  style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                  style:
+                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                 )
               ]),
             ),
@@ -164,7 +174,7 @@ class _SemakDetailState extends State<SemakDetail> {
                                   ' Bilangan Bahagian :',
                                   style: const TextStyle(
                                       fontSize: 15,
-                                      fontStyle: FontStyle.italic ),
+                                      fontStyle: FontStyle.italic),
                                 )
                               : Text(
                                   "Tarikh :",
@@ -238,8 +248,10 @@ class _SemakDetailState extends State<SemakDetail> {
                     left: 25, right: 25, bottom: 25, top: 0),
                 child: Center(
                   child: ElevatedButton(
-                      onPressed: () {
-                        setState(() {
+                      onPressed:  () {
+                        if (widget.data["isApproved"]) {
+                          EasyLoading.showToast("Permohonan sudah disahkan");
+                        } else {
                           // set up the buttons
                           Widget cancelButton = TextButton(
                             child: const Text("Tidak"),
@@ -250,14 +262,11 @@ class _SemakDetailState extends State<SemakDetail> {
                           Widget continueButton = TextButton(
                             child: const Text("Ya"),
                             onPressed: () {
-                              if (category == "Qurban"){
+                              if (category == "Qurban") {
                                 sahkanPermohonanQurban();
-                              }
-
-                              else if (category == "Nikah"){
+                              } else if (category == "Nikah") {
                                 sahkanPermohonanNikah();
-                              }
-                              else{
+                              } else {
                                 sahkanPertanyaan();
                               }
 
@@ -287,7 +296,8 @@ class _SemakDetailState extends State<SemakDetail> {
                               return alert;
                             },
                           );
-                        });
+                        }
+                        setState(() {});
                       },
                       child: Text('Sahkan')),
                 ),
@@ -307,10 +317,9 @@ class _SemakDetailState extends State<SemakDetail> {
         .then((value) {
       if (value.data()!["role"].toString() == "petugas") {
         sahkan_visible = true;
-        if(category=="Pertanyaan"){
+        if (category == "Pertanyaan") {
           floating_visible = true;
         }
-
       } else {
         floating_visible = false;
       }
@@ -318,19 +327,22 @@ class _SemakDetailState extends State<SemakDetail> {
     });
   }
 
+  isButtonDisabled() {
+    if (diSahkan = true) {
+      return null;
+    }
+  }
 
   checkCategory() {
     if (widget.data["JenisTemuJanji"] == "Nikah") {
       category = "Nikah";
     }
     // FireStoreService.updateApprovalNikah();
-    else if (widget.data["JenisTemuJanji"] == "Qurban"){
+    else if (widget.data["JenisTemuJanji"] == "Qurban") {
       category = "Qurban";
-    }
-      else
+    } else
       category = "Pertanyaan";
   }
-
 
   sahkanPermohonanQurban() {
     try {

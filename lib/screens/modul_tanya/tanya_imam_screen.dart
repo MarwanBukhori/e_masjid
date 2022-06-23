@@ -33,6 +33,14 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(right: 50.0, top: 15),
+          child: Center(
+              child: Image.asset(
+                'assets/images/e_masjid.png',
+                height: 50,
+              )),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -47,35 +55,28 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Text(
-            'Tanya',
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 25.0,
+          padding: const EdgeInsets.only(top: 25.0),
+          child: Center(
+            child: Text(
+              'Tanya Imam',
+              style: TextStyle(
+                color: kPrimaryColor,
+                fontWeight: FontWeight.bold ,
+                fontSize: 20.0,
+              ),
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20.0),
-          child: Text(
-            'Imam',
-            style: TextStyle(
-                color: Colors.black87,
-                fontSize: 35.0,
-                fontWeight: FontWeight.bold),
           ),
         ),
         Expanded(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.only(right:10.0 , left: 10.0, bottom: 10.0),
               child: Container(
                 margin: EdgeInsets.all(20.w),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  border: Border.all(color: kZambeziColor, width: 1),
+                  border: Border.all(color: kPrimaryColor, width: 10),
                   borderRadius: BorderRadius.circular(20.w),
                 ),
                 child: Column(
@@ -205,17 +206,17 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kPrimaryColor),
+                                      primary: Color(0xFF43afce)),
                                   onPressed: () {
                                     addTanyaImam();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Icon(
-                                        Icons.add,
-                                        color: Colors.green,
-                                      ),
+                                      const Text(
+                                        "Tanya",
+                                        style: TextStyle(color: Colors.white),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -226,17 +227,17 @@ class _TanyaImamScreenState extends State<TanyaImamScreen> {
                               Expanded(
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      primary: kPrimaryColor),
+                                      primary: Color(0xFF43afce)),
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Icon(
-                                        Icons.cancel,
-                                        color: Colors.red,
-                                      ),
+                                      const Text(
+                                        "Batal",
+                                        style: TextStyle(color: Colors.white),
+                                      )
                                     ],
                                   ),
                                 ),

@@ -34,9 +34,6 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
   @override
   void initState() {
     super.initState();
-    getTanyaData();
-    getNikahData();
-    getQurbanData();
     checkUserRole();
   }
 
@@ -49,6 +46,14 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(right: 50.0, top: 15),
+          child: Center(
+              child: Image.asset(
+                'assets/images/e_masjid.png',
+                height: 50,
+              )),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -70,7 +75,7 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
+                    padding: const EdgeInsets.only(left: 20.0, top: 10),
                     child: Text(
                       'Semak',
                       style: TextStyle(
@@ -153,7 +158,7 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
                           margin: const EdgeInsets.fromLTRB(20, 5, 20, 10),
                           height: 110,
                           decoration: const BoxDecoration(
-                              color: kDarkGreyColor,
+                              color: Color(0xFFA6E9FC),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20))),
                           child: Row(
@@ -231,7 +236,7 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
     );
   }
 
-  //get data into list
+  //get specific user tanya data into list
   Future getTanyaData() async {
     await FirebaseFirestore.instance.collection("tanya").where("authorId", isEqualTo: AppUser().user!.uid ).get().then((value) {
       for (var element in value.docs) {
@@ -241,7 +246,7 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
       }
       mainList.addAll(pertanyaanList);
 
-      print(pertanyaanList);
+
       if (mounted) {
         loading = false;
         setState(() {});
@@ -249,7 +254,24 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
     });
   }
 
-  //get data into list
+  //get all tanya data into list
+  Future getAllTanyaData() async {
+    await FirebaseFirestore.instance.collection("tanya").get().then((value) {
+      for (var element in value.docs) {
+        Map<String, dynamic> data = element.data();
+        data.addAll({'id': element.id});
+        pertanyaanList.add(data);
+      }
+      mainList.addAll(pertanyaanList);
+
+      if (mounted) {
+        loading = false;
+        setState(() {});
+      }
+    });
+  }
+
+  //get only nikah data for specific user into list
   Future getNikahData() async {
     await FirebaseFirestore.instance.collection("nikah").where("authorId", isEqualTo: AppUser().user!.uid ).get().then((value) {
       for (var element in value.docs) {
@@ -258,7 +280,7 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
         nikahList.add(data);
       }
 
-      print(nikahList);
+
       if (mounted) {
         loading = false;
         setState(() {});
@@ -266,7 +288,21 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
     });
   }
 
-  //get qurban data into list
+  //get all nikah data into list
+  Future getAllNikahData() async {
+    await FirebaseFirestore.instance.collection("nikah").get().then((value) {
+      for (var element in value.docs) {
+        Map<String, dynamic> data = element.data();
+        data.addAll({'id': element.id});
+        nikahList.add(data);
+      }
+      if (mounted) {
+        loading = false;
+        setState(() {});
+      }
+    });
+  }
+  //get specific user qurban data into list
   Future getQurbanData() async {
     await FirebaseFirestore.instance.collection("qurban").where("authorId", isEqualTo: AppUser().user!.uid ).get().then((value) {
       for (var element in value.docs) {
@@ -275,7 +311,22 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
         qurbanList.add(data);
       }
 
-      print(qurbanList);
+
+      if (mounted) {
+        loading = false;
+        setState(() {});
+      }
+    });
+  }
+
+  //get qurban data into list
+  Future getAllQurbanData() async {
+    await FirebaseFirestore.instance.collection("qurban").get().then((value) {
+      for (var element in value.docs) {
+        Map<String, dynamic> data = element.data();
+        data.addAll({'id': element.id});
+        qurbanList.add(data);
+      }
       if (mounted) {
         loading = false;
         setState(() {});
@@ -291,8 +342,14 @@ class _SemakStatusScreenState extends State<SemakStatusScreen> {
         .get()
         .then((value) {
       if (value.data()!["role"].toString() == "petugas") {
+        getAllTanyaData();
+        getAllNikahData();
+        getAllQurbanData();
         visible = true;
       } else {
+        getTanyaData();
+        getNikahData();
+        getQurbanData();
         visible = false;
         notvisible = true;
       }

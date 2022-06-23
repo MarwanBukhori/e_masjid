@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 70,
               ),
-              Center(child: Image.asset('assets/images/e_masjid1.jpg')),
+              Center(child: Image.asset('assets/images/e_masjid2.png')),
               SizedBox(
                 height: 5,
               ),

@@ -7,7 +7,7 @@ ThemeData theme(){
     textTheme: textTheme(),
   );
 }
-const kPrimaryColor = Color(0xFF6c012a);
+const kPrimaryColor = Color(0xFF3871c1);
 const kSecondaryColor = Color(0xFF59706F);
 const kDarkGreyColor = Color(0xFFEEEEEE);
 const kWhiteColor = Color(0xFFFFFFFF);

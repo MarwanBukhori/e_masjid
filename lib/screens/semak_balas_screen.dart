@@ -110,17 +110,7 @@ class _SemakBalasState extends State<SemakBalas> {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  height: 15,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: kZambeziColor,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.w),
-                                      topRight: Radius.circular(20.w),
-                                    ),
-                                  ),
-                                ),
+
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 20.0,
@@ -245,8 +235,8 @@ class _SemakBalasState extends State<SemakBalas> {
                                       Row(
                                         children: [
                                           const Icon(
-                                            Icons.edit_note_outlined,
-                                            color: Colors.teal,
+                                            Icons.note_alt,
+                                            color: Colors.orange,
                                           ),
                                           SizedBox(
                                             width: 7.w,
@@ -314,7 +304,7 @@ class _SemakBalasState extends State<SemakBalas> {
                                             Expanded(
                                               child: ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
-                                                  primary: kZambeziColor,
+                                                  primary: kPrimaryColor,
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -376,9 +366,6 @@ class _SemakBalasState extends State<SemakBalas> {
 
                                                     });
                                                   });
-
-
-
                                                 },
                                                 child: Row(
                                                   mainAxisAlignment:
@@ -407,7 +394,7 @@ class _SemakBalasState extends State<SemakBalas> {
                                             Expanded(
                                               child: ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
-                                                  primary: kZambeziColor,
+                                                  primary: kPrimaryColor,
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
