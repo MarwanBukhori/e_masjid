@@ -123,7 +123,6 @@ class _PetugasHomeScreenState extends State<PetugasHomeScreen>
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
-
     return WillPopScope(
       onWillPop: _onWillPop,
       child: GestureDetector(
@@ -188,14 +187,24 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Container(
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          const AppName(),
-          const Calligraphy(),
+          Positioned(
+            right: width * 0.170,
+            top: height * 0.135,
+            child: Image.asset(
+              "assets/images/e_masjid2.png",
+              height: height * 0.28,
+            ),
+          ),
+          // const AppName(),
+          // const Calligraphy(),
           const QuranRail(),
           Center(
             child: Column(
@@ -224,17 +233,18 @@ class SahPermohonanBtn extends StatelessWidget {
         width: width * 0.7,
         height: height * 0.06,
         child: MaterialButton(
-          shape: const StadiumBorder(),
-          onPressed: () => Navigator.pushNamed(context, '/semak'),
-          child: WidgetAnimator(
-            child: Text(
-              "Pengesahan Permohonan",
-              style: TextStyle(
-                  fontSize: height * 0.026, fontWeight: FontWeight.w600, color: Colors.white),
+            shape: const StadiumBorder(),
+            onPressed: () => Navigator.pushNamed(context, '/semak'),
+            child: WidgetAnimator(
+              child: Text(
+                "Pengesahan Permohonan",
+                style: TextStyle(
+                    fontSize: height * 0.026,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
             ),
-          ),
-          color: kPrimaryColor
-        ),
+            color: kPrimaryColor),
       ),
     );
   }
@@ -254,25 +264,25 @@ class ProgramPetugasBtn extends StatelessWidget {
         width: width * 0.7,
         height: height * 0.06,
         child: MaterialButton(
-          shape: const StadiumBorder(),
-          onPressed: () {
-            // MaterialPageRoute(builder: (context) => ProgramPetugasScreen());
-            Navigator.pushNamed(context, "/program");
-          },
-          child: WidgetAnimator(
-            child: Text(
-              "Sunting Program",
-              style: TextStyle(
-                  fontSize: height * 0.025, fontWeight: FontWeight.w600, color: Colors.white),
+            shape: const StadiumBorder(),
+            onPressed: () {
+              // MaterialPageRoute(builder: (context) => ProgramPetugasScreen());
+              Navigator.pushNamed(context, "/program");
+            },
+            child: WidgetAnimator(
+              child: Text(
+                "Sunting Program",
+                style: TextStyle(
+                    fontSize: height * 0.025,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
             ),
-          ),
-          color: kPrimaryColor
-        ),
+            color: kPrimaryColor),
       ),
     );
   }
 }
-
 
 class AyahBottom extends StatelessWidget {
   const AyahBottom({Key? key}) : super(key: key);

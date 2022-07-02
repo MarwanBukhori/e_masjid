@@ -11,9 +11,10 @@ class Calligraphy extends StatelessWidget {
       right: width * 0.01,
       top: height * 0.045,
       child: Image.asset(
-        "assets/images/grad_logo.png",
+        "assets/images/e_masjid2.png",
         height: height * 0.28,
       ),
+
     );
   }
 }

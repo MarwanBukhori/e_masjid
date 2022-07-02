@@ -11,29 +11,18 @@ class DrawerAppName extends StatelessWidget {
     final appUser = Provider.of<AppUser>(context);
     double height = MediaQuery.of(context).size.height;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 60.0),
+          child: Image.asset('assets/images/e_masjid2.png', height: height * 0.17),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Transform.scale(
-              scale: 1.2,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "E-Masjid",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black54,
-                  fontSize: height * 0.035,
-                ),
-              ),
-            ),
+
           ],
         ),
-        Image.asset('assets/images/grad_logo.png', height: height * 0.17)
       ],
     );
   }

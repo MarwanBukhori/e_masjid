@@ -50,14 +50,17 @@ class _HadisScreenState extends State<HadisScreen> {
         child: WebView(
           javascriptMode: JavascriptMode.unrestricted,
           initialUrl:
-              'http://tintafaruq.blogspot.com/p/hadis-1-amal-dimulakan-dengan-niat.html',
+              // 'http://tintafaruq.blogspot.com/p/hadis-1-amal-dimulakan-dengan-niat.html',
+          'http://www.al-ahkam.net/home/bahan-ilmiah/hadis-40-imam-al-nawawi',
           onWebViewCreated: (controller) {
             this.controller = controller;
           },
           onPageStarted: (url) {
             try {
               if (url.contains(
-                  'http://tintafaruq.blogspot.com/p/hadis-1-amal-dimulakan-dengan-niat.html')) {
+                  // 'http://tintafaruq.blogspot.com/p/hadis-1-amal-dimulakan-dengan-niat.html'))
+              'http://www.al-ahkam.net/home/bahan-ilmiah/hadis-40-imam-al-nawawi'))
+              {
                 Future.delayed(Duration(milliseconds: 200), () {
                   //remove header
                   controller.runJavascript(

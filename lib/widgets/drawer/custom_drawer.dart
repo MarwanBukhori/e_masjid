@@ -67,7 +67,7 @@ class _MyDrawerState extends State<MyDrawer> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            // mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -124,7 +124,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     )
                     .toList(),
               ),
-              const AppVersion()
+              // const AppVersion()
             ],
           ),
         ),
